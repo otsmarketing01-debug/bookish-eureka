@@ -96,11 +96,11 @@ export default function AdminBlogPage() {
                       <div className="flex flex-wrap items-center gap-2">
                         <h3 className="font-semibold">{post.title}</h3>
                         {post.published ? (
-                          <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:text-emerald-300">Published</Badge>
+                          <Badge className="bg-success/15 text-success hover:bg-success/15">Published</Badge>
                         ) : (
                           <Badge variant="secondary">Draft</Badge>
                         )}
-                        {post.featured && <Badge className="bg-amber-100 text-amber-700 hover:bg-amber-100 dark:bg-amber-950/50 dark:text-amber-300"><Star className="mr-1 h-3 w-3 fill-current" />Featured</Badge>}
+                        {post.featured && <Badge className="bg-warning/15 text-warning hover:bg-warning/15"><Star className="mr-1 h-3 w-3 fill-current" />Featured</Badge>}
                         <Badge variant="outline">{post.category}</Badge>
                       </div>
                       <p className="mt-1 line-clamp-1 text-sm text-muted-foreground">{post.excerpt}</p>
@@ -123,7 +123,7 @@ export default function AdminBlogPage() {
                         {post.published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </Button>
                       <Button variant="ghost" size="icon" title={post.featured ? "Unfeature" : "Feature"} onClick={() => toggle(post.id, "featured", !post.featured)}>
-                        <Star className={`h-4 w-4 ${post.featured ? "fill-amber-400 text-amber-400" : ""}`} />
+                        <Star className={`h-4 w-4 ${post.featured ? "fill-warning text-warning" : ""}`} />
                       </Button>
                       <Button variant="ghost" size="icon" title="Delete" onClick={() => remove(post.id, post.title)} className="text-destructive hover:text-destructive">
                         <Trash2 className="h-4 w-4" />

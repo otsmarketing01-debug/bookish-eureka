@@ -91,7 +91,7 @@ export default async function SectorPage({ params }: Params) {
                     "Detailed job reports on request",
                   ].map((point) => (
                     <li key={point} className="flex items-start gap-2.5">
-                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
                       <span className="text-sm">{point}</span>
                     </li>
                   ))}

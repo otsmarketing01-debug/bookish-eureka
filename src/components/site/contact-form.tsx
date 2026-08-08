@@ -49,8 +49,8 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
 
   if (done) {
     return (
-      <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-8 text-center dark:border-emerald-900 dark:bg-emerald-950/40">
-        <CheckCircle2 className="h-12 w-12 text-emerald-600" />
+      <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-success/30 bg-success/10 p-8 text-center">
+        <CheckCircle2 className="h-12 w-12 text-success" />
         <h3 className="text-lg font-semibold">Request received!</h3>
         <p className="max-w-sm text-sm text-muted-foreground">
           Thank you for reaching out. One of our team will contact you within 1 business hour during operating hours.

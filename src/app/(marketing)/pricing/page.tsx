@@ -100,7 +100,7 @@ export default function PricingPage() {
                       {tier.items.map((item) => (
                         <li key={item.label} className="flex items-center justify-between gap-3 py-2.5">
                           <span className="flex items-start gap-2 text-sm">
-                            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
+                            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" />
                             <span>
                               {item.label}
                               {item.note && <span className="ml-1.5 text-xs text-muted-foreground">({item.note})</span>}

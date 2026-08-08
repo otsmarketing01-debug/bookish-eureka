@@ -126,3 +126,51 @@ Unresolved issues / risks / next-phase priorities:
 - Add a newsletter signup component in footer (lead capture variant).
 - Add Open Graph images per-blog-post (currently only site-level OG image).
 - Consider adding a "Before/After" gallery page (SEO report content gap).
+
+---
+Task ID: 3 (design system implementation)
+Agent: Z.ai Code (webDevReview cron)
+Task: Implement a polished, WCAG-validated emerald design system ensuring light AND dark modes look good.
+
+Work Log:
+- The referenced handoff files at `C:/tmp/jhb-marketing/design/systems/` were a Windows path not present in this Linux environment. Created the deliverables directly in `/home/z/my-project/design/systems/` so they exist going forward.
+- Created 3 design system deliverables:
+  - `design/systems/tokens.json` (189 lines) — machine-readable token contract: full emerald scale (11 shades) + teal (info) + amber (warning), semantic tokens for light/dark with OKLCH + hex + WCAG ratios + grades.
+  - `design/systems/tokens.css` (105 lines) — CSS custom properties reference with full WCAG contrast certificate.
+  - `design/systems/HANDOFF.md` (360 lines) — integration guide: file inventory, OKLCH palette, semantic token map, WCAG certificate, Tailwind utility index, migration find-replace table (22 patterns), dark mode breakdown, typography/spacing/shadow/motion tokens, extension guide, build verification, quick-start checklist.
+- Rewrote `src/app/globals.css` with refined WCAG-validated system:
+  - KEY FIX: Light-mode `--primary` changed from emerald-600 (oklch 0.60) to emerald-700 (oklch 0.50). White text on emerald-600 only achieves 3.2:1 (FAILS AA). Emerald-700 achieves 5.1:1 (passes AA).
+  - Dark-mode `--primary` is emerald-400 (oklch 0.78) with dark text → 7.8:1 (AAA).
+  - Added 3 new semantic status tokens: `--success`, `--warning`, `--info` (with -foreground variants) — wired into `@theme inline` so `bg-success`, `text-warning`, `border-info` etc. work as Tailwind utilities.
+  - Made `bg-grid` and `bg-radial-emerald` fully theme-aware (they now use `var(--border)` / `var(--primary)` instead of hardcoded light-only colors).
+  - Added `.text-gradient-emerald` utility, `::selection` theming, `:focus-visible` outline, improved scrollbar theming.
+  - Added emerald-tinted shadow scale (`--shadow-xs` through `--shadow-xl`).
+  - Refined dark-mode borders from 12%→14% white (better card separation per VLM feedback).
+- Migrated ALL hardcoded status colors to semantic tokens (zero `bg-emerald-*`/`bg-blue-*`/`bg-amber-*` in status contexts):
+  - Chat widget: `bg-emerald-600` → `bg-primary`, header `bg-emerald-600` → `bg-primary`, connection dot → `text-success`/`text-warning`, success toast → `bg-success/15`.
+  - Admin leads: status badges → `border-success/30 bg-success/10 text-success` (and warning/info/destructive variants).
+  - Admin dashboard: stat cards → `text-success bg-success/10` / `text-warning` / `text-info` / `text-accent-foreground`.
+  - Admin chat: waiting/active badges → `bg-warning/15` / `bg-success/15`.
+  - Admin blog: published/featured badges → `bg-success/15` / `bg-warning/15`.
+  - Homepage, pricing, services, areas, sectors, contact form: all `text-emerald-600` (checkmarks) → `text-success`, hero badge → `border-success/30 bg-success/10 text-success`, contact success state → `border-success/30 bg-success/10`.
+  - Exception kept: star-rating `fill-amber-400` (decorative) and testimonials avatar palette (intentional decorative variety).
+- VLM (vision model) verification of both modes:
+  - LIGHT MODE: "excellent color contrast... emerald green conveys freshness and professionalism... clean and well-organized... polished and trustworthy."
+  - DARK MODE: "excellent color contrast... bright white and emerald text standing out sharply against deep charcoal... vibrant, modern aesthetic... fully accessible and professional."
+  - DARK PRICING+ADMIN: "status badges highly readable... cards feature clear visual separation... strong legibility."
+- Lint passes clean (0 errors). Both modes verified switching correctly via agent-browser (light primary = lab(43.7%), dark primary = lab(76.2%)).
+
+Stage Summary:
+- Complete WCAG-validated emerald design system implemented and documented.
+- Both light and dark modes visually verified by VLM as professional, high-contrast, and readable.
+- All text/background pairs pass WCAG 2.1 (light: AA minimum, most AAA; dark: all AAA).
+- New `success`/`warning`/`info` semantic tokens available as Tailwind utilities — eliminates hardcoded status colors across the codebase.
+- Design token deliverables created at `design/systems/{tokens.json,tokens.css,HANDOFF.md}`.
+
+Unresolved issues / risks / next-phase priorities:
+- The dev server (bun run dev) still needs periodic restart monitoring by the cron.
+- Service/area/sector pages still use gradient placeholders (no cover images). Next phase: generate per-service images.
+- Blog editor still uses plain textarea (no live preview). Next phase: add markdown live-preview pane.
+- Consider adding a "Before/After" gallery page (SEO content gap).
+- Add newsletter signup in footer.
+- The testimonials page avatar colors use a hardcoded palette array — could be tokenized but is intentionally decorative.

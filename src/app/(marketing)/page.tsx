@@ -57,7 +57,7 @@ export default function HomePage() {
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <div>
               <Reveal>
-                <Badge variant="secondary" className="mb-4 gap-1.5 rounded-full border-emerald-200 bg-emerald-50 px-3 py-1 text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-300">
+                <Badge variant="secondary" className="mb-4 gap-1.5 rounded-full border-success/30 bg-success/10 px-3 py-1 text-success">
                   <ShieldCheck className="h-3.5 w-3.5" />
                   No removal · No shrinkage · Free assessment
                 </Badge>
@@ -98,11 +98,11 @@ export default function HomePage() {
                     <span>({siteConfig.rating.count.toLocaleString()}+ reviews)</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                    <CheckCircle2 className="h-4 w-4 text-success" />
                     15+ years experience
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                    <CheckCircle2 className="h-4 w-4 text-success" />
                     Same-day service
                   </div>
                 </div>
@@ -111,7 +111,7 @@ export default function HomePage() {
 
             {/* Hero card / quick quote */}
             <Reveal delay={0.2}>
-              <Card className="border-emerald-100 shadow-xl shadow-emerald-900/5">
+              <Card className="border-primary/20 shadow-xl">
                 <CardHeader className="pb-4">
                   <CardTitle className="text-xl">Get your free quote</CardTitle>
                   <CardDescription>
@@ -180,7 +180,7 @@ export default function HomePage() {
                     <ul className="space-y-1.5">
                       {service.features.slice(0, 4).map((f) => (
                         <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
-                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" />
                           {f}
                         </li>
                       ))}
@@ -264,7 +264,7 @@ export default function HomePage() {
                     <tr key={i} className="bg-card">
                       <td className="p-4 font-medium">{row[0]}</td>
                       <td className="p-4">
-                        <span className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400">
+                        <span className="flex items-center gap-2 text-success">
                           <CheckCircle2 className="h-4 w-4 shrink-0" /> {row[1]}
                         </span>
                       </td>

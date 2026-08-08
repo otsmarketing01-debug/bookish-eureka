@@ -36,7 +36,7 @@ export default function AdminChatPage() {
             <p className="text-sm text-muted-foreground">{waiting.length} waiting · {active.length} active</p>
           </div>
           <Badge variant={connected ? "default" : "secondary"} className="gap-1.5">
-            <Circle className={`h-2 w-2 fill-current ${connected ? "text-emerald-300" : "text-amber-400"}`} />
+            <Circle className={`h-2 w-2 fill-current ${connected ? "text-success" : "text-warning"}`} />
             {connected ? "Connected" : "Connecting…"}
           </Badge>
         </div>
@@ -61,8 +61,8 @@ export default function AdminChatPage() {
                 >
                   <div className="flex items-center justify-between gap-2">
                     <span className="font-medium">{room.visitorName}</span>
-                    {room.status === "waiting" && <Badge className="bg-amber-100 text-amber-700 hover:bg-amber-100 dark:bg-amber-950/50 dark:text-amber-300">Waiting</Badge>}
-                    {room.status === "active" && <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:text-emerald-300">Active</Badge>}
+                    {room.status === "waiting" && <Badge className="bg-warning/15 text-warning hover:bg-warning/15">Waiting</Badge>}
+                    {room.status === "active" && <Badge className="bg-success/15 text-success hover:bg-success/15">Active</Badge>}
                     {room.status === "closed" && <Badge variant="secondary">Closed</Badge>}
                   </div>
                   {room.subject && <p className="truncate text-xs text-muted-foreground">{room.subject}</p>}

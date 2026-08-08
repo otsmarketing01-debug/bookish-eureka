@@ -22,10 +22,10 @@ export default async function AdminDashboard() {
   ]);
 
   const stats = [
-    { label: "Total Leads", value: leadCount, icon: Inbox, sub: `${newLeads} new`, href: "/admin/leads", color: "text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40" },
-    { label: "Waiting Chats", value: waitingRooms, icon: MessageSquare, sub: `${activeRooms} active`, href: "/admin/chat", color: "text-amber-600 bg-amber-50 dark:bg-amber-950/40" },
-    { label: "Closed Chats", value: closedRooms, icon: Users, sub: "all time", href: "/admin/chat", color: "text-blue-600 bg-blue-50 dark:bg-blue-950/40" },
-    { label: "Blog Posts", value: publishedPosts, icon: FileText, sub: `${postCount} total`, href: "/admin/blog", color: "text-purple-600 bg-purple-50 dark:bg-purple-950/40" },
+    { label: "Total Leads", value: leadCount, icon: Inbox, sub: `${newLeads} new`, href: "/admin/leads", color: "text-success bg-success/10" },
+    { label: "Waiting Chats", value: waitingRooms, icon: MessageSquare, sub: `${activeRooms} active`, href: "/admin/chat", color: "text-warning bg-warning/10" },
+    { label: "Closed Chats", value: closedRooms, icon: Users, sub: "all time", href: "/admin/chat", color: "text-info bg-info/10" },
+    { label: "Blog Posts", value: publishedPosts, icon: FileText, sub: `${postCount} total`, href: "/admin/blog", color: "text-accent-foreground bg-accent" },
   ];
 
   return (
@@ -81,10 +81,10 @@ export default async function AdminDashboard() {
                     <Badge
                       variant="outline"
                       className={
-                        lead.status === "new" ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-300"
-                        : lead.status === "won" ? "border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-900 dark:bg-blue-950/40 dark:text-blue-300"
-                        : lead.status === "lost" ? "border-red-200 bg-red-50 text-red-700 dark:border-red-900 dark:bg-red-950/40 dark:text-red-300"
-                        : ""
+                        lead.status === "new" ? "border-success/30 bg-success/10 text-success"
+                        : lead.status === "won" ? "border-info/30 bg-info/10 text-info"
+                        : lead.status === "lost" ? "border-destructive/30 bg-destructive/10 text-destructive"
+                        : "border-warning/30 bg-warning/10 text-warning"
                       }
                     >
                       {lead.status}

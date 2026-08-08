@@ -56,7 +56,7 @@ export function ChatWidget() {
         animate={{ scale: 1 }}
         transition={{ delay: 0.5, type: "spring" }}
         onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600 text-white shadow-lg shadow-emerald-600/30 transition hover:bg-emerald-700 sm:bottom-6 sm:right-6"
+        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 transition hover:bg-primary/90 sm:bottom-6 sm:right-6"
         aria-label={open ? "Close chat" : "Open chat"}
       >
         <AnimatePresence mode="wait">
@@ -72,8 +72,8 @@ export function ChatWidget() {
         </AnimatePresence>
         {!open && (
           <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex h-4 w-4 rounded-full bg-emerald-500" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/70 opacity-75" />
+            <span className="relative inline-flex h-4 w-4 rounded-full bg-primary" />
           </span>
         )}
       </motion.button>
@@ -89,20 +89,20 @@ export function ChatWidget() {
             className="fixed bottom-24 right-3 z-50 flex h-[32rem] w-[calc(100vw-1.5rem)] max-w-sm flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:right-6"
           >
             {/* Header */}
-            <div className="flex items-center justify-between bg-emerald-600 px-4 py-3 text-white">
+            <div className="flex items-center justify-between bg-primary px-4 py-3 text-primary-foreground">
               <div className="flex items-center gap-2.5">
-                <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-white/20">
+                <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-primary-foreground/20">
                   <MessageCircle className="h-5 w-5" />
                 </div>
                 <div>
                   <p className="text-sm font-semibold leading-tight">{siteConfig.name}</p>
-                  <p className="flex items-center gap-1 text-[11px] text-emerald-50">
-                    <Circle className={`h-2 w-2 fill-current ${connected ? "text-emerald-200" : "text-amber-300"}`} />
+                  <p className="flex items-center gap-1 text-[11px] text-primary-foreground/80">
+                    <Circle className={`h-2 w-2 fill-current ${connected ? "text-success" : "text-warning"}`} />
                     {connected ? "Online now" : "Connecting…"}
                   </p>
                 </div>
               </div>
-              <button onClick={() => setOpen(false)} className="rounded-md p-1 hover:bg-white/15" aria-label="Close">
+              <button onClick={() => setOpen(false)} className="rounded-md p-1 hover:bg-primary-foreground/15" aria-label="Close">
                 <X className="h-4 w-4" />
               </button>
             </div>
@@ -129,18 +129,18 @@ export function ChatWidget() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
-                  <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700" disabled={!name.trim()}>
+                  <Button type="submit" className="w-full" disabled={!name.trim()}>
                     Start Chat
                   </Button>
                 </form>
                 <p className="text-center text-[11px] text-muted-foreground">
-                  Or call us: <a href={`tel:${siteConfig.phone}`} className="font-medium text-emerald-700 dark:text-emerald-400">{siteConfig.phoneDisplay}</a>
+                  Or call us: <a href={`tel:${siteConfig.phone}`} className="font-medium text-primary">{siteConfig.phoneDisplay}</a>
                 </p>
               </div>
             ) : (
               <>
                 <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto bg-muted/30 p-4">
-                  <div className="mx-auto max-w-[85%] rounded-lg bg-emerald-100 px-3 py-2 text-center text-xs text-emerald-900 dark:bg-emerald-950 dark:text-emerald-200">
+                  <div className="mx-auto max-w-[85%] rounded-lg bg-success/15 px-3 py-2 text-center text-xs text-success">
                     Thanks {name.split(" ")[0]}! A team member will be with you shortly. Meanwhile, ask us anything about curtain cleaning.
                   </div>
                   {messages.map((m, i) => (
@@ -151,12 +151,12 @@ export function ChatWidget() {
                       <div
                         className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm ${
                           m.sender === "visitor"
-                            ? "rounded-br-sm bg-emerald-600 text-white"
+                            ? "rounded-br-sm bg-primary text-primary-foreground"
                             : "rounded-bl-sm bg-card border border-border"
                         }`}
                       >
                         <p className="whitespace-pre-wrap break-words">{m.content}</p>
-                        <p className={`mt-0.5 text-[10px] ${m.sender === "visitor" ? "text-emerald-100" : "text-muted-foreground"}`}>
+                        <p className={`mt-0.5 text-[10px] ${m.sender === "visitor" ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
                           {new Date(m.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                         </p>
                       </div>
@@ -179,7 +179,7 @@ export function ChatWidget() {
                     onChange={(e) => handleInputChange(e.target.value)}
                     className="flex-1"
                   />
-                  <Button type="submit" size="icon" className="bg-emerald-600 hover:bg-emerald-700 shrink-0" disabled={!input.trim()}>
+                  <Button type="submit" size="icon" className="shrink-0" disabled={!input.trim()}>
                     <Send className="h-4 w-4" />
                   </Button>
                 </form>

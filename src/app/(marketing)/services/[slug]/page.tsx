@@ -96,7 +96,7 @@ export default async function ServicePage({ params }: Params) {
                 {service.features.map((f, i) => (
                   <Reveal key={f} delay={(i % 2) * 0.05}>
                     <div className="flex items-start gap-2.5 rounded-lg border border-border bg-card p-4">
-                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
                       <span className="text-sm font-medium">{f}</span>
                     </div>
                   </Reveal>
@@ -111,10 +111,10 @@ export default async function ServicePage({ params }: Params) {
                     <CardDescription>Peace of mind on every job.</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3 text-sm">
-                    <div className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" /> No-shrinkage guarantee</div>
-                    <div className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" /> Fixed all-inclusive pricing</div>
-                    <div className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" /> Certified, insured technicians</div>
-                    <div className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" /> Satisfaction guaranteed</div>
+                    <div className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" /> No-shrinkage guarantee</div>
+                    <div className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" /> Fixed all-inclusive pricing</div>
+                    <div className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" /> Certified, insured technicians</div>
+                    <div className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" /> Satisfaction guaranteed</div>
                     <Button asChild className="mt-3 w-full"><Link href="#quote">Get a Free Quote</Link></Button>
                   </CardContent>
                 </Card>
