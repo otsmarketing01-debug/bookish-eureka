@@ -14,6 +14,7 @@ import { ServiceAreaLinks } from "@/components/site/service-area-links";
 import { SectorServiceLinks } from "@/components/site/service-sector-links";
 import { ServiceBlogPosts } from "@/components/site/service-blog-posts";
 import { ServiceReviews } from "@/components/site/service-reviews";
+import { WhatsAppCTA } from "@/components/site/whatsapp-cta";
 import { services, getService, siteConfig } from "@/lib/config";
 import { serviceWithReviewsSchema, faqSchema, breadcrumbSchema } from "@/lib/seo";
 import { getApprovedReviewsByService } from "@/lib/reviews";
@@ -105,7 +106,11 @@ export default async function ServicePage({ params }: Params) {
               <p className="mt-4 text-lg text-muted-foreground">{service.description}</p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <Button asChild size="lg"><Link href="#quote">Get a Free Quote <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
-                <Button asChild size="lg" variant="outline"><a href={`tel:${siteConfig.phone}`}><Phone className="mr-2 h-4 w-4" /> {siteConfig.phoneDisplay}</a></Button>
+                <WhatsAppCTA
+                  message={`Hi, I'm interested in ${service.name} (${service.priceFrom}). Can you give me a quote?`}
+                  variant="outline"
+                  size="lg"
+                />
               </div>
             </div>
             {/* Service cover image */}

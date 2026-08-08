@@ -794,3 +794,54 @@ Stage Summary:
 - Addresses audit findings: 60-80 word Answer Blocks for AI extraction, full JSON-LD schema graph with entity linking, tiered pricing in OfferCatalog.
 - The site is now optimized for both traditional SEO (Google rich results) and AEO/GEO (AI search citation).
 - Ready for Phase 4: CRO & Platform Integrations (quote calculator, WhatsApp, PayFast).
+
+---
+Task ID: 19 (Phase 4 — CRO & Platform Integrations)
+Agent: Z.ai Code
+Task: Execute Phase 4 of the audit implementation plan — quote calculator, WhatsApp CTAs, PayFast, trust badges, WhatsApp review requests.
+
+Work Log:
+- Phase 4A: Interactive Quote Calculator (`src/components/site/quote-calculator.tsx`).
+  - 4-step interactive form: property size (Small/Medium/Large/Commercial), window height (Standard/Double Volume), fabric type (Standard/Delicate), optional add-ons (Master Guarding, Fire Proofing).
+  - Real-time price calculation: base tier × height multiplier × fabric multiplier + add-on flat rates.
+  - Dynamic price range display (R{min} – R{max}) with "Lock in via WhatsApp" button (pre-populated message with all selections) and "Book free assessment" button.
+  - Embedded on pricing page (between trust strip and pricing tiers).
+  - Verified: selecting "Large" updates price from R450–R1,200 to R3,000–R5,500 correctly.
+
+- Phase 4B: WhatsApp CTAs across the site.
+  - Created reusable `WhatsAppCTA` component with configurable message, label, variant, size.
+  - Added to service page hero (pre-populated with service name + price).
+  - Added to booking page sidebar (alongside phone CTA).
+  - WhatsApp floating button already on all marketing pages (from Phase 2).
+  - Area page hero WhatsApp CTA already present (from Phase 2).
+  - Verified: service page has 2 WhatsApp links, booking page has WhatsApp CTA.
+
+- Phase 4C: PayFast payment gateway integration.
+  - `POST /api/payfast` (admin-gated): generates PayFast payment redirect URL with MD5 signature. Supports sandbox (default) and production via PAYFAST_ENV env var. Configurable merchant ID/key/return/cancel/notify URLs.
+  - `POST /api/payfast/notify`: ITN (Instant Transaction Notification) webhook handler — verifies signature, updates booking status to "confirmed" on COMPLETE payment.
+  - To enable: set PAYFAST_MERCHANT_ID, PAYFAST_MERCHANT_KEY, PAYFAST_ENV=production in .env.
+
+- Phase 4C: Trust badges on booking page.
+  - Added 3 trust badges: "100% No-Shrinkage" (success), "15+ Years" (primary), "Hardware Checks Included" (info).
+  - Positioned below the "Prefer to talk?" section in the guarantees card.
+
+- Phase 4D: Automated WhatsApp review request.
+  - When a booking is marked "completed", the system now:
+    1. Sends an email review request (existing, with signed token).
+    2. Generates a WhatsApp review link (wa.me/{phone}?text=... with pre-populated message + review URL).
+    3. Creates an admin notification with the WhatsApp link so the admin can send it (or in production, integrate with WhatsApp Business API for automatic dispatch).
+  - The WhatsApp message includes the customer's first name, a thank-you, and the signed review URL.
+
+- Lint passes clean (0 errors). All routes return 200.
+
+Stage Summary:
+- Phase 4 complete: interactive quote calculator (real-time pricing + WhatsApp redirect), WhatsApp CTAs on service/booking pages, PayFast payment API + ITN webhook, trust badges, automated WhatsApp review requests.
+- Addresses audit findings: interactive pricing widget, WhatsApp booking channel, payment gateway integration, trust indicators, automated review collection.
+- ALL 4 PHASES OF THE AUDIT IMPLEMENTATION PLAN ARE NOW COMPLETE.
+- The site now addresses every finding from the comprehensive technical audit (78/100 → significantly improved).
+
+COMPLETE AUDIT IMPLEMENTATION SUMMARY:
+- Phase 1: /about, /terms-of-service, /privacy-policy pages, staging noindex, sitemap fixes.
+- Phase 2: 13 suburb silos with Highveld content + Answer Blocks, GBP schema alignment, WhatsApp integration, local citations.
+- Phase 3: AEO Answer Blocks on all service/blog pages, unified @graph JSON-LD schema (DryCleaningOrLaundry + Service + OfferCatalog + FAQPage).
+- Phase 4: Interactive quote calculator, WhatsApp CTAs, PayFast payment, trust badges, WhatsApp review requests.

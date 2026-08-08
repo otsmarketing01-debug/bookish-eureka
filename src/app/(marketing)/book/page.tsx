@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Reveal } from "@/components/site/reveal";
 import { BookingForm } from "@/components/site/booking-form";
+import { WhatsAppCTA } from "@/components/site/whatsapp-cta";
 import { siteConfig } from "@/lib/config";
 import { breadcrumbSchema } from "@/lib/seo";
 
@@ -96,9 +97,23 @@ export default function BookPage() {
                     </ul>
                     <div className="border-t border-border pt-3">
                       <p className="text-sm text-muted-foreground">Prefer to talk?</p>
-                      <Button asChild variant="outline" size="sm" className="mt-2">
-                        <a href={`tel:${siteConfig.phone}`}><Phone className="mr-2 h-4 w-4" /> {siteConfig.phoneDisplay}</a>
-                      </Button>
+                      <div className="mt-2 flex flex-col gap-2">
+                        <Button asChild variant="outline" size="sm">
+                          <a href={`tel:${siteConfig.phone}`}><Phone className="mr-2 h-4 w-4" /> {siteConfig.phoneDisplay}</a>
+                        </Button>
+                        <WhatsAppCTA
+                          message="Hi, I'd like to book a free curtain cleaning assessment."
+                          variant="outline"
+                          size="sm"
+                          label="WhatsApp Us"
+                        />
+                      </div>
+                    </div>
+                    {/* Trust badges */}
+                    <div className="mt-4 flex flex-wrap gap-2 border-t border-border pt-3">
+                      <Badge variant="outline" className="gap-1 border-success/30 bg-success/10 text-success"><ShieldCheck className="h-3 w-3" /> 100% No-Shrinkage</Badge>
+                      <Badge variant="outline" className="gap-1 border-primary/30 bg-primary/10 text-primary"><Clock className="h-3 w-3" /> 15+ Years</Badge>
+                      <Badge variant="outline" className="gap-1 border-info/30 bg-info/10 text-info"><ShieldCheck className="h-3 w-3" /> Hardware Checks Included</Badge>
                     </div>
                   </CardContent>
                 </Card>
