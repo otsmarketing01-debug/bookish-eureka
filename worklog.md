@@ -174,3 +174,21 @@ Unresolved issues / risks / next-phase priorities:
 - Consider adding a "Before/After" gallery page (SEO content gap).
 - Add newsletter signup in footer.
 - The testimonials page avatar colors use a hardcoded palette array — could be tokenized but is intentionally decorative.
+
+---
+Task ID: 4 (a11y bugfix — Radix Sheet DialogTitle)
+Agent: Z.ai Code (webDevReview cron)
+Task: Fix console error: "DialogContent requires a DialogTitle for the component to be accessible for screen reader users."
+
+Work Log:
+- Root cause: The shadcn `Sheet` component (`src/components/ui/sheet.tsx`) rendered `SheetPrimitive.Content` (which is Radix's `Dialog.Content`) without a corresponding `Dialog.Title` child. Radix requires this for screen-reader accessibility and warns on every open. The error surfaced via the mobile nav menu in `SiteHeader` (the only Sheet usage in the app).
+- Fix: Added a visually-hidden `SheetPrimitive.Title` ("Menu") and `SheetPrimitive.Description` ("Navigation and quick actions") directly inside `SheetContent`, both with `className="sr-only"` so they're announced by screen readers but invisible visually. This makes EVERY sheet accessible by default without requiring each consumer to remember to add a title.
+- Also set `aria-describedby={undefined}` on the content to avoid a secondary warning about a missing description (since we now provide our own).
+- Verified via agent-browser: opened the mobile menu, captured console errors during dialog mount → 0 errors. The dialog now contains a title element (`titleInDialog: true`). The specific "requires a DialogContent" error has 0 occurrences in the dev log after the fix.
+- Lint passes clean.
+
+Stage Summary:
+- Accessibility error resolved. The mobile nav sheet (and any future sheet) is now screen-reader-accessible with a hidden title/description baked into the shared component.
+
+Unresolved issues / risks / next-phase priorities:
+- (unchanged from prior round) Dev server needs periodic restart monitoring; service/area/sector pages lack cover images; blog editor lacks live preview; consider Before/After gallery + newsletter signup.
