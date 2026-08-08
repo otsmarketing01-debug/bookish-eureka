@@ -2,6 +2,7 @@ import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
 import { ChatWidget } from "@/features/chat/chat-widget";
 import { BackToTop } from "@/components/site/back-to-top";
+import { NewsletterPopup } from "@/components/site/newsletter-popup";
 
 export default function MarketingLayout({
   children,
@@ -15,6 +16,7 @@ export default function MarketingLayout({
       <SiteFooter />
       <ChatWidget />
       <BackToTop />
+      <NewsletterPopup />
     </div>
   );
 }

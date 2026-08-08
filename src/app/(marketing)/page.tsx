@@ -10,6 +10,7 @@ import { FaqAccordion } from "@/components/site/faq-accordion";
 import { services, areas, sectors, processSteps, testimonials, siteConfig } from "@/lib/config";
 import { localBusinessSchema, howToSchema, faqSchema, breadcrumbSchema } from "@/lib/seo";
 import { AnimatedCounter } from "@/components/site/animated-counter";
+import Image from "next/image";
 
 const homeFaqs = [
   { q: "Will my curtains shrink?", a: "No. Our dry-cleaning process uses zero water, which means zero shrinkage risk — even on cotton, linen, and lined drapes." },
@@ -165,15 +166,23 @@ export default function HomePage() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service, i) => (
               <Reveal key={service.slug} delay={(i % 3) * 0.08}>
-                <Card className="group h-full transition-all hover:-translate-y-1 hover:shadow-lg">
+                <Card className="group h-full overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lg">
+                  <div className="relative h-40 overflow-hidden bg-muted">
+                    <Image
+                      src={`/services/${service.slug}.jpg`}
+                      alt={`${service.name} — professional on-site cleaning in Johannesburg`}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
+                    <span className="absolute left-3 top-3 flex h-10 w-10 items-center justify-center rounded-xl bg-background/90 text-primary shadow-sm backdrop-blur-sm transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                      <Icon name={service.icon} className="h-5 w-5" />
+                    </span>
+                    <Badge variant="outline" className="absolute right-3 top-3 bg-background/90 font-semibold text-primary backdrop-blur-sm">from {service.priceFrom}</Badge>
+                  </div>
                   <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                        <Icon name={service.icon} className="h-6 w-6" />
-                      </span>
-                      <Badge variant="outline" className="font-semibold text-primary">from {service.priceFrom}</Badge>
-                    </div>
-                    <CardTitle className="mt-4 text-lg">{service.name}</CardTitle>
+                    <CardTitle className="text-lg">{service.name}</CardTitle>
                     <CardDescription>{service.short}</CardDescription>
                   </CardHeader>
                   <CardContent>

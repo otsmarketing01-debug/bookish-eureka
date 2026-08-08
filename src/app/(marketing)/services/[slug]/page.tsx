@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { CheckCircle2, ArrowRight, ChevronRight, Phone, ShieldCheck } from "lucide-react";
@@ -22,10 +23,22 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const service = getService(slug);
   if (!service) return { title: "Service not found" };
+  const ogImage = `/services/${service.slug}.jpg`;
   return {
     title: `${service.name} Johannesburg | On-Site | No Removal | JHB Curtain Cleaning`,
     description: service.description,
     alternates: { canonical: `/services/${service.slug}` },
+    openGraph: {
+      title: `${service.name} Johannesburg | JHB Curtain Cleaning`,
+      description: service.description,
+      images: [{ url: ogImage, width: 1344, height: 768, alt: `${service.name} — professional on-site cleaning in Johannesburg` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${service.name} Johannesburg`,
+      description: service.description,
+      images: [ogImage],
+    },
   };
 }
 
@@ -64,7 +77,7 @@ export default async function ServicePage({ params }: Params) {
             <ChevronRight className="h-3.5 w-3.5" />
             <span className="text-foreground">{service.name}</span>
           </nav>
-          <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
               <div className="flex items-center gap-3">
                 <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-sm">
@@ -78,6 +91,17 @@ export default async function ServicePage({ params }: Params) {
                 <Button asChild size="lg"><Link href="#quote">Get a Free Quote <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
                 <Button asChild size="lg" variant="outline"><a href={`tel:${siteConfig.phone}`}><Phone className="mr-2 h-4 w-4" /> {siteConfig.phoneDisplay}</a></Button>
               </div>
+            </div>
+            {/* Service cover image */}
+            <div className="relative aspect-[4/3] w-full max-w-sm overflow-hidden rounded-2xl border border-border shadow-lg lg:w-80">
+              <Image
+                src={`/services/${service.slug}.jpg`}
+                alt={`${service.name} — professional on-site cleaning in Johannesburg`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 320px"
+                priority
+              />
             </div>
           </div>
         </div>

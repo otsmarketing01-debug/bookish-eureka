@@ -240,3 +240,44 @@ Unresolved issues / risks / next-phase priorities:
 - Consider adding an exit-intent newsletter popup (variant "popup" source is already wired in the API).
 - Consider adding a contact-form success email notification to admin.
 - Add OG images per-blog-post (currently only site-level OG image).
+
+---
+Task ID: 6 (next steps — service images, blog OG, popup)
+Agent: Z.ai Code (webDevReview cron)
+Task: Proceed with all three high-impact items: per-service cover images, per-blog-post OG images, exit-intent newsletter popup.
+
+Work Log:
+- NEW FEATURE: Per-service cover images (6 images).
+  - Generated 6 AI cover images via z-ai CLI at 1344x768: curtain-blind-cleaning, mattress-sanitisation, upholstery-carpet-cleaning, master-guarding, fire-proofing, rug-care. Stored in public/services/.
+  - Wired into service detail page hero (`/services/[slug]`): image displays beside the title/description/CTA in a 4:3 rounded card with border + shadow, priority loaded, descriptive alt text.
+  - Wired into homepage services grid cards: each card now has a 40h image header with gradient overlay, floating icon badge (top-left), price badge (top-right), hover scale animation.
+  - Added per-service OG image metadata: openGraph.images + twitter.images with width/height/alt on every service page.
+  - Verified: all 6 service pages render 1 cover image each; homepage shows 6 service card images.
+
+- NEW FEATURE: Per-blog-post OG images (5 images).
+  - Generated 5 AI OG images via z-ai CLI at 1344x768: costs-og, on-site-process-og, dry-vs-wet-og, frequency-og, allergens-og. Stored in public/blog/og/.
+  - Updated blog post generateMetadata: now sets openGraph.images (1344x768, alt) + twitter.card=summary_large_image + twitter.images. Uses post.coverImage if present, falls back to `/blog/og/{slug}-og.jpg`.
+  - Verified: blog post meta tags render correct og:image and twitter:image URLs.
+
+- NEW FEATURE: Exit-intent newsletter popup (`src/components/site/newsletter-popup.tsx`).
+  - Exit-intent detection: triggers on mouseout-to-top (desktop) after 8s minimum time-on-page; fallback timer at 12s for mobile/no-exit-intent.
+  - 7-day dismissal cooldown stored in localStorage (`jhb_popup_dismissed_at`).
+  - Framer-motion animated dialog with backdrop blur, scroll lock, Escape-to-close, click-outside-to-close, focus management.
+  - Content: "Get 10% off your first clean" offer, emerald header band with grid pattern, email form, success state ("Welcome aboard!"), POPIA compliance note.
+  - Submits to /api/newsletter with source="popup" (API already supported this variant).
+  - Wired into marketing layout (renders on all marketing pages).
+  - Verified end-to-end: popup triggers after 12s fallback → form submission → success state + toast "You're in!" → auto-dismisses after 2.5s → 7-day cooldown prevents re-appearance on reload.
+
+- Lint passes clean (0 errors). All routes return 200.
+
+Stage Summary:
+- 3 high-impact features shipped: per-service cover images (6), per-blog-post OG images (5), exit-intent newsletter popup.
+- All verified end-to-end via agent-browser: 6 service pages + homepage cards show images, blog post OG meta correct, popup triggers/submits/cools-down correctly.
+- Total AI-generated images in project now: 1 hero + 1 OG + 5 blog covers + 6 service covers + 6 gallery before/after + 5 blog OG = 24 images.
+
+Unresolved issues / risks / next-phase priorities:
+- Area/sector pages still use gradient placeholders (no cover images). Next phase: generate per-area/sector images.
+- Admin email notifications for new leads/waiting chats still not implemented.
+- .env integrity guard still recommended (AUTH_SECRET was wiped once).
+- Cookie consent banner (POPIA) not yet implemented — popup mentions POPIA but no consent banner exists.
+- Consider a "before/after" upload feature in admin so real customer photos can be added to the gallery.

@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) return { title: "Post not found" };
+  const ogImage = post.coverImage ?? `/blog/og/${slug}-og.jpg`;
   return {
     title: post.title,
     description: post.excerpt,
@@ -34,6 +35,13 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       type: "article",
       publishedTime: new Date(post.publishedAt).toISOString(),
       authors: [post.author],
+      images: [{ url: ogImage, width: 1344, height: 768, alt: `${post.title} — article cover` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [ogImage],
     },
   };
 }
