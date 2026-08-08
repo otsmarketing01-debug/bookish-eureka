@@ -707,3 +707,49 @@ Stage Summary:
 - Phase 1 complete: 3 missing pages created (/about, /terms-of-service, /privacy-policy), all added to sitemap + footer, staging noindex configured, /book routing verified, heading hierarchy confirmed.
 - Addresses audit findings: /about 404 fixed, /terms-of-service 404 fixed, /privacy-policy soft-redirect replaced with dedicated POPIA-compliant page, sitemap now includes all pages, staging noindex prevents canonical conflicts.
 - Ready for Phase 2: Local SEO & Suburb Silo Architecture.
+
+---
+Task ID: 17 (Phase 2 — Local SEO & Suburb Silo Architecture)
+Agent: Z.ai Code
+Task: Execute Phase 2 of the audit implementation plan — suburb silos, GBP integration, WhatsApp, citations, NAP consistency.
+
+Work Log:
+- Phase 2A: Expanded suburb data model in config.ts.
+  - Added `SuburbDetail` type with name, slug, focus, keywords.
+  - Expanded `AreaItem` type with h1, intro, environmentalFactors, answerBlock, suburbs.
+  - All 6 area pages now have: unique H1 (e.g. "Curtain Cleaning Sandton & Johannesburg North"), intro paragraph, 4 environmental factors (Highveld dust, pollen, UV, etc.), 60-80 word AEO Answer Block, and 2-3 suburb silos with focus areas + keywords.
+  - Suburb silos added: Sandton/Morningside, Fourways/Dainfern, Bryanston/Hyde Park, Bedfordview/Edenvale, Kempton Park/O.R. Tambo, Alberton/Glenvista, Southgate/Mondeor, Roodepoort/Florida, Constantia/Ruimsig, Rosebank/Parktown, Braamfontein/CBD, Pretoria East/Centurion, Midrand/Halfway House.
+
+- Phase 2A: Rewrote area page template.
+  - AEO Answer Block section: 60-80 word extractable answer in a highlighted card (for ChatGPT/Perplexity/Gemini citation).
+  - Environmental factors section: 2-column layout with Highveld-specific content + 4 icon cards (dust, UV, dry winters, zero shrinkage).
+  - Suburb silos section: cards for each suburb with focus area.
+  - Services-in-area section: 6 service links.
+  - WhatsApp CTA in hero with pre-populated message.
+  - Enhanced metadata with suburb keywords.
+
+- Phase 2B: GBP category alignment + citation links in schema.
+  - LocalBusiness schema type changed from `"LocalBusiness"` to `["DryCleaningOrLaundry", "LocalBusiness"]` (GBP Dry Cleaner category).
+  - Added `founder` person schema (Stephen Dunlop, Managing Director & Fabric Care Specialist).
+  - Added `areaServed` as 11 AdministrativeArea nodes (Sandton, Fourways, Bryanston, Morningside, Midrand, Pretoria, Roodepoort, Edenvale, Alberton, Rosebank + Johannesburg city).
+  - Added `sameAs` with 3 local citation links (Snupit, Brabys, Yellow Pages SA) alongside 4 social links (7 total).
+  - Added `image` and `logo` to schema.
+  - Updated geo coordinates to match audit (-26.1811, 27.9036).
+  - Fixed `aggregateReviewSchema` to spread `localBusinessSchema()` so founder/citations/areas are included on homepage + testimonials.
+
+- Phase 2B: WhatsApp integration.
+  - Added `whatsapp` and `whatsappDisplay` to siteConfig ("27750119200").
+  - Created `WhatsAppButton` floating component (green WhatsApp-branded button with pulse animation, pre-populated message).
+  - Wired into marketing layout (appears on all marketing pages, positioned left of the chat widget).
+  - Added WhatsApp CTA in area page hero (with suburb-specific pre-populated message).
+
+- Phase 2C: NAP consistency.
+  - Verified NAP (Name: JHB Curtain Cleaning, Address: 10 2nd Ave, Florida, Roodepoort, 1710, Phone: +27 75 011 9200) is consistent across: siteConfig, LocalBusiness schema, footer, contact page, about page.
+
+- Verified via agent-browser: area page shows expanded H1, Answer Block, environmental factors, suburb silos, WhatsApp button. Homepage schema has founder (Stephen Dunlop), 11 areas, 7 sameAs links (incl. Snupit + Brabys), DryCleaningOrLaundry type.
+- Lint passes clean (0 errors).
+
+Stage Summary:
+- Phase 2 complete: suburb silo architecture (13 suburb nodes across 6 area pages), AEO Answer Blocks, GBP schema alignment, WhatsApp integration, local citations.
+- Addresses audit findings: suburb silos established, GBP category alignment, citation footprint expanded, WhatsApp booking channel added.
+- Ready for Phase 3: AEO/GEO Search Optimization.

@@ -9,7 +9,13 @@ export const siteConfig = {
     "Professional on-site curtain cleaning Johannesburg. No removal, no shrinkage guarantee. Free assessment. Serving Sandton, Randburg, Fourways & all JHB suburbs.",
   phone: "+27750119200",
   phoneDisplay: "+27 75 011 9200",
+  whatsapp: "27750119200",
+  whatsappDisplay: "+27 75 011 9200",
   email: "info@jhbcurtaincleaning.co.za",
+  founder: {
+    name: "Stephen Dunlop",
+    title: "Managing Director & Fabric Care Specialist",
+  },
   address: {
     street: "10 2nd Ave, Florida",
     locality: "Roodepoort",
@@ -17,7 +23,7 @@ export const siteConfig = {
     postalCode: "1710",
     country: "ZA",
   },
-  geo: { latitude: "-26.1757", longitude: "27.9225" },
+  geo: { latitude: "-26.1811", longitude: "27.9036" },
   hours: [
     { days: "Mon – Fri", time: "07:00 – 18:00" },
     { days: "Saturday", time: "08:00 – 14:00" },
@@ -30,6 +36,19 @@ export const siteConfig = {
     { name: "Instagram", href: "https://instagram.com/jhbcurtaincleaning" },
     { name: "LinkedIn", href: "https://linkedin.com/company/jhbcurtaincleaning" },
     { name: "YouTube", href: "https://youtube.com/@jhbcurtaincleaning" },
+  ],
+  // Local citation directories (sameAs in schema)
+  citations: [
+    { name: "Snupit", href: "https://www.snupit.co.za/roodeport/florida/jhb-curtain-cleaning" },
+    { name: "Brabys", href: "https://www.brabys.com/business/jhb-curtain-cleaning" },
+    { name: "Yellow Pages SA", href: "https://www.yellowpages.co.za/comp/jhb-curtain-cleaning" },
+  ],
+  // Google Business Profile categories
+  gbpCategories: [
+    "Dry Cleaner",
+    "Carpet Cleaning Service",
+    "Upholstery Cleaning Service",
+    "Commercial Cleaning Service",
   ],
 } as const;
 
@@ -171,14 +190,153 @@ export const services: ServiceItem[] = [
   },
 ];
 
-export type AreaItem = { slug: string; region: string; suburb: string; painPoint: string };
+export type SuburbDetail = {
+  name: string;
+  slug: string;
+  focus: string;
+  keywords: string[];
+};
+
+export type AreaItem = {
+  slug: string;
+  region: string;
+  suburb: string;
+  painPoint: string;
+  h1: string;
+  intro: string;
+  environmentalFactors: string[];
+  answerBlock: string;
+  suburbs?: SuburbDetail[];
+};
+
 export const areas: AreaItem[] = [
-  { slug: "jhb-north", region: "JHB North", suburb: "Sandton", painPoint: "High pollen counts in leafy suburbs aggravate allergies — we remove trapped allergens from curtains." },
-  { slug: "jhb-east", region: "JHB East", suburb: "Edenvale", painPoint: "Dust from open veld and construction settles into hanging fabrics — our extraction removes it." },
-  { slug: "jhb-south", region: "JHB South", suburb: "Alberton", painPoint: "Industrial proximity means soot and grime — we restore curtain brightness on-site." },
-  { slug: "jhb-west", region: "JHB West", suburb: "Roodepoort", painPoint: "Mining belt dust coats curtains — our dry extraction lifts fine particulates safely." },
-  { slug: "jhb-central", region: "JHB Central", suburb: "Rosebank", painPoint: "Urban pollution and traffic soot darken drapes — we clean without removal." },
-  { slug: "pretoria-midrand", region: "Pretoria / Midrand", suburb: "Pretoria", painPoint: "Highveld dust and seasonal winds fill curtains with grit — on-site cleaning solves it." },
+  {
+    slug: "jhb-north",
+    region: "JHB North",
+    suburb: "Sandton",
+    painPoint: "High pollen counts in leafy suburbs aggravate allergies — we remove trapped allergens from curtains.",
+    h1: "Curtain Cleaning Sandton & Johannesburg North",
+    intro:
+      "Sandton, Morningside, Bryanston, and Fourways are home to luxury estates, high-rise apartments, and double-volume residences with premium drapery. Our mobile solvent dry-cleaning technology cleans your curtains exactly where they hang — no removal, no shrinkage, no disruption to your home or business.",
+    environmentalFactors: [
+      "Highveld acacia pollen trapped in sheer voiles and lined drapes",
+      "Urban traffic pollution from the M1 and Sandton CBD",
+      "Dust from construction and development across the northern corridor",
+      "Sun exposure degrading fabrics in north-facing windows",
+    ],
+    answerBlock:
+      "On-site curtain dry cleaning by JHB Curtain Cleaning utilizes mobile solvent extraction equipment to clean window drapes, blinds, and sheer fabrics directly on their rails without removal across Sandton, Morningside, Bryanston, and Fourways. The waterless process dissolves embedded Highveld dust and pollen while eliminating shrinkage risks. Service takes 2 to 4 hours per property with curtains usable immediately.",
+    suburbs: [
+      { name: "Sandton & Morningside", slug: "sandton", focus: "Luxury high-rise drapes, motorized sheer voiles, and urban traffic pollution removal.", keywords: ["curtain cleaning Sandton", "on-site curtain dry cleaners Morningside", "high-rise drape cleaning Sandton"] },
+      { name: "Fourways & Dainfern", slug: "fourways", focus: "Double-volume estate curtains, mobile scaffolding capabilities, and Highveld pollen care.", keywords: ["curtain cleaning Fourways", "double-volume drape cleaning Dainfern", "estate curtain cleaning Fourways"] },
+      { name: "Bryanston & Hyde Park", slug: "bryanston", focus: "Delicate silk blends, velvet care, and hand-woven fabric protection.", keywords: ["curtain cleaning Bryanston", "silk drape cleaning Hyde Park", "velvet curtain cleaning Bryanston"] },
+    ],
+  },
+  {
+    slug: "jhb-east",
+    region: "JHB East",
+    suburb: "Edenvale",
+    painPoint: "Dust from open veld and construction settles into hanging fabrics — our extraction removes it.",
+    h1: "Curtain Cleaning Edenvale & Johannesburg East",
+    intro:
+      "Bedfordview, Edenvale, and Kempton Park homes and businesses face dust from open veld, construction activity, and the O.R. Tambo airport corridor. Our on-site solvent dry-cleaning extracts embedded grit without water — protecting your curtains from shrinkage while restoring their vibrancy.",
+    environmentalFactors: [
+      "Open veld dust and seasonal winds across the East Rand",
+      "Construction dust from ongoing residential development",
+      "Airport corridor pollution near O.R. Tambo",
+      "Industrial proximity in Kempton Park and Isando",
+    ],
+    answerBlock:
+      "JHB Curtain Cleaning provides mobile solvent dry cleaning across Bedfordview, Edenvale, and Kempton Park. Our waterless process extracts Highveld dust, construction grit, and airport corridor pollution from curtains without removal or shrinkage. The service is safe for all fabrics including silk, velvet, and blackout-lined drapes, with rooms usable immediately after cleaning.",
+    suburbs: [
+      { name: "Bedfordview & Edenvale", slug: "bedfordview", focus: "Residential drapes and commercial venue window treatments.", keywords: ["curtain cleaning Bedfordview", "drape cleaning Edenvale", "on-site curtain cleaning East Rand"] },
+      { name: "Kempton Park & O.R. Tambo Corridor", slug: "kempton-park", focus: "Hospitality properties, hotel corridors, and SANS-compliant fire-proofing certifications.", keywords: ["curtain cleaning Kempton Park", "hotel curtain cleaning O.R. Tambo", "fire proofing curtains Kempton Park"] },
+    ],
+  },
+  {
+    slug: "jhb-south",
+    region: "JHB South",
+    suburb: "Alberton",
+    painPoint: "Industrial proximity means soot and grime — we restore curtain brightness on-site.",
+    h1: "Curtain Cleaning Alberton & Johannesburg South",
+    intro:
+      "Alberton, Glenvista, and the JHB South industrial belt experience higher levels of airborne soot and industrial particulates. Our solvent extraction lifts fine black grime from curtains without water — restoring brightness and removing allergens in a single on-site visit.",
+    environmentalFactors: [
+      "Industrial belt soot and fine particulate matter",
+      "Mining residue dust from the south-western reef",
+      "Traffic pollution from the N12 and R59 corridors",
+      "Dry Highveld winters concentrating airborne pollutants",
+    ],
+    answerBlock:
+      "JHB Curtain Cleaning serves Alberton, Glenvista, and Johannesburg South with mobile solvent dry cleaning that extracts industrial soot and mining-belt dust from curtains without removal. The waterless process is safe for all fabrics and eliminates shrinkage risk. Curtains are clean, dry, and usable immediately after the 2-4 hour on-site service.",
+    suburbs: [
+      { name: "Alberton & Glenvista", slug: "alberton", focus: "Residential curtain cleaning with industrial-soil extraction.", keywords: ["curtain cleaning Alberton", "drape cleaning Glenvista", "industrial soot curtain cleaning JHB South"] },
+      { name: "Southgate & Mondeor", slug: "southgate", focus: "Residential and light commercial curtain and blind cleaning.", keywords: ["curtain cleaning Southgate", "blind cleaning Mondeor", "curtain cleaning Johannesburg South"] },
+    ],
+  },
+  {
+    slug: "jhb-west",
+    region: "JHB West",
+    suburb: "Roodepoort",
+    painPoint: "Mining belt dust coats curtains — our dry extraction lifts fine particulates safely.",
+    h1: "Curtain Cleaning Roodepoort & Johannesburg West",
+    intro:
+      "Roodepoort, Florida, and Constantia Kloof sit on the western mining belt, where fine silica dust from mine dumps coats curtains year-round. As Roodepoort is our home base (10 2nd Ave, Florida), we offer rapid dispatch and deep local knowledge. Our solvent extraction lifts the finest particulates without water or shrinkage.",
+    environmentalFactors: [
+      "Silica dust from western mining belt and mine dumps",
+      "Dry Highveld winds carrying fine particulates",
+      "Residential development dust from Constantia and Ruimsig",
+      "Base of operations — fastest response times",
+    ],
+    answerBlock:
+      "JHB Curtain Cleaning is based in Florida, Roodepoort, and provides rapid-dispatch mobile solvent dry cleaning across the western suburbs. Our waterless process extracts fine silica mining-belt dust from curtains without removal or shrinkage. As our home base, Roodepoort clients benefit from our fastest response times and deep local knowledge of western Highveld dust challenges.",
+    suburbs: [
+      { name: "Roodepoort & Florida", slug: "roodepoort", focus: "Base of local operations — residential services and rapid dispatch.", keywords: ["curtain cleaning Roodepoort", "curtain cleaning Florida", "on-site curtain cleaning Roodepoort"] },
+      { name: "Constantia Kloof & Ruimsig", slug: "constantia", focus: "Estate residential drapes and new-development curtain care.", keywords: ["curtain cleaning Constantia", "drape cleaning Ruimsig", "estate curtain cleaning Johannesburg West"] },
+    ],
+  },
+  {
+    slug: "jhb-central",
+    region: "JHB Central",
+    suburb: "Rosebank",
+    painPoint: "Urban pollution and traffic soot darken drapes — we clean without removal.",
+    h1: "Curtain Cleaning Rosebank & Johannesburg Central",
+    intro:
+      "Rosebank, Parktown, Braamfontein, and the JHB CBD experience the highest urban pollution levels — traffic soot, diesel particulates, and building dust darken drapes faster than any other zone. Our on-site solvent extraction removes urban grime without water, protecting delicate fabrics in heritage homes and corporate offices alike.",
+    environmentalFactors: [
+      "Heavy traffic soot and diesel particulates from urban density",
+      "Building and construction dust in the redevelopment corridor",
+      "Heritage home fabric preservation (Parktown, Westcliff)",
+      "Corporate office window treatments and boardroom blinds",
+    ],
+    answerBlock:
+      "JHB Curtain Cleaning provides mobile solvent dry cleaning across Rosebank, Parktown, and the Johannesburg CBD. Our waterless process extracts urban traffic soot and diesel particulates from curtains without removal or shrinkage. The service is safe for heritage fabrics in Parktown homes and corporate office window treatments, with rooms usable immediately after cleaning.",
+    suburbs: [
+      { name: "Rosebank & Parktown", slug: "rosebank", focus: "Corporate office window treatments, blinds, and heritage home drapes.", keywords: ["curtain cleaning Rosebank", "office blind cleaning Parktown", "heritage drape cleaning Johannesburg"] },
+      { name: "Braamfontein & CBD", slug: "cbd", focus: "Commercial and retail curtain and blind cleaning.", keywords: ["curtain cleaning Braamfontein", "commercial curtain cleaning Johannesburg CBD", "office blind cleaning Johannesburg"] },
+    ],
+  },
+  {
+    slug: "pretoria-midrand",
+    region: "Pretoria / Midrand",
+    suburb: "Pretoria",
+    painPoint: "Highveld dust and seasonal winds fill curtains with grit — on-site cleaning solves it.",
+    h1: "Curtain Cleaning Pretoria & Midrand",
+    intro:
+      "Pretoria, Centurion, and Midrand span the northern Highveld, where dry winters and strong seasonal winds fill curtains with fine grit. Our mobile solvent dry-cleaning brings waterless extraction directly to your home or office — removing embedded dust without the shrinkage risk of steam cleaning.",
+    environmentalFactors: [
+      "Dry Highveld winters with strong seasonal winds",
+      "Open veld dust across Centurion and Midrand developments",
+      "Pollen from Pretoria's jacaranda-lined streets",
+      "Commercial corridor dust from the N1 and M1 intersection",
+    ],
+    answerBlock:
+      "JHB Curtain Cleaning provides mobile solvent dry cleaning across Pretoria, Centurion, and Midrand. Our waterless process extracts Highveld dust, jacaranda pollen, and wind-blown grit from curtains without removal or shrinkage. The service covers residential homes and commercial offices, with curtains clean and usable immediately after the 2-4 hour on-site visit.",
+    suburbs: [
+      { name: "Pretoria East & Centurion", slug: "pretoria-east", focus: "Residential estate drapes and family home curtain care.", keywords: ["curtain cleaning Pretoria", "drape cleaning Centurion", "on-site curtain cleaning Pretoria East"] },
+      { name: "Midrand & Halfway House", slug: "midrand", focus: "Corporate office blinds and commercial curtain maintenance.", keywords: ["curtain cleaning Midrand", "office blind cleaning Midrand", "commercial curtain cleaning Halfway House"] },
+    ],
+  },
 ];
 
 export type SectorItem = { slug: string; name: string; icon: string; value: string };

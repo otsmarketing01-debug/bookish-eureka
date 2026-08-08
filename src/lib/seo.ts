@@ -2,14 +2,20 @@ import { siteConfig } from "@/lib/config";
 
 // JSON-LD schema generators for SEO (addresses the "0/100 schema markup" gap)
 export function localBusinessSchema() {
+  const allLinks = [
+    ...siteConfig.social.map((s) => s.href),
+    ...siteConfig.citations.map((c) => c.href),
+  ];
   return {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": ["DryCleaningOrLaundry", "LocalBusiness"],
     name: siteConfig.name,
     description: siteConfig.description,
     url: siteConfig.url,
     telephone: siteConfig.phone,
     email: siteConfig.email,
+    image: `${siteConfig.url}/hero-curtains.jpg`,
+    logo: `${siteConfig.url}/logo.svg`,
     address: {
       "@type": "PostalAddress",
       streetAddress: siteConfig.address.street,
@@ -22,6 +28,11 @@ export function localBusinessSchema() {
       "@type": "GeoCoordinates",
       latitude: siteConfig.geo.latitude,
       longitude: siteConfig.geo.longitude,
+    },
+    founder: {
+      "@type": "Person",
+      name: siteConfig.founder.name,
+      jobTitle: siteConfig.founder.title,
     },
     openingHoursSpecification: [
       {
@@ -40,15 +51,23 @@ export function localBusinessSchema() {
     priceRange: siteConfig.priceRange,
     areaServed: [
       { "@type": "City", name: "Johannesburg" },
-      { "@type": "City", name: "Pretoria" },
-      { "@type": "City", name: "Midrand" },
+      { "@type": "AdministrativeArea", name: "Sandton" },
+      { "@type": "AdministrativeArea", name: "Fourways" },
+      { "@type": "AdministrativeArea", name: "Bryanston" },
+      { "@type": "AdministrativeArea", name: "Morningside" },
+      { "@type": "AdministrativeArea", name: "Midrand" },
+      { "@type": "AdministrativeArea", name: "Pretoria" },
+      { "@type": "AdministrativeArea", name: "Roodepoort" },
+      { "@type": "AdministrativeArea", name: "Edenvale" },
+      { "@type": "AdministrativeArea", name: "Alberton" },
+      { "@type": "AdministrativeArea", name: "Rosebank" },
     ],
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: siteConfig.rating.value,
       reviewCount: String(siteConfig.rating.count),
     },
-    sameAs: siteConfig.social.map((s) => s.href),
+    sameAs: allLinks,
   };
 }
 
@@ -244,19 +263,7 @@ export function aggregateReviewSchema(reviews: ReviewItem[]) {
     : parseFloat(siteConfig.rating.value);
 
   return {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: siteConfig.name,
-    url: siteConfig.url,
-    telephone: siteConfig.phone,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: siteConfig.address.street,
-      addressLocality: siteConfig.address.locality,
-      addressRegion: siteConfig.address.region,
-      postalCode: siteConfig.address.postalCode,
-      addressCountry: siteConfig.address.country,
-    },
+    ...localBusinessSchema(),
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: ratingValue.toFixed(1),
