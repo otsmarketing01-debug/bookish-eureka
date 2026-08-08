@@ -13,8 +13,11 @@ export async function GET() {
     { url: "/testimonials", priority: "0.8", changefreq: "monthly" },
     { url: "/review", priority: "0.7", changefreq: "monthly" },
     { url: "/gallery", priority: "0.8", changefreq: "monthly" },
+    { url: "/about", priority: "0.7", changefreq: "monthly" },
     { url: "/blog", priority: "0.8", changefreq: "weekly" },
     { url: "/contact", priority: "0.9", changefreq: "monthly" },
+    { url: "/terms-of-service", priority: "0.4", changefreq: "yearly" },
+    { url: "/privacy-policy", priority: "0.4", changefreq: "yearly" },
   ];
   const urls = pages
     .map(

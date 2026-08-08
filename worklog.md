@@ -685,3 +685,25 @@ Stage Summary:
 - Production build now succeeds (73 pages generated).
 - The deployed site at space-z.ai was returning 500 because the deployment build failed. The fix is in the code; the deployment system will rebuild and the site should come online.
 - Root cause: Next.js 16 requires `useSearchParams()` to be wrapped in `<Suspense>` for static prerendering — a common Next.js App Router gotcha that only manifests during production builds, not in dev mode.
+
+---
+Task ID: 16 (Phase 1 — Technical Repairs & Routing Fixes)
+Agent: Z.ai Code
+Task: Execute Phase 1 of the audit implementation plan — create missing pages, fix routing, staging noindex, sitemap, heading hierarchy.
+
+Work Log:
+- Created /about page: company story (founded 2010, 15+ years, 5,000+ curtains, Highveld-specific process), 4 stat cards, 4 value cards (no-shrinkage guarantee, certified & insured, honest pricing, same-day service), contact info card with hours + booking CTA. Breadcrumb schema, full metadata.
+- Created /terms-of-service page: 10 sections covering service agreement, bookings, pricing & payment, cancellation policy (24h rule), no-shrinkage guarantee (with exclusions), satisfaction guarantee, access & preparation, liability, privacy, changes to terms. Breadcrumb schema.
+- Created /privacy-policy page: POPIA-compliant, 12 sections — who we are, information collected, how used, legal basis (consent/contract/legal obligation/legitimate interest), information sharing, data retention periods, POPIA rights (access, correction, deletion, objection, withdrawal), cookies, security, children's privacy, changes, Information Officer contact block. Breadcrumb schema.
+- Added all 3 pages to sitemap-pages.xml (now 12 pages, up from 9).
+- Added About, Terms, Privacy links to footer.
+- Added X-Robots-Tag: noindex, nofollow header for staging deployments (next.config.ts headers() — applied when SPACE_Z_DEPLOYMENT env var is set or NODE_ENV=production). Addresses the audit's canonical-mismatch concern: staging URLs won't be indexed by Google, preventing duplicate-content conflicts with the production domain.
+- Verified /book routes correctly to the booking calendar page (not /contact).
+- Verified heading hierarchy: each page has exactly one unique H1.
+- Lint passes clean. All routes return 200.
+- Verified via agent-browser: /about (4 stats, values present), /terms-of-service (guarantee + cancellation sections), /privacy-policy (POPIA + rights sections), sitemap (12 URLs including new pages), footer (About/Terms/Privacy links present).
+
+Stage Summary:
+- Phase 1 complete: 3 missing pages created (/about, /terms-of-service, /privacy-policy), all added to sitemap + footer, staging noindex configured, /book routing verified, heading hierarchy confirmed.
+- Addresses audit findings: /about 404 fixed, /terms-of-service 404 fixed, /privacy-policy soft-redirect replaced with dedicated POPIA-compliant page, sitemap now includes all pages, staging noindex prevents canonical conflicts.
+- Ready for Phase 2: Local SEO & Suburb Silo Architecture.
