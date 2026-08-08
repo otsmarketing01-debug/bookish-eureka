@@ -140,3 +140,23 @@ model GalleryShowcase {
   @@index([published])
   @@index([sortOrder])
 }
+
+model Booking {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  phone       String
+  service     String
+  area        String?
+  address     String?
+  preferredDate String
+  preferredSlot String   // "morning" | "afternoon" | "anytime"
+  message     String?
+  status      String   @default("pending") // "pending" | "confirmed" | "completed" | "cancelled"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status])
+  @@index([preferredDate])
+  @@index([createdAt])
+}

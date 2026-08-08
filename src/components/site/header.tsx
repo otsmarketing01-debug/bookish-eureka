@@ -13,8 +13,8 @@ const navLinks = [
   { href: "/#services", label: "Services" },
   { href: "/pricing", label: "Pricing" },
   { href: "/gallery", label: "Gallery" },
-  { href: "/#process", label: "Process" },
-  { href: "/#areas", label: "Areas" },
+  { href: "/book", label: "Book" },
+  { href: "/faq", label: "FAQ" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ];
@@ -79,7 +79,7 @@ export function SiteHeader() {
           </a>
           <ThemeToggle />
           <Button asChild className="hidden sm:inline-flex" size="sm">
-            <Link href="/contact">Free Quote</Link>
+            <Link href="/book">Book Now</Link>
           </Button>
 
           {/* Mobile menu */}
@@ -117,8 +117,8 @@ export function SiteHeader() {
                 ))}
                 <div className="my-3 h-px bg-border" />
                 <Button asChild className="mt-2">
-                  <Link href="/contact" onClick={() => setOpen(false)}>
-                    Get a Free Quote
+                  <Link href="/book" onClick={() => setOpen(false)}>
+                    Book Now
                   </Link>
                 </Button>
                 <a

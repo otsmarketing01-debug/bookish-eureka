@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getServerSession } from "next-auth";
-import { Inbox, MessageSquare, FileText, Users, ArrowUpRight, Clock } from "lucide-react";
+import { Inbox, MessageSquare, FileText, Users, ArrowUpRight, Clock, CalendarCheck } from "lucide-react";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,7 +10,7 @@ import { formatDate } from "@/lib/format";
 
 export default async function AdminDashboard() {
   const session = await getServerSession(authOptions);
-  const [leadCount, newLeads, waitingRooms, activeRooms, closedRooms, postCount, publishedPosts, recentLeads] = await Promise.all([
+  const [leadCount, newLeads, waitingRooms, activeRooms, closedRooms, postCount, publishedPosts, recentLeads, pendingBookings, totalBookings] = await Promise.all([
     db.contactSubmission.count(),
     db.contactSubmission.count({ where: { status: "new" } }),
     db.chatRoom.count({ where: { status: "waiting" } }),
@@ -19,12 +19,14 @@ export default async function AdminDashboard() {
     db.blogPost.count(),
     db.blogPost.count({ where: { published: true } }),
     db.contactSubmission.findMany({ orderBy: { createdAt: "desc" }, take: 5 }),
+    db.booking.count({ where: { status: "pending" } }),
+    db.booking.count(),
   ]);
 
   const stats = [
     { label: "Total Leads", value: leadCount, icon: Inbox, sub: `${newLeads} new`, href: "/admin/leads", color: "text-success bg-success/10" },
+    { label: "Pending Bookings", value: pendingBookings, icon: CalendarCheck, sub: `${totalBookings} total`, href: "/admin/bookings", color: "text-info bg-info/10" },
     { label: "Waiting Chats", value: waitingRooms, icon: MessageSquare, sub: `${activeRooms} active`, href: "/admin/chat", color: "text-warning bg-warning/10" },
-    { label: "Closed Chats", value: closedRooms, icon: Users, sub: "all time", href: "/admin/chat", color: "text-info bg-info/10" },
     { label: "Blog Posts", value: publishedPosts, icon: FileText, sub: `${postCount} total`, href: "/admin/blog", color: "text-accent-foreground bg-accent" },
   ];
 

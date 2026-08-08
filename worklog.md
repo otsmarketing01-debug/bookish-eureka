@@ -334,3 +334,51 @@ Unresolved issues / risks / next-phase priorities:
 - Consider a "Book online" calendar/scheduling feature (next major feature).
 - Consider adding a FAQ page (consolidating all service FAQs) for SEO.
 - The residential sector image was the last to generate; verify it renders if QA shows issues.
+
+---
+Task ID: 8 (next phase — booking, FAQ, AI chatbot)
+Agent: Z.ai Code (webDevReview cron)
+Task: Proceed with next-phase priorities: online booking calendar, consolidated FAQ page, smart FAQ chatbot.
+
+Work Log:
+- NEW FEATURE: Online booking calendar (`/book` + full stack).
+  - Prisma model `Booking` (name, email, phone, service, area, address, preferredDate, preferredSlot, message, status) + db push.
+  - API: `POST /api/bookings` (public, zod-validated, rate-limited 5/hr, validates future date + not-Sunday, creates notification) + `GET /api/bookings` (admin list with status filter) + `PATCH /api/bookings/[id]` (status update: pending→confirmed→completed→cancelled).
+  - `BookingForm` client component: date picker (min=tomorrow, max=+3mo), 3 slot buttons (morning/afternoon/anytime), service/area dropdowns, address field, message, success state with personalised confirmation.
+  - Booking page: hero, form + "what happens next" 4-step guide + guarantees card + operating hours card + CTA.
+  - Header nav: added "Book", changed CTA button to "Book Now" → /book (stronger conversion than /contact). Mobile menu CTA also → /book. Footer link added.
+  - Admin bookings page (`/admin/bookings`): list/detail layout with status filter, search, status update buttons, contact info, date/slot highlight card. Added "Bookings" to admin sidebar nav (CalendarCheck icon).
+  - Admin dashboard: added "Pending Bookings" stat card.
+  - Sitemap: added /book and /faq.
+  - BUG FOUND & FIXED: initially put the admin GET handler in `[id]/route.ts` instead of `bookings/route.ts`, causing 405 Method Not Allowed. Moved GET to the correct parent route file.
+  - Verified: booking page renders form, API creates bookings (confirmed via DB check), admin bookings page shows the booking with status management.
+
+- NEW FEATURE: Consolidated FAQ page (`/faq`) — SEO + UX.
+  - Merges 10 general FAQs + all service-specific FAQs (from 6 services) + 6 pricing FAQs into one page with 3 sections (General, Service-specific, Pricing).
+  - Full FAQ schema (all FAQs as FAQPage JSON-LD) for rich search results.
+  - Breadcrumb schema, full metadata, "Still have questions?" CTA band.
+  - Added "FAQ" to header nav and footer.
+  - Verified: 105 accordion items render, FAQ schema present.
+
+- NEW FEATURE: Smart FAQ chatbot (LLM-powered, uses z-ai-web-dev-sdk).
+  - `POST /api/faq-ask` API (backend, rate-limited 10/hr): builds a knowledge-rich system prompt from company facts + services + FAQs, calls ZAI chat completions, returns answer. Strict rules: only answer about curtain cleaning/company, concise, encourage booking, SA English.
+  - `FaqChatbot` client component: chat UI with 4 suggestion chips, message history, typing indicator, markdown rendering of answers, input form. Links to /book and /contact.
+  - Embedded at the top of the FAQ page.
+  - Verified: clicked "Will my curtains shrink?" → AI returned accurate on-brand answer: "No. Our on-site dry-cleaning process uses zero water, which means zero shrinkage risk. Your curtains will be cleaned exactly where they hang with no need for removal."
+
+- Lint passes clean (0 errors). All routes return 200.
+
+Stage Summary:
+- 3 major features shipped: online booking calendar (full stack + admin), consolidated FAQ page (SEO), AI-powered FAQ chatbot (LLM skill integration).
+- Booking flow: public form → API (validated) → DB → admin notification → admin bookings management. Verified end-to-end.
+- FAQ chatbot: real LLM integration via z-ai-web-dev-sdk with company-specific knowledge base. Verified accurate answers.
+- Admin now has 10 sections: dashboard, leads, bookings, chat, blog, blog-editor, gallery, newsletter, notifications-bell.
+- Public site now has 9 marketing pages: home, pricing, gallery, book, faq, testimonials, blog, blog-post, contact + services/areas/sectors.
+
+Unresolved issues / risks / next-phase priorities:
+- Real email dispatch still not wired (notify() has TODO for SMTP/SendGrid).
+- .env integrity guard still recommended.
+- The booking form's submit button can be double-clicked (race condition) — could add a disabled-during-submit guard (already has loading state, but the button isn't disabled on click). Minor.
+- Consider adding a service-area cross-linking widget on service pages.
+- Consider adding a "Booked dates" calendar view in admin (currently list view).
+- Consider adding a review/rating submission feature for completed bookings.

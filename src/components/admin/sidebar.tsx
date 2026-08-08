@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, MessageSquare, Inbox, FileText, LogOut, Sparkles, ExternalLink, Mail, Images } from "lucide-react";
+import { LayoutDashboard, MessageSquare, Inbox, FileText, LogOut, Sparkles, ExternalLink, Mail, Images, CalendarCheck } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,7 @@ import { NotificationBell } from "@/components/admin/notification-bell";
 const items = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/leads", label: "Leads", icon: Inbox },
+  { href: "/admin/bookings", label: "Bookings", icon: CalendarCheck },
   { href: "/admin/chat", label: "Live Chat", icon: MessageSquare },
   { href: "/admin/blog", label: "Blog Posts", icon: FileText },
   { href: "/admin/gallery", label: "Gallery", icon: Images },

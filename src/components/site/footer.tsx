@@ -136,6 +136,8 @@ export function SiteFooter() {
           <div className="flex items-center gap-4 text-xs text-muted-foreground">
             <Link href="/blog" className="hover:text-foreground">Blog</Link>
             <Link href="/gallery" className="hover:text-foreground">Gallery</Link>
+            <Link href="/book" className="hover:text-foreground">Book</Link>
+            <Link href="/faq" className="hover:text-foreground">FAQ</Link>
             <Link href="/contact" className="hover:text-foreground">Contact</Link>
             <Link href="/login" className="hover:text-foreground">Admin</Link>
           </div>
