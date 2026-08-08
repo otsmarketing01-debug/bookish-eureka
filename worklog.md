@@ -484,3 +484,45 @@ Unresolved issues / risks / next-phase priorities:
 - Consider adding review schema (Review + AggregateRating JSON-LD) to the testimonials page for rich search results.
 - Consider a "Recent reviews" widget on the homepage (pulling latest 3 approved reviews).
 - Consider service-sector cross-linking (services → sectors, sectors → services) to further strengthen internal links.
+
+---
+Task ID: 11 (next phase — review schema, homepage reviews, service-sector cross-linking)
+Agent: Z.ai Code (webDevReview cron)
+Task: Proceed with next-phase priorities: Review schema JSON-LD, recent reviews widget on homepage, service-sector cross-linking.
+
+Work Log:
+- NEW FEATURE: Review schema JSON-LD (`src/lib/seo.ts`).
+  - `reviewSchema(review)`: generates schema.org Review JSON-LD for a single review (itemReviewed Service, reviewRating, author, datePublished, reviewBody).
+  - `aggregateReviewSchema(reviews)`: generates LocalBusiness with AggregateRating (blends site's 4.9/5000+ with DB customer reviews using weighted average) + up to 10 embedded Review items.
+  - Wired into testimonials page: 2nd JSON-LD script (in addition to breadcrumb). Verified: ratingValue=4.9, reviewCount=5002 (5000 base + 2 customer), 2 review items embedded. This enables rich star-rating snippets in Google search results.
+
+- NEW FEATURE: Recent reviews widget on homepage (`src/components/site/homepage-reviews.tsx`).
+  - Server component that fetches latest 3 approved DB reviews.
+  - Renders "What our recent customers say" section with verified review cards (star ratings, title, body, customer avatar, service, Verified badge), "Read all reviews" CTA.
+  - Graceful empty state: renders nothing if no approved reviews (static testimonials section below handles social proof).
+  - Inserted between the testimonials section and FAQ section on the homepage.
+  - Verified: homepage shows "What our recent customers say" with verified review cards.
+
+- NEW FEATURE: Service-sector cross-linking (`src/components/site/service-sector-links.tsx`).
+  - `ServiceSectorLinks`: shows "Services we offer" with 6 service links (icon, name, price) — for use on sector pages.
+  - `SectorServiceLinks`: shows "Who we serve" with 6 sector links in a 2-col grid (icon, name) — for use on service pages.
+  - Service pages: added "Sectors we serve" section (bg-muted) with SectorServiceLinks between features and FAQ.
+  - Sector pages: upgraded bottom section to 3-column layout — "Other sectors" (chips) + "Services we offer" (ServiceSectorLinks) + "Serving all Johannesburg areas" (ServiceAreaLinks).
+  - Strengthens internal link architecture bidirectionally: services ↔ sectors ↔ areas.
+  - Verified: service page shows "Who we serve" with 6 sector links; sector page shows "Services we offer" (12 service links) + area links (12).
+
+- Lint passes clean (0 errors). All routes return 200.
+
+Stage Summary:
+- 3 SEO/UX features shipped: Review + AggregateRating JSON-LD (rich search snippets), homepage recent-reviews widget, bidirectional service-sector cross-linking.
+- Testimonials page now emits valid LocalBusiness+AggregateRating+Review schema (ratingValue=4.9, reviewCount=5002) — eligible for Google star-rating rich results.
+- Homepage now dynamically shows latest verified customer reviews (social proof above the fold of FAQ).
+- Internal link architecture now fully bidirectional: every service page links to all 6 sectors + 6 areas; every sector page links to all 6 services + 6 areas; every area page links to services.
+- Lint clean, all routes 200.
+
+Unresolved issues / risks / next-phase priorities:
+- Real SMTP not configured (emails log as "logged"). Code is ready — set SMTP_* env vars + `bun add nodemailer`.
+- .env integrity guard still recommended.
+- Consider adding AggregateRating schema to the homepage too (currently only on testimonials page).
+- Consider a "Related services" widget on blog posts (cross-linking blog → services).
+- Consider adding a sitemap index for very large sites (currently single sitemap.xml).

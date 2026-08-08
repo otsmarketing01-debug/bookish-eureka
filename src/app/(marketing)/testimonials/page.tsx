@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Reveal } from "@/components/site/reveal";
 import { testimonials, siteConfig, areas } from "@/lib/config";
-import { breadcrumbSchema } from "@/lib/seo";
+import { breadcrumbSchema, aggregateReviewSchema } from "@/lib/seo";
 import { getApprovedReviews } from "@/lib/reviews";
 
 export const metadata: Metadata = {
@@ -31,6 +31,22 @@ export default async function TestimonialsPage() {
               { name: "Home", url: siteConfig.url },
               { name: "Testimonials", url: `${siteConfig.url}/testimonials` },
             ])
+          ),
+        }}
+      />
+      {/* Aggregate rating + review schema for rich search results */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            aggregateReviewSchema(customerReviews.map((r) => ({
+              name: r.name,
+              rating: r.rating,
+              title: r.title,
+              body: r.body,
+              service: r.service,
+              createdAt: r.createdAt,
+            })))
           ),
         }}
       />

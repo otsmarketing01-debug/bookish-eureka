@@ -10,6 +10,7 @@ import { FaqAccordion } from "@/components/site/faq-accordion";
 import { services, areas, sectors, processSteps, testimonials, siteConfig } from "@/lib/config";
 import { localBusinessSchema, howToSchema, faqSchema, breadcrumbSchema } from "@/lib/seo";
 import { AnimatedCounter } from "@/components/site/animated-counter";
+import { HomepageReviews } from "@/components/site/homepage-reviews";
 import Image from "next/image";
 
 const homeFaqs = [
@@ -392,6 +393,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* RECENT VERIFIED REVIEWS */}
+      <HomepageReviews />
 
       {/* FAQ */}
       <section id="faq" className="scroll-mt-20 py-16 sm:py-24">

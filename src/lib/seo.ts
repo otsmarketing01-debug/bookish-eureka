@@ -132,3 +132,91 @@ export function articleSchema(post: { title: string; excerpt: string; slug: stri
     ...(post.coverImage ? { image: post.coverImage } : {}),
   };
 }
+
+type ReviewItem = {
+  name: string;
+  rating: number;
+  title: string;
+  body: string;
+  service: string;
+  createdAt: string | Date;
+};
+
+/**
+ * Generates schema.org Review JSON-LD for a single customer review.
+ * Used on the testimonials page for rich search-result snippets.
+ */
+export function reviewSchema(review: ReviewItem) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Review",
+    itemReviewed: {
+      "@type": "Service",
+      name: review.service,
+      provider: { "@type": "LocalBusiness", name: siteConfig.name },
+    },
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: String(review.rating),
+      bestRating: "5",
+      worstRating: "1",
+    },
+    author: { "@type": "Person", name: review.name },
+    datePublished: new Date(review.createdAt).toISOString(),
+    name: review.title,
+    reviewBody: review.body,
+    publisher: { "@type": "Organization", name: siteConfig.name },
+  };
+}
+
+/**
+ * Generates an AggregateRating + review batch for a LocalBusiness.
+ * Combines the site's overall rating with individual customer reviews.
+ */
+export function aggregateReviewSchema(reviews: ReviewItem[]) {
+  const reviewCount = siteConfig.rating.count + reviews.length;
+  const allRatings = [...reviews.map((r) => r.rating)];
+  const avgFromReviews = allRatings.length > 0
+    ? allRatings.reduce((a, b) => a + b, 0) / allRatings.length
+    : parseFloat(siteConfig.rating.value);
+  // Weighted: blend the site rating with customer review average
+  const ratingValue = reviews.length > 0
+    ? ((parseFloat(siteConfig.rating.value) * siteConfig.rating.count) + (avgFromReviews * reviews.length)) / reviewCount
+    : parseFloat(siteConfig.rating.value);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: siteConfig.name,
+    url: siteConfig.url,
+    telephone: siteConfig.phone,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: siteConfig.address.street,
+      addressLocality: siteConfig.address.locality,
+      addressRegion: siteConfig.address.region,
+      postalCode: siteConfig.address.postalCode,
+      addressCountry: siteConfig.address.country,
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: ratingValue.toFixed(1),
+      reviewCount: String(reviewCount),
+      bestRating: "5",
+      worstRating: "1",
+    },
+    review: reviews.slice(0, 10).map((r) => ({
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: String(r.rating),
+        bestRating: "5",
+        worstRating: "1",
+      },
+      author: { "@type": "Person", name: r.name },
+      datePublished: new Date(r.createdAt).toISOString(),
+      name: r.title,
+      reviewBody: r.body,
+    })),
+  };
+}

@@ -11,6 +11,7 @@ import { FaqAccordion } from "@/components/site/faq-accordion";
 import { ContactForm } from "@/components/site/contact-form";
 import { Reveal } from "@/components/site/reveal";
 import { ServiceAreaLinks } from "@/components/site/service-area-links";
+import { SectorServiceLinks } from "@/components/site/service-sector-links";
 import { services, getService, siteConfig } from "@/lib/config";
 import { serviceSchema, faqSchema, breadcrumbSchema } from "@/lib/seo";
 
@@ -146,6 +147,15 @@ export default async function ServicePage({ params }: Params) {
               </Reveal>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Sectors we serve */}
+      <section className="bg-muted/30 py-14">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <SectorServiceLinks />
+          </Reveal>
         </div>
       </section>
 
