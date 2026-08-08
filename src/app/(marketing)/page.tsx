@@ -9,6 +9,7 @@ import { ContactForm } from "@/components/site/contact-form";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { services, areas, sectors, processSteps, testimonials, siteConfig } from "@/lib/config";
 import { localBusinessSchema, howToSchema, faqSchema, breadcrumbSchema } from "@/lib/seo";
+import { AnimatedCounter } from "@/components/site/animated-counter";
 
 const homeFaqs = [
   { q: "Will my curtains shrink?", a: "No. Our dry-cleaning process uses zero water, which means zero shrinkage risk — even on cotton, linen, and lined drapes." },
@@ -130,14 +131,16 @@ export default function HomePage() {
       <section className="border-y border-border bg-card">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4 py-8 sm:px-6 lg:grid-cols-4 lg:px-8">
           {[
-            { stat: "5,000+", label: "Curtains cleaned" },
-            { stat: "4.9★", label: "Average rating" },
-            { stat: "100%", label: "No-shrinkage guarantee" },
-            { stat: "Same day", label: "On-site service" },
+            { stat: 5000, suffix: "+", label: "Curtains cleaned" },
+            { stat: 4.9, suffix: "★", label: "Average rating", decimals: 1 },
+            { stat: 100, suffix: "%", label: "No-shrinkage guarantee" },
+            { stat: 0, suffix: "", label: "Same-day service", textValue: "Same day" },
           ].map((s, i) => (
             <Reveal key={i} delay={i * 0.05}>
               <div className="text-center">
-                <p className="text-2xl font-bold text-primary sm:text-3xl">{s.stat}</p>
+                <p className="text-2xl font-bold text-primary sm:text-3xl">
+                  {s.textValue ?? <AnimatedCounter value={s.stat} suffix={s.suffix} decimals={s.decimals ?? 0} />}
+                </p>
                 <p className="mt-1 text-xs text-muted-foreground sm:text-sm">{s.label}</p>
               </div>
             </Reveal>

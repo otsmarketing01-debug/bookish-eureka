@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
-import { FileText, Loader2, RefreshCw, ExternalLink, Trash2, Star, Eye, EyeOff, Plus } from "lucide-react";
+import { FileText, Loader2, RefreshCw, ExternalLink, Trash2, Star, Eye, EyeOff, Plus, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -71,8 +71,8 @@ export default function AdminBlogPage() {
             <Button variant="outline" size="sm" onClick={fetchPosts} disabled={loading}>
               <RefreshCw className={`mr-2 h-4 w-4 ${loading ? "animate-spin" : ""}`} /> Refresh
             </Button>
-            <Button size="sm" onClick={() => toast.info("Blog editor coming soon — posts are seeded via the content system.")}>
-              <Plus className="mr-2 h-4 w-4" /> New Post
+            <Button size="sm" asChild>
+              <Link href="/admin/blog/new"><Plus className="mr-2 h-4 w-4" /> New Post</Link>
             </Button>
           </div>
         </div>
@@ -113,6 +113,9 @@ export default function AdminBlogPage() {
                       </div>
                     </div>
                     <div className="flex shrink-0 gap-1">
+                      <Button asChild variant="ghost" size="icon" title="Edit post">
+                        <Link href={`/admin/blog/${post.id}/edit`}><Pencil className="h-4 w-4" /></Link>
+                      </Button>
                       <Button asChild variant="ghost" size="icon" title="View post">
                         <Link href={`/blog/${post.slug}`} target="_blank"><ExternalLink className="h-4 w-4" /></Link>
                       </Button>

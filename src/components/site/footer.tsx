@@ -49,6 +49,18 @@ export function SiteFooter() {
             </ul>
           </div>
 
+          {/* Company */}
+          <div>
+            <h3 className="text-sm font-semibold">Company</h3>
+            <ul className="mt-4 space-y-2.5">
+              <li><Link href="/pricing" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Pricing</Link></li>
+              <li><Link href="/testimonials" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Testimonials</Link></li>
+              <li><Link href="/blog" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Blog</Link></li>
+              <li><Link href="/contact" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Contact</Link></li>
+              <li><Link href="/login" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Admin</Link></li>
+            </ul>
+          </div>
+
           {/* Areas */}
           <div>
             <h3 className="text-sm font-semibold">Areas</h3>

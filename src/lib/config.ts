@@ -203,6 +203,77 @@ export const testimonials = [
   { name: "Hotel Manager, Rosebank", area: "Rosebank", text: "We run a 120-room hotel and they cleaned all curtains overnight with zero guest disruption. Highly recommend.", rating: 5 },
   { name: "Pieter & Anneke", area: "Roodepoort", text: "Honest quoting, on time, and the dust mite removal has helped my son's allergies enormously.", rating: 5 },
   { name: "Dr. Naidoo", area: "Edenvale", text: "Professional from start to finish. The fire-proofing certificate passed our venue inspection first time.", rating: 5 },
+  { name: "Lerato K.", area: "Fourways", text: "Booked online, got a quote within the hour, and they arrived exactly when promised. My voiles are sparkling.", rating: 5 },
+  { name: "Sandton City Hotel", area: "Sandton", text: "Their after-hours service means we never lose a booking to maintenance. Genuine professionals.", rating: 5 },
+];
+
+export type PricingTier = {
+  name: string;
+  priceFrom: string;
+  description: string;
+  popular?: boolean;
+  items: { label: string; price: string; note?: string }[];
+};
+
+export const pricingTiers: PricingTier[] = [
+  {
+    name: "Curtain & Blind Cleaning",
+    priceFrom: "R450",
+    description: "On-site dry cleaning for all curtain and blind types. Priced per drop/panel.",
+    items: [
+      { label: "Voile / Sheer panels", price: "R450 – R800" },
+      { label: "Unlined drapes", price: "R600 – R1,200" },
+      { label: "Lined drapes", price: "R900 – R1,800", note: "incl. blackout lining" },
+      { label: "Heavy / volume curtains", price: "R2,500 – R6,000" },
+      { label: "Roman / roller blinds", price: "R350 – R700 / blind" },
+    ],
+  },
+  {
+    name: "Mattress Sanitisation",
+    priceFrom: "R650",
+    description: "Deep sanitisation eliminating dust mites, bacteria, and allergens.",
+    items: [
+      { label: "Single / Three-quarter", price: "R650" },
+      { label: "Double / Queen", price: "R850" },
+      { label: "King / Super King", price: "R1,100" },
+      { label: "Stain treatment (per stain)", price: "R150" },
+      { label: "UV sanitisation add-on", price: "R200" },
+    ],
+  },
+  {
+    name: "Upholstery & Carpet",
+    priceFrom: "R500",
+    description: "Deep-extraction cleaning for furnishings and floor coverings.",
+    items: [
+      { label: "Lounge suite (3+2+1)", price: "R1,500 – R2,200" },
+      { label: "Single couch / sofa", price: "R500 – R900" },
+      { label: "Dining / office chair", price: "R150 – R250 / chair" },
+      { label: "Wall-to-wall carpet (per m²)", price: "R45 – R65" },
+      { label: "Rug cleaning", price: "R350 – R1,500" },
+    ],
+  },
+  {
+    name: "Specialist Services",
+    priceFrom: "R450",
+    description: "Protection, certification, and specialist fabric care.",
+    popular: true,
+    items: [
+      { label: "Master Guarding (stain protection)", price: "from R450", note: "per item" },
+      { label: "Fire proofing (commercial)", price: "from R1,200", note: "SANS certified" },
+      { label: "Persian / Oriental rug cleaning", price: "from R900" },
+      { label: "Velvet / silk specialist clean", price: "from R1,100" },
+      { label: "Hotel / commercial (per room)", price: "from R650", note: "volume discounts" },
+    ],
+  },
+];
+
+export const pricingFaqs = [
+  { q: "Is there a call-out fee?", a: "No. Our on-site assessment is completely free with no obligation. You only pay if you proceed with the clean." },
+  { q: "Are your quotes all-inclusive?", a: "Yes. The price you're quoted includes labour, equipment, pre-treatment, and stain removal — no hidden extras." },
+  { q: "Do you offer payment terms?", a: "Residential clients pay on completion. Commercial clients can apply for 30-day terms on a contract basis." },
+  { q: "Do you offer volume discounts?", a: "Yes. Hotels, offices, and multi-room residential jobs receive discounted per-unit pricing. Request a commercial quote." },
+  { q: "What payment methods do you accept?", a: "EFT, card, and cash. Commercial accounts are invoiced." },
+  { q: "Is there a minimum charge?", a: "Yes, R450 minimum per visit to cover technician dispatch. This is applied as credit toward your cleaning total." },
 ];
 
 export function getService(slug: string) {

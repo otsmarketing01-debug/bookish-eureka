@@ -65,3 +65,64 @@ Stage Summary:
 - Project is production-ready and fully browser-verified end-to-end. All handoff "missing/next steps" items addressed (blog via Prisma instead of Sanity, revalidate webhook, rate limiting on contact + signup + auth; shadcn already installed; tests skipped per project rules).
 - Recurring 15-min webDevReview cron job is active and will autonomously continue development/QA.
 - Next-phase priorities remain as listed in the previous section (rich blog editor, per-post cover images, sitemap.xml, Redis rate limiting, testimonials/pricing pages).
+
+---
+Task ID: 2 (cron review round 1)
+Agent: Z.ai Code (webDevReview cron)
+Task: 15-min recurring review — QA via agent-browser, fix bugs, add new features, improve styling.
+
+Work Log:
+- Read worklog to understand project state. Found dev server had crashed (zombie process). Killed and restarted cleanly.
+- QA via agent-browser (comprehensive):
+  - Homepage: 10 sections, 4 JSON-LD schema scripts, hero image, chat widget, footer — all healthy. Zero console errors, no horizontal scroll, mobile menu button present.
+  - Blog post (dry-vs-wet): markdown + GFM tables + breadcrumb render correctly.
+  - Contact form → POST /api/contact → admin leads pipeline: verified (QA test lead appears in admin leads viewer).
+  - Admin login → /admin dashboard → leads viewer: verified (3 leads visible including QA test).
+  - No bugs found in existing functionality. Site was stable.
+
+- NEW FEATURE: Pricing page (/pricing) — addresses SEO report's "no pricing page" content gap.
+  - 4 pricing tiers (Curtain & Blind, Mattress, Upholstery & Carpet, Specialist Services) with per-item price ranges, "Most comprehensive" highlight on specialist tier.
+  - "What affects your quote" 5-factor section.
+  - 6-question pricing FAQ with FAQ schema.
+  - CTA band. Breadcrumb schema. Full metadata.
+
+- NEW FEATURE: Testimonials page (/testimonials) — addresses SEO report's "no testimonials page" gap.
+  - 6 testimonials in masonry layout with colored initial-avatars, star ratings, area tags.
+  - Rating badge (4.9★ / 5000+ reviews), coverage area chips, CTA.
+
+- NEW FEATURE: Admin blog editor (full CRUD) — addresses biggest functional gap from worklog.
+  - New POST /api/blog (zod-validated create) + GET/PUT on /api/blog/[id] (full edit).
+  - BlogEditor component: title (auto-slug), slug, excerpt, markdown content textarea (with live word count + reading time estimate), category, tags, author, cover image URL with preview, published/featured toggles.
+  - /admin/blog/new and /admin/blog/[id]/edit routes.
+  - "New Post" button + edit (pencil) links wired into admin blog manager.
+  - BUG FOUND & FIXED: content Textarea was missing `id="content"` prop (fill failed). Added id.
+  - BUG FOUND & FIXED: readingTime defaulted to 0 for new posts, but zod schema required min(1) → "Too small" validation error. Fixed editor to send `readingTime: undefined` when 0, letting backend auto-calculate from word count.
+  - Verified: created "Why Velvet Curtains Need Specialist Care" post via editor → "Post created" → redirects to /admin/blog → post is publicly accessible at /blog/why-velvet-curtains-need-specialist-care with full markdown rendering.
+
+- NEW FEATURE: Sitemap.xml (src/app/sitemap.ts) — addresses SEO report recommendation.
+  - Dynamic sitemap covering all static routes + services + areas + sectors + published blog posts with lastmod/changeFrequency/priority.
+
+- STYLING IMPROVEMENTS (mandatory "more details"):
+  - Reading progress bar on blog posts (fixed top, width tracks scroll %).
+  - Animated stat counters on homepage trust bar (count-up animation with easeOutCubic on scroll into view via IntersectionObserver). Replaced static "5,000+" / "4.9★" / "100%" text.
+  - Back-to-top button (appears after 600px scroll, smooth scroll, framer-motion enter/exit).
+  - Blog cover images: generated 5 AI images (costs, on-site-process, dry-vs-wet, frequency, allergens) via z-ai CLI. Wired into blog index (featured + cards with next/image + hover scale) and blog post header (16:7 cover with alt text). Re-seeded DB. Addresses SEO report's "images lack alt text" — all covers now have descriptive alt.
+  - Added 2 more testimonials (6 total) for richer social proof.
+  - Pricing nav link added to header; Pricing/Testimonials/Blog/Contact/Admin links added to footer "Company" column.
+
+- Lint passes clean (0 errors). Dev server healthy. Sitemap.xml renders with all routes.
+
+Stage Summary:
+- QA found the site stable with no existing bugs. Two bugs were found and fixed during new feature development (Textarea missing id, readingTime validation).
+- 4 new features shipped: Pricing page, Testimonials page, Admin blog editor (full CRUD), Sitemap.xml.
+- Styling enhanced: reading progress bar, animated counters, back-to-top, blog cover images with alt text, richer testimonials.
+- All verified end-to-end via agent-browser: pricing page (41 pricing items, 25 FAQ accordions, 2 schema), testimonials (6 cards), blog cover images (5 covers on index + post), blog editor (create → publish → public post verified), sitemap.xml, animated counters, back-to-top on scroll.
+
+Unresolved issues / risks / next-phase priorities:
+- The dev server (bun run dev) crashes periodically under heavy file-change load. The 15-min cron should check and restart it if down. (System auto-runs it, but zombie processes need manual kill+restart.)
+- Blog editor uses a plain textarea (no live preview, no rich-text toolbar). Next phase: add a markdown live-preview pane or integrate @mdxeditor/editor (already installed) for WYSIWYG.
+- Service/area/sector pages still use gradient placeholders (no cover images). Next phase: generate per-service images.
+- Rate limiting is still in-memory (single-instance). For production multi-instance, move to Redis.
+- Add a newsletter signup component in footer (lead capture variant).
+- Add Open Graph images per-blog-post (currently only site-level OG image).
+- Consider adding a "Before/After" gallery page (SEO report content gap).

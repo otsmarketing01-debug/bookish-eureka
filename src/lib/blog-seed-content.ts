@@ -32,7 +32,7 @@ export const blogSeed: SeedPost[] = [
     published: true,
     featured: true,
     publishedAt: daysAgo(2),
-    coverImage: null,
+    coverImage: "/blog/costs.jpg",
     content: `If you're searching for "curtain cleaning near me" in Johannesburg, price is usually the first question. This guide gives you transparent, real-world pricing so you can budget with confidence — no vague "starting from" figures that balloon on invoice day.
 
 ## Why On-Site Cleaning Saves You Money
@@ -83,7 +83,7 @@ Call **+27 75 011 9200** or use our contact form for a no-obligation assessment.
     published: true,
     featured: true,
     publishedAt: daysAgo(9),
-    coverImage: null,
+    coverImage: "/blog/on-site-process.jpg",
     content: `"Can you really clean curtains without taking them down?" It's the question we hear most. The answer is yes — and it's not a shortcut. Our on-site dry-cleaning process is gentler on fabric and far more convenient than off-site cleaning. Here's how it works.
 
 ## The Problem With Traditional Cleaning
@@ -132,7 +132,7 @@ Ready to see your curtains look brand new without lifting a finger? Call **+27 7
     published: true,
     featured: false,
     publishedAt: daysAgo(16),
-    coverImage: null,
+    coverImage: "/blog/dry-vs-wet.jpg",
     content: `When researching curtain cleaning, you'll see two methods: **dry cleaning** (solvent/low-moisture) and **wet cleaning** (water-based). The right choice depends on your fabric, time, and risk tolerance. Here's an honest comparison.
 
 ## Quick Comparison
@@ -191,7 +191,7 @@ Book a free assessment — we'll inspect your fabric and recommend the safest me
     published: true,
     featured: false,
     publishedAt: daysAgo(23),
-    coverImage: null,
+    coverImage: "/blog/frequency.jpg",
     content: `Curtains act as giant air filters — trapping dust, pollen, pet dander, cooking oils, and odours. But unlike a vacuum filter, most people forget to clean them. So how often should curtains be cleaned? It depends on the room.
 
 ## General Rule
@@ -243,7 +243,7 @@ We offer scheduled cleaning plans for homes and businesses. Set it once and we'l
     published: true,
     featured: false,
     publishedAt: daysAgo(30),
-    coverImage: null,
+    coverImage: "/blog/allergens.jpg",
     content: `If you or your family suffer from allergies, your curtains may be part of the problem. Curtains are soft, porous, and hang in still air — the perfect trap for dust mites, pollen, pet dander, and mould spores. Every time you draw them, you release those allergens back into the room.
 
 ## What's Living in Your Curtains?

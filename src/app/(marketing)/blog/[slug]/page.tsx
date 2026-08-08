@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { CalendarDays, Clock, ArrowLeft, ArrowRight, ChevronRight, Tag } from "lucide-react";
@@ -6,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Markdown } from "@/components/site/markdown";
+import { ReadingProgress } from "@/components/site/reading-progress";
 import { getPostBySlug, getRelatedPosts, getPublishedPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/config";
 import { articleSchema, breadcrumbSchema } from "@/lib/seo";
@@ -45,6 +47,7 @@ export default async function BlogPostPage({ params }: Params) {
 
   return (
     <article className="py-10 sm:py-14">
+      <ReadingProgress />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema(post)) }} />
       <script
         type="application/ld+json"
@@ -92,6 +95,20 @@ export default async function BlogPostPage({ params }: Params) {
             </div>
           </div>
         </header>
+
+        {/* Cover image */}
+        {post.coverImage && (
+          <div className="relative mt-6 aspect-[16/7] overflow-hidden rounded-xl border border-border">
+            <Image
+              src={post.coverImage}
+              alt={`${post.title} — article cover image`}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 768px"
+              priority
+            />
+          </div>
+        )}
 
         {/* Content */}
         <div className="mt-8">

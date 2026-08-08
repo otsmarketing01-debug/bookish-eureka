@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { CalendarDays, Clock, ArrowRight, Newspaper } from "lucide-react";
 import type { Metadata } from "next";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -56,8 +57,19 @@ export default async function BlogPage() {
           <Reveal delay={0.15}>
             <Link href={`/blog/${featured.slug}`} className="group mt-12 block">
               <Card className="overflow-hidden transition-all hover:shadow-lg md:grid md:grid-cols-2">
-                <div className="flex min-h-[220px] items-center justify-center bg-gradient-to-br from-primary/15 via-primary/5 to-transparent p-8">
-                  <span className="text-5xl font-bold text-primary/30">"{featured.title.charAt(0)}"</span>
+                <div className="relative flex min-h-[220px] items-center justify-center bg-gradient-to-br from-primary/15 via-primary/5 to-transparent">
+                  {featured.coverImage ? (
+                    <Image
+                      src={featured.coverImage}
+                      alt={`${featured.title} — article cover`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      priority
+                    />
+                  ) : (
+                    <span className="text-5xl font-bold text-primary/30">"{featured.title.charAt(0)}"</span>
+                  )}
                 </div>
                 <div>
                   <CardHeader>
@@ -91,8 +103,18 @@ export default async function BlogPage() {
             <Reveal key={post.slug} delay={(i % 3) * 0.08}>
               <Link href={`/blog/${post.slug}`} className="group block h-full">
                 <Card className="flex h-full flex-col transition-all hover:-translate-y-1 hover:shadow-lg">
-                  <div className="flex h-32 items-center justify-center bg-gradient-to-br from-primary/10 to-transparent">
-                    <span className="text-3xl font-bold text-primary/25">{post.title.charAt(0)}</span>
+                  <div className="relative h-40 overflow-hidden bg-gradient-to-br from-primary/10 to-transparent">
+                    {post.coverImage ? (
+                      <Image
+                        src={post.coverImage}
+                        alt={`${post.title} — article cover`}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <span className="absolute inset-0 flex items-center justify-center text-3xl font-bold text-primary/25">{post.title.charAt(0)}</span>
+                    )}
                   </div>
                   <CardHeader>
                     <Badge variant="outline" className="w-fit">{post.category}</Badge>

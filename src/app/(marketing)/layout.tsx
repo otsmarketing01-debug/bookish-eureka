@@ -1,6 +1,7 @@
 import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
 import { ChatWidget } from "@/features/chat/chat-widget";
+import { BackToTop } from "@/components/site/back-to-top";
 
 export default function MarketingLayout({
   children,
@@ -13,6 +14,7 @@ export default function MarketingLayout({
       <main className="flex-1">{children}</main>
       <SiteFooter />
       <ChatWidget />
+      <BackToTop />
     </div>
   );
 }
