@@ -431,3 +431,56 @@ Unresolved issues / risks / next-phase priorities:
 - The review page accepts a `?t=` token param but doesn't yet validate it against a booking (anyone can submit). For production, validate the token maps to a completed booking.
 - Consider displaying approved customer reviews on the testimonials page (currently shows static testimonials + could merge DB reviews).
 - Consider a service-area cross-linking widget on service pages.
+
+---
+Task ID: 10 (next phase — review tokens, reviews display, cross-linking)
+Agent: Z.ai Code (webDevReview cron)
+Task: Proceed with next-phase priorities: validate review tokens against bookings, display approved customer reviews on testimonials page, service-area cross-linking.
+
+Work Log:
+- NEW FEATURE: Signed review tokens (`src/lib/review-token.ts`).
+  - `createReviewToken(bookingId)`: HMAC-signed token (base64url payload + 24-char hex signature) using AUTH_SECRET.
+  - `verifyReviewToken(token)`: timing-safe signature comparison, returns booking ID or null.
+  - Tokens can't be forged — only bookings that were marked "completed" by an admin generate valid tokens via the email flow.
+
+- NEW FEATURE: Review token validation (full flow).
+  - `emailReviewRequest()` now creates a signed token (was passing raw booking ID).
+  - Reviews POST API: if `token` provided, verifies signature → looks up booking → checks status === "completed" → checks no existing review → links review to booking. Returns specific errors: INVALID_TOKEN, BOOKING_NOT_FOUND, BOOKING_NOT_COMPLETED, ALREADY_REVIEWED.
+  - `GET /api/reviews/verify?t=token`: public endpoint for client-side validation, returns booking info (service, name, area) for pre-filling.
+  - Review page (`/review?t=...`): server-side token validation with status banners:
+    - valid → green "Verified booking — your review is linked to your completed service" + pre-fills name/service/area + "Verified booking" badge on form.
+    - invalid → red "Invalid review link" banner.
+    - not_completed → amber "Booking not yet completed" banner.
+    - already_reviewed → blue "Review already submitted" banner.
+  - ReviewForm component: accepts `token` + `verifiedBooking` props, sends token with submission, shows "Verified booking" badge.
+  - Verified end-to-end: valid token → verified badge + pre-filled fields → submitted successfully. Invalid token → error banner. Duplicate token → "already submitted" banner.
+
+- NEW FEATURE: Verified customer reviews on testimonials page.
+  - `src/lib/reviews.ts`: `getApprovedReviews()` data access.
+  - Testimonials page now async: fetches approved DB reviews and renders them in a "Verified Customer Reviews" section (separate from static testimonials).
+  - Each DB review card shows: star rating, title, body, customer name, area + service, and a "Verified" badge (ShieldCheck icon, success-colored) indicating it's linked to a real completed booking.
+  - Section only renders if there are approved reviews (graceful empty state).
+  - Verified: approved a token-verified review → appears on testimonials page with "Verified" badge.
+
+- NEW FEATURE: Service-area cross-linking widget (`src/components/site/service-area-links.tsx`).
+  - Reusable card showing "Available in your area" with 6 area chips (Sandton, Edenvale, Alberton, Roodepoort, Rosebank, Pretoria) linking to area pages.
+  - Wired into service pages: "Explore our other services" section now has a 2-column layout (other services on left, area links on right). Increased from 3 to 4 "other services" shown.
+  - Wired into sector pages: "Other sectors we serve" section now has a 2-column layout (sectors on left, area links on right with heading "Serving all Johannesburg areas").
+  - Strengthens internal link architecture for SEO — every service/sector page now links to all 6 area pages.
+  - Verified: service page shows "Available in your area" with 12 area links (6 widget + 6 footer). Sector page shows "Serving all Johannesburg areas".
+
+- Lint passes clean (0 errors). All routes return 200.
+
+Stage Summary:
+- 3 features shipped: signed review token validation (forge-proof, one-review-per-booking), verified customer reviews on testimonials page (with "Verified" badges), service-area cross-linking widget on service + sector pages.
+- Review token flow fully verified: valid token → verified badge + pre-fill → submit → duplicate rejected. Invalid/not-completed/already-reviewed states all show appropriate banners.
+- Testimonials page now has 2 review sections: static testimonials (curated) + verified customer reviews (from DB, linked to completed bookings).
+- SEO improved: every service and sector page now cross-links to all 6 area pages, strengthening internal link architecture.
+- Admin now has 12 sections (unchanged). Public site has 10 marketing pages (unchanged).
+
+Unresolved issues / risks / next-phase priorities:
+- Real SMTP not configured (emails log as "logged"). Code is ready — set SMTP_* env vars + `bun add nodemailer`.
+- .env integrity guard still recommended.
+- Consider adding review schema (Review + AggregateRating JSON-LD) to the testimonials page for rich search results.
+- Consider a "Recent reviews" widget on the homepage (pulling latest 3 approved reviews).
+- Consider service-sector cross-linking (services → sectors, sectors → services) to further strengthen internal links.

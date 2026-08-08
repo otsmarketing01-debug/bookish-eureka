@@ -140,8 +140,11 @@ export async function emailContactConfirmation(contact: {
 
 export async function emailReviewRequest(booking: {
   name: string; email: string; service: string;
-}, reviewToken: string) {
-  const reviewUrl = `${siteConfig.url}/review?t=${reviewToken}`;
+}, bookingId: string) {
+  // Use the signed token module lazily to avoid circular imports at module load
+  const { createReviewToken } = await import("@/lib/review-token");
+  const token = createReviewToken(bookingId);
+  const reviewUrl = `${siteConfig.url}/review?t=${token}`;
   await sendEmail({
     to: booking.email,
     subject: "How did we do? Share your review",

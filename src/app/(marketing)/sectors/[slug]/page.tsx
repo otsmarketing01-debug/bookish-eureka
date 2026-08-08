@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Icon } from "@/components/site/icon";
 import { Reveal } from "@/components/site/reveal";
+import { ServiceAreaLinks } from "@/components/site/service-area-links";
 import { sectors, getSector, siteConfig } from "@/lib/config";
 import { breadcrumbSchema } from "@/lib/seo";
 
@@ -145,13 +146,20 @@ export default async function SectorPage({ params }: Params) {
 
       <section className="border-t border-border bg-muted/30 py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-lg font-bold tracking-tight">Other sectors we serve</h2>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {sectors.filter((s) => s.slug !== slug).map((s) => (
-              <Button key={s.slug} asChild variant="outline" size="sm">
-                <Link href={`/sectors/${s.slug}`}>{s.name}</Link>
-              </Button>
-            ))}
+          <div className="grid gap-6 lg:grid-cols-2">
+            <div>
+              <h2 className="text-lg font-bold tracking-tight">Other sectors we serve</h2>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {sectors.filter((s) => s.slug !== slug).map((s) => (
+                  <Button key={s.slug} asChild variant="outline" size="sm">
+                    <Link href={`/sectors/${s.slug}`}>{s.name}</Link>
+                  </Button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <ServiceAreaLinks heading="Serving all Johannesburg areas" />
+            </div>
           </div>
         </div>
       </section>

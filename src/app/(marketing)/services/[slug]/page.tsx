@@ -10,6 +10,7 @@ import { Icon } from "@/components/site/icon";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { ContactForm } from "@/components/site/contact-form";
 import { Reveal } from "@/components/site/reveal";
+import { ServiceAreaLinks } from "@/components/site/service-area-links";
 import { services, getService, siteConfig } from "@/lib/config";
 import { serviceSchema, faqSchema, breadcrumbSchema } from "@/lib/seo";
 
@@ -184,20 +185,27 @@ export default async function ServicePage({ params }: Params) {
       {/* Other services */}
       <section className="border-t border-border bg-muted/30 py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-xl font-bold tracking-tight">Explore our other services</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {services.filter((s) => s.slug !== slug).slice(0, 3).map((s) => (
-              <Link key={s.slug} href={`/services/${s.slug}`} className="group flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-all hover:border-primary/40 hover:shadow-sm">
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground">
-                  <Icon name={s.icon} className="h-5 w-5" />
-                </span>
-                <div className="flex-1">
-                  <p className="font-medium group-hover:text-primary">{s.name}</p>
-                  <p className="text-xs text-muted-foreground">from {s.priceFrom}</p>
-                </div>
-                <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
-              </Link>
-            ))}
+          <div className="grid gap-6 lg:grid-cols-3">
+            <div className="lg:col-span-2">
+              <h2 className="text-xl font-bold tracking-tight">Explore our other services</h2>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {services.filter((s) => s.slug !== slug).slice(0, 4).map((s) => (
+                  <Link key={s.slug} href={`/services/${s.slug}`} className="group flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-all hover:border-primary/40 hover:shadow-sm">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground">
+                      <Icon name={s.icon} className="h-5 w-5" />
+                    </span>
+                    <div className="flex-1">
+                      <p className="font-medium group-hover:text-primary">{s.name}</p>
+                      <p className="text-xs text-muted-foreground">from {s.priceFrom}</p>
+                    </div>
+                    <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div className="lg:col-span-1">
+              <ServiceAreaLinks />
+            </div>
           </div>
         </div>
       </section>

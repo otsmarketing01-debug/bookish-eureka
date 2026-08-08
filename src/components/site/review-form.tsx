@@ -1,23 +1,32 @@
 "use client";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Loader2, Star, CheckCircle2, Send } from "lucide-react";
+import { Loader2, Star, CheckCircle2, Send, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { services, areas } from "@/lib/config";
 
-export function ReviewForm({ initialService, bookingId }: { initialService?: string; bookingId?: string }) {
+export function ReviewForm({
+  initialService,
+  token,
+  verifiedBooking,
+}: {
+  initialService?: string;
+  token?: string;
+  verifiedBooking?: { service: string; name: string; area?: string | null } | null;
+}) {
   const [done, setDone] = useState(false);
   const [loading, setLoading] = useState(false);
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [form, setForm] = useState({
-    name: "",
-    area: "",
-    service: initialService || "",
+    name: verifiedBooking?.name || "",
+    area: verifiedBooking?.area || "",
+    service: verifiedBooking?.service || initialService || "",
     title: "",
     body: "",
   });
@@ -35,7 +44,7 @@ export function ReviewForm({ initialService, bookingId }: { initialService?: str
       const res = await fetch("/api/reviews", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ...form, rating, bookingId }),
+        body: JSON.stringify({ ...form, rating, token }),
       });
       const json = await res.json();
       if (!res.ok) {
@@ -68,6 +77,11 @@ export function ReviewForm({ initialService, bookingId }: { initialService?: str
       <CardHeader>
         <CardTitle>Share your experience</CardTitle>
         <CardDescription>Your feedback helps other Johannesburg homeowners choose us.</CardDescription>
+        {verifiedBooking && (
+          <Badge variant="outline" className="mt-2 w-fit gap-1.5 border-success/30 bg-success/10 text-success">
+            <ShieldCheck className="h-3.5 w-3.5" /> Verified booking — {verifiedBooking.service}
+          </Badge>
+        )}
       </CardHeader>
       <CardContent>
         <form onSubmit={onSubmit} className="space-y-4">

@@ -4,6 +4,9 @@ import { Reveal } from "@/components/site/reveal";
 import { ReviewForm } from "@/components/site/review-form";
 import { siteConfig } from "@/lib/config";
 import { breadcrumbSchema } from "@/lib/seo";
+import { verifyReviewToken } from "@/lib/review-token";
+import { db } from "@/lib/db";
+import { ShieldCheck, AlertCircle, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Leave a Review | JHB Curtain Cleaning Johannesburg",
@@ -22,9 +25,34 @@ export default async function ReviewPage({
   searchParams: Promise<{ t?: string; service?: string }>;
 }) {
   const params = await searchParams;
-  // Token `t` would map to a booking in a full implementation; for now we
-  // pass through the service if provided.
+  const token = params.t;
   const initialService = params.service;
+
+  // Validate token server-side
+  let verifiedBooking: { service: string; name: string; area?: string | null } | null = null;
+  let tokenStatus: "valid" | "invalid" | "not_completed" | "already_reviewed" | null = null;
+
+  if (token) {
+    const bookingId = verifyReviewToken(token);
+    if (bookingId) {
+      const booking = await db.booking.findUnique({ where: { id: bookingId } });
+      if (booking && booking.status === "completed") {
+        const existing = await db.review.findFirst({ where: { bookingId } });
+        if (existing) {
+          tokenStatus = "already_reviewed";
+        } else {
+          verifiedBooking = { service: booking.service, name: booking.name, area: booking.area };
+          tokenStatus = "valid";
+        }
+      } else if (booking) {
+        tokenStatus = "not_completed";
+      } else {
+        tokenStatus = "invalid";
+      }
+    } else {
+      tokenStatus = "invalid";
+    }
+  }
 
   return (
     <>
@@ -62,7 +90,40 @@ export default async function ReviewPage({
       <section className="py-12 sm:py-16">
         <div className="mx-auto max-w-xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <ReviewForm initialService={initialService} />
+            {tokenStatus === "invalid" && (
+              <div className="mb-6 flex items-start gap-3 rounded-xl border border-destructive/30 bg-destructive/10 p-4 text-sm">
+                <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-destructive" />
+                <div>
+                  <p className="font-semibold text-destructive">Invalid review link</p>
+                  <p className="mt-0.5 text-muted-foreground">This review link is invalid or has expired. If you believe this is an error, please contact us and we'll send a new one.</p>
+                </div>
+              </div>
+            )}
+            {tokenStatus === "not_completed" && (
+              <div className="mb-6 flex items-start gap-3 rounded-xl border border-warning/30 bg-warning/10 p-4 text-sm">
+                <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-warning" />
+                <div>
+                  <p className="font-semibold text-warning">Booking not yet completed</p>
+                  <p className="mt-0.5 text-muted-foreground">You'll be able to leave a review once your cleaning has been completed. We'll email you a review link then.</p>
+                </div>
+              </div>
+            )}
+            {tokenStatus === "already_reviewed" && (
+              <div className="mb-6 flex items-start gap-3 rounded-xl border border-info/30 bg-info/10 p-4 text-sm">
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-info" />
+                <div>
+                  <p className="font-semibold text-info">Review already submitted</p>
+                  <p className="mt-0.5 text-muted-foreground">Thank you! A review has already been submitted for this booking. You can still submit a general review below if you'd like.</p>
+                </div>
+              </div>
+            )}
+            {tokenStatus === "valid" && (
+              <div className="mb-6 flex items-center gap-2.5 rounded-xl border border-success/30 bg-success/10 p-4 text-sm">
+                <ShieldCheck className="h-5 w-5 shrink-0 text-success" />
+                <p className="font-medium text-success">Verified booking — your review is linked to your completed service.</p>
+              </div>
+            )}
+            <ReviewForm initialService={initialService} token={token} verifiedBooking={verifiedBooking} />
           </Reveal>
         </div>
       </section>

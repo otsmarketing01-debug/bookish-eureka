@@ -6,8 +6,10 @@ import { db } from "@/lib/db";
 import { enforceRateLimit, clientKey } from "@/lib/rate-limit";
 import { toErrorResponse, ValidationError, AuthenticationError, AuthorizationError } from "@/lib/errors";
 import { notify } from "@/lib/notify";
+import { verifyReviewToken } from "@/lib/review-token";
 
 const schema = z.object({
+  token: z.string().optional(),
   bookingId: z.string().optional(),
   name: z.string().min(2, "Please enter your name").max(80),
   area: z.string().max(80).optional().or(z.literal("")),
@@ -30,9 +32,40 @@ export async function POST(req: Request) {
     }
 
     const d = parsed.data;
+
+    // If a token is provided, validate it against a completed booking.
+    // This links the review to a real job and pre-fills the service.
+    let verifiedBookingId: string | null = null;
+    let verifiedService: string | undefined;
+    let verifiedName: string | undefined;
+    let verifiedArea: string | undefined;
+
+    if (d.token) {
+      const bookingId = verifyReviewToken(d.token);
+      if (!bookingId) {
+        throw new ValidationError("Invalid or expired review link. Please request a new one.", "INVALID_TOKEN");
+      }
+      const booking = await db.booking.findUnique({ where: { id: bookingId } });
+      if (!booking) {
+        throw new ValidationError("Booking not found for this review link.", "BOOKING_NOT_FOUND");
+      }
+      if (booking.status !== "completed") {
+        throw new ValidationError("This booking hasn't been marked as completed yet.", "BOOKING_NOT_COMPLETED");
+      }
+      // Check no existing review for this booking (one review per booking)
+      const existing = await db.review.findFirst({ where: { bookingId } });
+      if (existing) {
+        throw new ValidationError("A review has already been submitted for this booking.", "ALREADY_REVIEWED");
+      }
+      verifiedBookingId = bookingId;
+      verifiedService = booking.service;
+      verifiedName = booking.name;
+      verifiedArea = booking.area ?? undefined;
+    }
+
     const review = await db.review.create({
       data: {
-        bookingId: d.bookingId || null,
+        bookingId: verifiedBookingId ?? (d.bookingId || null),
         name: d.name,
         area: d.area || null,
         service: d.service,
