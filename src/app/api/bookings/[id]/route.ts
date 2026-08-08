@@ -34,24 +34,37 @@ export async function PATCH(
       data: { status: parsed.data },
     });
 
-    // When a booking is marked completed, send a review request email + WhatsApp
+    // When a booking is marked completed, send review requests
     if (parsed.data === "completed" && existing.status !== "completed") {
       const { createReviewToken } = await import("@/lib/review-token");
+      const { sendWhatsAppReviewRequest } = await import("@/lib/whatsapp");
       const token = createReviewToken(existing.id);
       const reviewUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://jhbcurtaincleaning.co.za"}/review?t=${token}`;
+
       // Email review request
       await emailReviewRequest(
         { name: existing.name, email: existing.email, service: existing.service },
         existing.id
       );
-      // WhatsApp review request (logged as email — the admin can copy the link)
-      // In production, this would integrate with the WhatsApp Business API
-      await import("@/lib/notify").then(({ notify }) => notify({
+
+      // WhatsApp review request (auto-dispatch if API configured, else generates link)
+      const waResult = await sendWhatsAppReviewRequest({
+        customerName: existing.name,
+        customerPhone: existing.phone,
+        serviceName: existing.service,
+        reviewUrl,
+      });
+
+      // Notify admin of the result
+      const { notify } = await import("@/lib/notify");
+      await notify({
         type: "system",
-        title: `Review ready for ${existing.name}`,
-        message: `Booking completed. Send this WhatsApp review link to ${existing.name} (${existing.phone}): https://wa.me/${existing.phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(`Hi ${existing.name.split(" ")[0]}, thanks for choosing JHB Curtain Cleaning! We'd love your feedback — it takes 30 seconds: ${reviewUrl}`)}`,
+        title: `Review request sent to ${existing.name}`,
+        message: waResult.sent
+          ? `WhatsApp review request auto-sent to ${existing.name} (${existing.phone}).`
+          : `WhatsApp review link for ${existing.name} (${existing.phone}): ${waResult.link}`,
         link: "/admin/bookings",
-      }));
+      });
     }
 
     return NextResponse.json({ booking: updated });
