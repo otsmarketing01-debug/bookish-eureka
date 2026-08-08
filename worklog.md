@@ -613,3 +613,50 @@ Unresolved issues / risks / next-phase priorities:
 - Consider adding the blog search to the homepage or a dedicated search page.
 - Consider adding service-specific review display on service pages (currently schema-only; could show visible review cards).
 - Consider adding a "popular searches" or search suggestions feature.
+
+---
+Task ID: 14 (final phase — all remaining priorities to completion)
+Agent: Z.ai Code (webDevReview cron)
+Task: Execute all remaining next-phase priorities to completion: visible service reviews, homepage search, .env guard, SMTP wiring, final QA.
+
+Work Log:
+- NEW FEATURE: Visible service-specific review cards on service pages (`src/components/site/service-reviews.tsx`).
+  - Server component: fetches approved reviews for the service, renders a "What [service] customers say" section with average rating header + review cards (star ratings, title, body, customer avatar, area, Verified badge) + "Read all reviews" link.
+  - Graceful empty state: renders nothing if no approved reviews for that service.
+  - Wired into service page after the FAQ section.
+  - Verified: curtain-blind-cleaning page shows "customers say" section with 2 review cards (the 2 approved reviews for that service).
+
+- NEW FEATURE: Homepage search with popular suggestions (`src/components/site/homepage-search.tsx`).
+  - Debounced search (300ms) with dropdown results panel, result count, post previews, loading state.
+  - 5 popular search chips: "costs", "shrinkage", "allergens", "how often", "velvet" — click to search instantly.
+  - Enter key navigates to /blog?q=... for full results.
+  - Added to homepage hero below the trust badges.
+  - Verified: search input present with 5 popular chips; "cost" query returns 2 articles in dropdown.
+
+- NEW FEATURE: .env integrity guard (`src/lib/env-guard.ts`).
+  - `checkEnv()`: validates 3 required vars (AUTH_SECRET, DATABASE_URL, NEXTAUTH_URL) + 5 optional vars (SMTP_*, NEXT_PUBLIC_CHAT_PORT). Returns structured status.
+  - `warnIfEnvIncomplete()`: logs error for missing required vars, warns for missing SMTP config.
+  - Wired into root layout — runs at module load (startup).
+  - `GET /api/admin/system-status`: admin-gated endpoint returning env health.
+  - `SystemStatusCard` admin component: shows healthy/issues badge, missing-var warnings, SMTP config status, required-var count. Added to admin dashboard.
+  - Verified: dev log shows "[env] ℹ SMTP not configured" warning at startup; admin dashboard shows "System Status — Healthy" card with "SMTP: logging only".
+
+- INFRASTRUCTURE: Installed nodemailer + @types/nodemailer for real SMTP email dispatch.
+  - The email lib (`src/lib/email.ts`) already dynamically imports nodemailer when SMTP_* env vars are set. Now the dependency is installed, so setting SMTP_HOST/USER/PASS/FROM in .env will enable real email sending with no code changes.
+  - System status card detects and reports SMTP configuration state.
+
+- FINAL QA:
+  - Lint passes clean (0 errors).
+  - All 17 public routes return 200: /, /blog, /book, /faq, /gallery, /pricing, /testimonials, /review, /contact, /login, /sitemap.xml, /sitemap-pages.xml, /sitemap-blog.xml, /services/curtain-blind-cleaning, /areas/jhb-north, /sectors/hotels, /blog/curtain-cleaning-costs-johannesburg.
+  - All features verified via agent-browser: service reviews display, homepage search, admin system status, env guard warnings.
+
+Stage Summary:
+- ALL remaining next-phase priorities completed.
+- 4 new features shipped: visible service-specific review cards, homepage search with popular suggestions, .env integrity guard + admin system status, nodemailer installed for real SMTP.
+- The project is now feature-complete: 12 admin sections, 10+ public marketing pages, full booking/review/email/notification systems, live chat, AI FAQ chatbot, blog with search + live preview editor, gallery with admin upload, POPIA consent, design system, sitemap index, comprehensive JSON-LD schema.
+- To enable real email sending: set SMTP_HOST, SMTP_USER, SMTP_PASS, SMTP_FROM in .env (code is ready, nodemailer installed).
+
+FINAL PROJECT STATUS: COMPLETE
+- All next-phase priorities from every round have been executed.
+- Lint: 0 errors. Routes: all 200. Services: dev (3000) + chat (3001) running.
+- The 15-min webDevReview cron job continues to monitor and maintain the project.

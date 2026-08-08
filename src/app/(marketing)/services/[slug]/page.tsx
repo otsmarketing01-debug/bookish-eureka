@@ -13,6 +13,7 @@ import { Reveal } from "@/components/site/reveal";
 import { ServiceAreaLinks } from "@/components/site/service-area-links";
 import { SectorServiceLinks } from "@/components/site/service-sector-links";
 import { ServiceBlogPosts } from "@/components/site/service-blog-posts";
+import { ServiceReviews } from "@/components/site/service-reviews";
 import { services, getService, siteConfig } from "@/lib/config";
 import { serviceWithReviewsSchema, faqSchema, breadcrumbSchema } from "@/lib/seo";
 import { getApprovedReviewsByService } from "@/lib/reviews";
@@ -190,6 +191,9 @@ export default async function ServicePage({ params }: Params) {
           </div>
         </section>
       )}
+
+      {/* Service-specific verified reviews */}
+      <ServiceReviews serviceName={service.name} />
 
       {/* Quote */}
       <section id="quote" className="scroll-mt-20 py-14 sm:py-20">

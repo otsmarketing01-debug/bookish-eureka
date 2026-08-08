@@ -5,7 +5,11 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { Providers } from "@/components/providers";
 import { CookieConsent } from "@/components/site/cookie-consent";
+import { warnIfEnvIncomplete } from "@/lib/env-guard";
 import { siteConfig } from "@/lib/config";
+
+// Run env integrity check once at module load (startup)
+warnIfEnvIncomplete();
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

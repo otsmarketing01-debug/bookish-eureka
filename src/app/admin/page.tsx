@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { formatDate } from "@/lib/format";
+import { SystemStatusCard } from "@/components/admin/system-status";
 
 export default async function AdminDashboard() {
   const session = await getServerSession(authOptions);
@@ -100,6 +101,11 @@ export default async function AdminDashboard() {
             )}
           </CardContent>
         </Card>
+
+        {/* System status */}
+        <div className="mt-6 max-w-sm">
+          <SystemStatusCard />
+        </div>
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import { services, areas, sectors, processSteps, testimonials, siteConfig } from
 import { localBusinessSchema, howToSchema, faqSchema, breadcrumbSchema, aggregateReviewSchema } from "@/lib/seo";
 import { AnimatedCounter } from "@/components/site/animated-counter";
 import { HomepageReviews } from "@/components/site/homepage-reviews";
+import { HomepageSearch } from "@/components/site/homepage-search";
 import { getApprovedReviews } from "@/lib/reviews";
 import Image from "next/image";
 
@@ -120,6 +121,11 @@ export default async function HomePage() {
                     <CheckCircle2 className="h-4 w-4 text-success" />
                     Same-day service
                   </div>
+                </div>
+              </Reveal>
+              <Reveal delay={0.25}>
+                <div className="mt-6 flex justify-center lg:justify-start">
+                  <HomepageSearch />
                 </div>
               </Reveal>
             </div>
