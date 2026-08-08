@@ -1,0 +1,98 @@
+// JHB Curtain Cleaning — database schema (SQLite)
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  password     String
+  role         String   @default("user") // "user" | "admin"
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  chatRooms    ChatRoom[]
+  blogPosts    BlogPost[]
+  submissions  ContactSubmission[]
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  service   String?
+  area      String?
+  message   String
+  status    String   @default("new") // "new" | "contacted" | "won" | "lost"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+model ChatRoom {
+  id          String   @id @default(cuid())
+  visitorId   String   @unique
+  visitorName String
+  visitorEmail String?
+  status      String   @default("waiting") // "waiting" | "active" | "closed"
+  assignedTo  String?  // admin user id
+  subject     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  messages    ChatMessage[]
+  user        User?    @relation(fields: [assignedTo], references: [id])
+
+  @@index([status])
+  @@index([updatedAt])
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  roomId    String
+  sender    String   // "visitor" | "admin" | "system"
+  content   String
+  createdAt DateTime @default(now())
+
+  room      ChatRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@index([roomId])
+  @@index([createdAt])
+}
+
+model BlogPost {
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  title        String
+  excerpt      String
+  content      String   // markdown
+  coverImage   String?
+  category     String   @default("General")
+  tags         String   @default("") // comma separated
+  author       String   @default("JHB Curtain Cleaning")
+  readingTime  Int      @default(5)
+  published    Boolean  @default(false)
+  featured     Boolean  @default(false)
+  publishedAt  DateTime @default(now())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  authorId     String?
+  user         User?    @relation(fields: [authorId], references: [id])
+
+  @@index([published])
+  @@index([category])
+  @@index([publishedAt])
+}
