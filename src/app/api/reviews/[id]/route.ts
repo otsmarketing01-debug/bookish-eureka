@@ -4,9 +4,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { toErrorResponse, AuthenticationError, AuthorizationError, ValidationError, NotFoundError } from "@/lib/errors";
-import { emailReviewRequest } from "@/lib/email";
 
-const statusSchema = z.enum(["pending", "confirmed", "completed", "cancelled"]);
+const statusSchema = z.enum(["pending", "approved", "rejected"]);
 
 async function requireAdmin() {
   const session = await getServerSession(authOptions);
@@ -14,7 +13,7 @@ async function requireAdmin() {
   if (session.user.role !== "admin") throw new AuthorizationError();
 }
 
-// Admin: update booking status
+// Admin: update review status (approve/reject)
 export async function PATCH(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -26,24 +25,31 @@ export async function PATCH(
     const parsed = statusSchema.safeParse(body?.status);
     if (!parsed.success) throw new ValidationError("Invalid status");
 
-    const existing = await db.booking.findUnique({ where: { id } });
-    if (!existing) throw new NotFoundError("Booking not found");
+    const existing = await db.review.findUnique({ where: { id } });
+    if (!existing) throw new NotFoundError("Review not found");
 
-    const updated = await db.booking.update({
+    const updated = await db.review.update({
       where: { id },
       data: { status: parsed.data },
     });
+    return NextResponse.json({ review: updated });
+  } catch (err) {
+    const e = toErrorResponse(err);
+    return NextResponse.json(e, { status: e.statusCode });
+  }
+}
 
-    // When a booking is marked completed, send a review request email
-    if (parsed.data === "completed" && existing.status !== "completed") {
-      // Generate a simple token for the review link (booking id is opaque enough for this use case)
-      await emailReviewRequest(
-        { name: existing.name, email: existing.email, service: existing.service },
-        existing.id
-      );
-    }
-
-    return NextResponse.json({ booking: updated });
+export async function DELETE(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    await requireAdmin();
+    const { id } = await params;
+    const existing = await db.review.findUnique({ where: { id } });
+    if (!existing) throw new NotFoundError("Review not found");
+    await db.review.delete({ where: { id } });
+    return NextResponse.json({ ok: true });
   } catch (err) {
     const e = toErrorResponse(err);
     return NextResponse.json(e, { status: e.statusCode });

@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { enforceRateLimit, clientKey } from "@/lib/rate-limit";
 import { toErrorResponse, ValidationError, AuthenticationError, AuthorizationError } from "@/lib/errors";
 import { notify } from "@/lib/notify";
+import { emailBookingConfirmation, emailAdminNotification } from "@/lib/email";
 
 const schema = z.object({
   name: z.string().min(2, "Please enter your name").max(100),
@@ -85,6 +86,17 @@ export async function POST(req: Request) {
       message: `${d.name} booked ${d.service} for ${d.preferredDate} (${d.preferredSlot}). Phone: ${d.phone}.`,
       link: "/admin/bookings",
     });
+    // Send emails (customer confirmation + admin notification) — best-effort, never blocks
+    await Promise.all([
+      emailBookingConfirmation({
+        name: d.name, email: d.email, service: d.service,
+        preferredDate: d.preferredDate, preferredSlot: d.preferredSlot, phone: d.phone,
+      }),
+      emailAdminNotification(
+        `New booking from ${d.name}`,
+        `${d.name} booked <strong>${d.service}</strong> for <strong>${d.preferredDate}</strong> (${d.preferredSlot}).<br><br>Phone: ${d.phone}<br>Email: ${d.email}${d.area ? `<br>Area: ${d.area}` : ""}${d.address ? `<br>Address: ${d.address}` : ""}${d.message ? `<br><br>Notes: "${d.message}"` : ""}`
+      ),
+    ]);
 
     return NextResponse.json(
       { success: true, id: booking.id, message: "Booking received! We'll confirm by phone within 1 business hour." },

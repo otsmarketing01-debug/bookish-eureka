@@ -123,7 +123,10 @@ export default function TestimonialsPage() {
           <Reveal>
             <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Join 5,000+ satisfied customers</h2>
             <p className="mt-3 text-muted-foreground">Experience the on-site, no-shrinkage difference for yourself.</p>
-            <Button asChild size="lg" className="mt-6"><Link href="/contact">Get a Free Quote <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Button asChild size="lg"><Link href="/book">Book a Free Assessment <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+              <Button asChild size="lg" variant="outline"><Link href="/review">Leave a review ⭐</Link></Button>
+            </div>
           </Reveal>
         </div>
       </section>

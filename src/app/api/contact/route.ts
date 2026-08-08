@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { enforceRateLimit, clientKey } from "@/lib/rate-limit";
 import { toErrorResponse, ValidationError } from "@/lib/errors";
 import { notify } from "@/lib/notify";
+import { emailContactConfirmation, emailAdminNotification } from "@/lib/email";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Please enter your name").max(100),
@@ -45,6 +46,14 @@ export async function POST(req: Request) {
       message: `${data.name} (${data.email}) requested a quote${data.service ? ` for ${data.service}` : ""}${data.area ? ` in ${data.area}` : ""}.`,
       link: "/admin/leads",
     });
+    // Send emails (customer confirmation + admin notification) — best-effort, never blocks
+    await Promise.all([
+      emailContactConfirmation({ name: data.name, email: data.email }),
+      emailAdminNotification(
+        `New lead from ${data.name}`,
+        `${data.name} (${data.email}) requested a quote${data.service ? ` for ${data.service}` : ""}${data.area ? ` in ${data.area}` : ""}.<br><br>Message: "${data.message}"`
+      ),
+    ]);
 
     return NextResponse.json(
       { success: true, id: submission.id, message: "Thank you! We'll be in touch within 1 business hour." },

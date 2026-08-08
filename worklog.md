@@ -382,3 +382,52 @@ Unresolved issues / risks / next-phase priorities:
 - Consider adding a service-area cross-linking widget on service pages.
 - Consider adding a "Booked dates" calendar view in admin (currently list view).
 - Consider adding a review/rating submission feature for completed bookings.
+
+---
+Task ID: 9 (next phase — email dispatch, calendar view, reviews)
+Agent: Z.ai Code (webDevReview cron)
+Task: Proceed with next-phase priorities: real email dispatch, booked-dates calendar view, review/rating submission for completed bookings.
+
+Work Log:
+- NEW FEATURE: Real email dispatch system (`src/lib/email.ts` + EmailLog model + admin Email Log page).
+  - Prisma model `EmailLog` (to, subject, body, type, status, error) + db push.
+  - `sendEmail()` abstraction: ALWAYS persists to EmailLog; if SMTP env vars set (SMTP_HOST, SMTP_USER, SMTP_PASS, SMTP_FROM, SMTP_PORT, SMTP_SECURE), also sends via dynamically-imported Nodemailer; otherwise logs as "logged" (would-be-sent). Never throws — email failures never break the parent request.
+  - Branded HTML email wrapper with emerald header, company footer.
+  - 4 email-type helpers: `emailAdminNotification()`, `emailBookingConfirmation()` (customer, with booking details table), `emailContactConfirmation()` (customer), `emailReviewRequest()` (customer, with review CTA button + link).
+  - Wired into contact API (customer confirmation + admin notification) and booking API (customer confirmation + admin notification).
+  - Wired into booking PATCH: when status → "completed", sends review-request email automatically.
+  - Admin Email Log page (`/admin/emails`): searchable list with status badges (sent/logged/failed), detail panel with iframe HTML preview, stats summary, SMTP-config explainer banner. Added "Email Log" to admin sidebar (MailCheck icon).
+  - Verified: submitted booking → 2 emails logged (customer + admin); marked booking completed → 3rd email logged (review request). Email detail shows HTML preview in iframe.
+
+- NEW FEATURE: Booked-dates calendar view in admin.
+  - `BookingsCalendar` component: month grid (Monday-first), prev/next/today navigation, bookings rendered as colored status chips per day (max 3 + "N more"), today highlighted with primary ring, past days dimmed, booking days tinted, status legend.
+  - Added List/Calendar view toggle to admin bookings page header.
+  - Verified: calendar renders month grid, navigates months, shows booking count per month.
+
+- NEW FEATURE: Review/rating submission (full stack + admin moderation).
+  - Prisma model `Review` (bookingId, name, area, service, rating 1-5, title, body, status) + db push.
+  - API: `POST /api/reviews` (public, zod-validated, rate-limited 3/hr, creates admin notification) + `GET /api/reviews` (public sees approved only; admin sees all with status filter) + `PATCH/DELETE /api/reviews/[id]` (admin moderate/delete).
+  - `ReviewForm` component: interactive 5-star rating (hover + click), name/area/service/title/body fields, success state.
+  - Public review page (`/review`): hero + form, accepts `?service=` query param to pre-fill.
+  - Admin reviews page (`/admin/reviews`): searchable list with status filter (all/pending/approved/rejected), approve/reject/delete buttons, star display, review body. Added "Reviews" to admin sidebar (Star icon).
+  - Testimonials page CTA: added "Leave a review ⭐" button linking to /review.
+  - Sitemap: added /review.
+  - Verified: submitted 5-star review → "Review submitted!" → appears in admin reviews (1 pending) → approved → 1 approved. Full moderation flow works.
+
+- BUG FOUND & FIXED: admin reviews page initially showed 0 because the GET handler in `reviews/route.ts` only returned approved reviews (public behavior) — the admin GET was incorrectly placed in `[id]/route.ts`. Fixed by making `reviews/route.ts` GET session-aware: admin sees all (with optional status filter), public sees only approved. Removed the duplicate GET from `[id]/route.ts`.
+
+- Lint passes clean (0 errors). All routes return 200 (admin routes 307 redirect correctly).
+
+Stage Summary:
+- 3 major features shipped: email dispatch system (DB-logged + SMTP-ready), bookings calendar view, review/rating system (full stack + moderation).
+- Email lifecycle verified end-to-end: booking → 2 emails → complete → review-request email (3 total in log).
+- Review lifecycle verified: public submit → admin notification → moderation → approved.
+- Admin now has 12 sections: dashboard, leads, bookings (list+calendar), chat, blog, blog-editor, gallery, reviews, newsletter, emails, notifications-bell.
+- Public site now has 10 marketing pages: home, pricing, gallery, book, faq, review, testimonials, blog, blog-post, contact + services/areas/sectors.
+
+Unresolved issues / risks / next-phase priorities:
+- Real SMTP not configured (emails log as "logged"). To enable real sending: set SMTP_HOST, SMTP_USER, SMTP_PASS, SMTP_FROM in .env and `bun add nodemailer`. The code is ready.
+- .env integrity guard still recommended.
+- The review page accepts a `?t=` token param but doesn't yet validate it against a booking (anyone can submit). For production, validate the token maps to a completed booking.
+- Consider displaying approved customer reviews on the testimonials page (currently shows static testimonials + could merge DB reviews).
+- Consider a service-area cross-linking widget on service pages.

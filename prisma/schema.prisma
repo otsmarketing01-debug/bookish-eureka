@@ -160,3 +160,36 @@ model Booking {
   @@index([preferredDate])
   @@index([createdAt])
 }
+
+model Review {
+  id        String   @id @default(cuid())
+  bookingId String?
+  name      String
+  area      String?
+  service   String
+  rating    Int      // 1-5
+  title     String
+  body      String
+  status    String   @default("pending") // "pending" | "approved" | "rejected"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([rating])
+  @@index([createdAt])
+}
+
+model EmailLog {
+  id        String   @id @default(cuid())
+  to        String
+  subject   String
+  body      String
+  type      String   // "admin_notification" | "booking_confirmation" | "contact_confirmation" | "review_request"
+  status    String   @default("logged") // "logged" (would-be-sent) | "sent" | "failed"
+  error     String?
+  createdAt DateTime @default(now())
+
+  @@index([type])
+  @@index([status])
+  @@index([createdAt])
+}

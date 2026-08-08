@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useState, useCallback } from "react";
-import { CalendarCheck, Loader2, RefreshCw, Search, Phone, Mail, MapPin, Clock } from "lucide-react";
+import { CalendarCheck, Loader2, RefreshCw, Search, Phone, Mail, MapPin, Clock, List, CalendarDays } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { BookingsCalendar } from "@/components/admin/bookings-calendar";
 import { toast } from "sonner";
 
 type Booking = {
@@ -48,6 +49,7 @@ export default function BookingsPage() {
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<Booking | null>(null);
+  const [view, setView] = useState<"list" | "calendar">("list");
 
   const fetchBookings = useCallback(async () => {
     setLoading(true);
@@ -85,9 +87,25 @@ export default function BookingsPage() {
             <h1 className="text-xl font-bold tracking-tight">Bookings</h1>
             <p className="text-sm text-muted-foreground">{bookings.length} booking{bookings.length !== 1 ? "s" : ""}</p>
           </div>
-          <Button variant="outline" size="sm" onClick={fetchBookings} disabled={loading}>
-            <RefreshCw className={`mr-2 h-4 w-4 ${loading ? "animate-spin" : ""}`} /> Refresh
-          </Button>
+          <div className="flex gap-2">
+            <div className="flex rounded-md border border-border p-0.5">
+              <button
+                onClick={() => setView("list")}
+                className={`flex items-center gap-1.5 rounded-sm px-2.5 py-1 text-xs font-medium transition-colors ${view === "list" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <List className="h-3.5 w-3.5" /> List
+              </button>
+              <button
+                onClick={() => setView("calendar")}
+                className={`flex items-center gap-1.5 rounded-sm px-2.5 py-1 text-xs font-medium transition-colors ${view === "calendar" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <CalendarDays className="h-3.5 w-3.5" /> Calendar
+              </button>
+            </div>
+            <Button variant="outline" size="sm" onClick={fetchBookings} disabled={loading}>
+              <RefreshCw className={`mr-2 h-4 w-4 ${loading ? "animate-spin" : ""}`} /> Refresh
+            </Button>
+          </div>
         </div>
         <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
           <div className="relative flex-1 max-w-xs">
@@ -104,6 +122,15 @@ export default function BookingsPage() {
         </div>
       </header>
 
+      {view === "calendar" ? (
+        <div className="flex-1 overflow-y-auto p-6">
+          {loading ? (
+            <div className="flex justify-center py-16"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>
+          ) : (
+            <BookingsCalendar bookings={bookings} />
+          )}
+        </div>
+      ) : (
       <div className="grid flex-1 grid-cols-1 overflow-hidden lg:grid-cols-5">
         {/* List */}
         <ScrollArea className="h-full lg:col-span-2 lg:border-r">
@@ -212,6 +239,7 @@ export default function BookingsPage() {
           )}
         </div>
       </div>
+      )}
     </div>
   );
 }
