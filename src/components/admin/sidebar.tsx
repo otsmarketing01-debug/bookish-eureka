@@ -1,17 +1,19 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, MessageSquare, Inbox, FileText, LogOut, Sparkles, ExternalLink, Mail } from "lucide-react";
+import { LayoutDashboard, MessageSquare, Inbox, FileText, LogOut, Sparkles, ExternalLink, Mail, Images } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/config";
+import { NotificationBell } from "@/components/admin/notification-bell";
 
 const items = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/leads", label: "Leads", icon: Inbox },
   { href: "/admin/chat", label: "Live Chat", icon: MessageSquare },
   { href: "/admin/blog", label: "Blog Posts", icon: FileText },
+  { href: "/admin/gallery", label: "Gallery", icon: Images },
   { href: "/admin/newsletter", label: "Newsletter", icon: Mail },
 ];
 
@@ -47,6 +49,10 @@ export function AdminSidebar({ userName, role }: { userName: string; role: strin
         })}
       </nav>
       <div className="border-t border-border p-3">
+        <div className="mb-2 flex items-center justify-between rounded-md bg-muted/50 px-2 py-1.5">
+          <span className="px-1 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Notifications</span>
+          <NotificationBell />
+        </div>
         <Link href="/" target="_blank" className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-foreground">
           <ExternalLink className="h-4 w-4" /> View site
         </Link>

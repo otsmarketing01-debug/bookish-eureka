@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { Providers } from "@/components/providers";
+import { CookieConsent } from "@/components/site/cookie-consent";
 import { siteConfig } from "@/lib/config";
 
 const geistSans = Geist({
@@ -65,6 +66,7 @@ export default function RootLayout({
         <Providers>
           {children}
         </Providers>
+        <CookieConsent />
         <Toaster />
         <SonnerToaster richColors position="top-center" />
       </body>

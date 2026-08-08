@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { MapPin, ArrowRight, ChevronRight, Phone, CheckCircle2 } from "lucide-react";
@@ -20,10 +21,21 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const area = getArea(slug);
   if (!area) return { title: "Area not found" };
+  const ogImage = `/areas/${area.slug}.jpg`;
   return {
     title: `Curtain Cleaning ${area.suburb} | ${area.region} | JHB Curtain Cleaning`,
     description: `Professional on-site curtain cleaning in ${area.suburb}, ${area.region}. ${area.painPoint} No removal, no shrinkage. Free assessment.`,
     alternates: { canonical: `/areas/${area.slug}` },
+    openGraph: {
+      title: `Curtain Cleaning ${area.suburb} | JHB Curtain Cleaning`,
+      description: `Professional on-site curtain cleaning in ${area.suburb}, ${area.region}.`,
+      images: [{ url: ogImage, width: 1344, height: 768, alt: `Curtain cleaning in ${area.suburb}, ${area.region}` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Curtain Cleaning ${area.suburb}`,
+      images: [ogImage],
+    },
   };
 }
 
@@ -56,14 +68,29 @@ export default async function AreaPage({ params }: Params) {
             <ChevronRight className="h-3.5 w-3.5" />
             <span className="text-foreground">{area.region}</span>
           </nav>
-          <Badge variant="secondary" className="mt-6 gap-1.5"><MapPin className="h-3.5 w-3.5" /> {area.region}</Badge>
-          <h1 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-            Curtain Cleaning {area.suburb}
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-muted-foreground">{area.painPoint}</p>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg"><Link href="/contact">Get a Free Quote <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
-            <Button asChild size="lg" variant="outline"><a href={`tel:${siteConfig.phone}`}><Phone className="mr-2 h-4 w-4" /> {siteConfig.phoneDisplay}</a></Button>
+          <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-2xl">
+              <Badge variant="secondary" className="gap-1.5"><MapPin className="h-3.5 w-3.5" /> {area.region}</Badge>
+              <h1 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+                Curtain Cleaning {area.suburb}
+              </h1>
+              <p className="mt-4 max-w-2xl text-lg text-muted-foreground">{area.painPoint}</p>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <Button asChild size="lg"><Link href="/contact">Get a Free Quote <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+                <Button asChild size="lg" variant="outline"><a href={`tel:${siteConfig.phone}`}><Phone className="mr-2 h-4 w-4" /> {siteConfig.phoneDisplay}</a></Button>
+              </div>
+            </div>
+            {/* Area cover image */}
+            <div className="relative aspect-[4/3] w-full max-w-sm overflow-hidden rounded-2xl border border-border shadow-lg lg:w-80">
+              <Image
+                src={`/areas/${area.slug}.jpg`}
+                alt={`Curtain cleaning in ${area.suburb}, ${area.region}`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 320px"
+                priority
+              />
+            </div>
           </div>
         </div>
       </section>

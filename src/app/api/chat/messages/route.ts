@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { toErrorResponse, ValidationError, NotFoundError } from "@/lib/errors";
+import { notify } from "@/lib/notify";
 
 const saveSchema = z.object({
   roomId: z.string().min(1),
@@ -83,6 +84,15 @@ export async function PUT(req: Request) {
         status: "waiting",
       },
     });
+
+    // Notify admin of new waiting chat
+    await notify({
+      type: "chat",
+      title: `New chat from ${visitorName}`,
+      message: `${visitorName} started a live chat${subject ? ` about: ${subject}` : ""}. They're waiting for a response.`,
+      link: "/admin/chat",
+    });
+
     return NextResponse.json({ room }, { status: 201 });
   } catch (err) {
     const e = toErrorResponse(err);

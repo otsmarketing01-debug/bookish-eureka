@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ArrowRight, ChevronRight, Phone, CheckCircle2 } from "lucide-react";
@@ -20,10 +21,21 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const sector = getSector(slug);
   if (!sector) return { title: "Sector not found" };
+  const ogImage = `/sectors/${sector.slug}.jpg`;
   return {
     title: `${sector.name} Curtain Cleaning Johannesburg | JHB Curtain Cleaning`,
     description: `${sector.value} Specialist on-site curtain cleaning for ${sector.name.toLowerCase()} in Johannesburg.`,
     alternates: { canonical: `/sectors/${sector.slug}` },
+    openGraph: {
+      title: `${sector.name} Curtain Cleaning Johannesburg | JHB Curtain Cleaning`,
+      description: sector.value,
+      images: [{ url: ogImage, width: 1344, height: 768, alt: `${sector.name} curtain cleaning in Johannesburg` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${sector.name} Curtain Cleaning Johannesburg`,
+      images: [ogImage],
+    },
   };
 }
 
@@ -56,19 +68,34 @@ export default async function SectorPage({ params }: Params) {
             <ChevronRight className="h-3.5 w-3.5" />
             <span className="text-foreground">{sector.name}</span>
           </nav>
-          <div className="mt-6 flex items-center gap-4">
-            <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-sm">
-              <Icon name={sector.icon} className="h-8 w-8" />
-            </span>
-            <Badge variant="secondary">Sector</Badge>
-          </div>
-          <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-            {sector.name} Curtain Cleaning Johannesburg
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-muted-foreground">{sector.value}</p>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg"><Link href="/contact">Get a Free Quote <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
-            <Button asChild size="lg" variant="outline"><a href={`tel:${siteConfig.phone}`}><Phone className="mr-2 h-4 w-4" /> {siteConfig.phoneDisplay}</a></Button>
+          <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-4">
+                <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-sm">
+                  <Icon name={sector.icon} className="h-8 w-8" />
+                </span>
+                <Badge variant="secondary">Sector</Badge>
+              </div>
+              <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+                {sector.name} Curtain Cleaning Johannesburg
+              </h1>
+              <p className="mt-4 max-w-2xl text-lg text-muted-foreground">{sector.value}</p>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <Button asChild size="lg"><Link href="/contact">Get a Free Quote <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+                <Button asChild size="lg" variant="outline"><a href={`tel:${siteConfig.phone}`}><Phone className="mr-2 h-4 w-4" /> {siteConfig.phoneDisplay}</a></Button>
+              </div>
+            </div>
+            {/* Sector cover image */}
+            <div className="relative aspect-[4/3] w-full max-w-sm overflow-hidden rounded-2xl border border-border shadow-lg lg:w-80">
+              <Image
+                src={`/sectors/${sector.slug}.jpg`}
+                alt={`${sector.name} curtain cleaning in Johannesburg`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 320px"
+                priority
+              />
+            </div>
           </div>
         </div>
       </section>

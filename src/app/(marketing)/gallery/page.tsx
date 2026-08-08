@@ -8,6 +8,7 @@ import { Reveal } from "@/components/site/reveal";
 import { BeforeAfterSlider } from "@/components/site/before-after-slider";
 import { siteConfig } from "@/lib/config";
 import { breadcrumbSchema } from "@/lib/seo";
+import { getPublishedGallery } from "@/lib/gallery";
 
 export const metadata: Metadata = {
   title: "Before & After Gallery — Curtain Cleaning Results | JHB Curtain Cleaning",
@@ -32,7 +33,7 @@ type Showcase = {
   description: string;
 };
 
-const showcases: Showcase[] = [
+const staticShowcases: Showcase[] = [
   {
     id: "curtains-1",
     beforeSrc: "/gallery/curtains-1-before.jpg",
@@ -68,7 +69,23 @@ const showcases: Showcase[] = [
   },
 ];
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
+  // Load DB-managed showcases; fall back to static defaults if none exist
+  const dbItems = await getPublishedGallery();
+  const showcases = dbItems.length > 0
+    ? dbItems.map((i) => ({
+        id: i.id,
+        beforeSrc: i.beforeImage,
+        afterSrc: i.afterImage,
+        beforeAlt: `${i.title} — before professional cleaning in ${i.location}`,
+        afterAlt: `${i.title} — after professional cleaning in ${i.location}`,
+        title: i.title,
+        location: i.location,
+        service: i.service,
+        description: i.description,
+      }))
+    : staticShowcases;
+
   return (
     <>
       <script

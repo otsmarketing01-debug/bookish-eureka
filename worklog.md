@@ -281,3 +281,56 @@ Unresolved issues / risks / next-phase priorities:
 - .env integrity guard still recommended (AUTH_SECRET was wiped once).
 - Cookie consent banner (POPIA) not yet implemented — popup mentions POPIA but no consent banner exists.
 - Consider a "before/after" upload feature in admin so real customer photos can be added to the gallery.
+
+---
+Task ID: 7 (next phase — area/sector images, notifications, POPIA, gallery admin)
+Agent: Z.ai Code (webDevReview cron)
+Task: Proceed with all four next-phase priorities: area/sector cover images, admin email notifications, POPIA consent banner, admin gallery upload.
+
+Work Log:
+- NEW FEATURE: Area/sector cover images (12 images).
+  - Generated 6 area images (jhb-north/east/south/west/central, pretoria-midrand) + 6 sector images (hotels, corporate, healthcare, education, theatres, residential) via z-ai CLI at 1344x768. Each depicts the location/sector context (e.g. leafy Sandton, mining-belt Roodepoort, hotel lobby, theatre stage).
+  - Wired into area + sector page heroes: 4:3 rounded image card beside the title, priority loaded, descriptive alt text.
+  - Added per-page OG image metadata (openGraph.images + twitter.images with width/height/alt) on all 12 pages.
+  - Verified: all 6 area pages + 6 sector pages render 1 cover image each.
+
+- NEW FEATURE: Admin notifications (in-app bell + API, architected for email).
+  - Prisma model `AdminNotification` (type, title, message, link, read, createdAt) + db push.
+  - `src/lib/notify.ts` helper: persists to DB, best-effort (never fails parent request), with TODO hook for real email dispatch.
+  - Wired into contact API (`type: "lead"`) and chat room creation API (`type: "chat"`): every new lead/waiting chat creates a notification.
+  - API: `GET /api/notifications` (list, unread-first) + `POST /api/notifications/read?id=` (mark all or one read).
+  - `NotificationBell` component in admin sidebar: bell icon with unread count badge, dropdown panel with type-colored icons (lead=success, chat=warning, newsletter=info), "Mark all read" button, 30s polling, click-through links to relevant admin section.
+  - Verified: submitted contact form → admin bell shows "1" unread → opens dropdown showing "New lead from Notification Test" → links to /admin/leads.
+
+- NEW FEATURE: POPIA cookie consent banner (`src/components/site/cookie-consent.tsx`).
+  - Bottom-center card with Cookie icon, POPIA explanation, privacy-policy link, 3 actions: "Accept all" (analytics), "Essential only", dismiss (X).
+  - Consent stored in localStorage with version (`jhb_popia_consent`, v1.0) — re-shows if version changes.
+  - 2.5s delay on first paint to avoid clashing with the newsletter popup.
+  - Wired into root layout (shows on all routes incl. admin/auth).
+  - Verified: banner appears after clearing consent → "Accept all" → banner hides + consent persisted with version+analytics+timestamp.
+
+- NEW FEATURE: Admin gallery upload (full CRUD with image upload).
+  - Prisma model `GalleryShowcase` (title, location, service, description, beforeImage, afterImage, sortOrder, published) + db push.
+  - `POST /api/admin/upload`: multipart image upload (JPEG/PNG/WebP, max 6MB), saves to public/gallery/uploads/ with random hex filename.
+  - `GET/POST /api/admin/gallery` (admin list + create) + `PATCH/DELETE /api/admin/gallery/[id]` (toggle published, delete).
+  - `src/lib/gallery.ts` data-access: `getPublishedGallery()`.
+  - Public gallery page now async: reads DB showcases first, falls back to 3 static defaults if DB empty. Admin-created items replace the static ones.
+  - Admin gallery page (`/admin/gallery`): create form with ImageUploadField components (click-to-upload + URL paste fallback + live BeforeAfterSlider preview), list with toggle-publish/delete, "Add showcase" toggle.
+  - Added "Gallery" to admin sidebar nav (Images icon).
+  - Verified: created "Admin-Uploaded Test Showcase" via the form → "Showcase added" toast → appears in admin list (1 item) → public gallery now shows the admin item instead of static defaults.
+
+- Lint passes clean (0 errors). All routes return 200 (admin routes 307 redirect correctly).
+
+Stage Summary:
+- 4 next-phase features shipped: area/sector cover images (12), admin notifications (bell + API + wired into lead/chat), POPIA consent banner, admin gallery upload (full CRUD + image upload).
+- All verified end-to-end via agent-browser: 12 area/sector pages render images, notification bell shows new leads, POPIA banner accepts/persists, gallery admin create → public display verified.
+- Total AI-generated images now: 1 hero + 1 OG + 5 blog covers + 6 service covers + 6 gallery before/after + 5 blog OG + 6 area + 6 sector = 36 images.
+- Admin now has 9 sections: dashboard, leads, chat, blog, blog-editor, gallery, newsletter, notifications-bell.
+
+Unresolved issues / risks / next-phase priorities:
+- Real email dispatch not yet wired (notify() has a TODO for SMTP/SendGrid). In-app bell works; architecture is ready to plug in email.
+- .env integrity guard still recommended (AUTH_SECRET was wiped once).
+- Consider adding image-alt-text audit for accessibility.
+- Consider a "Book online" calendar/scheduling feature (next major feature).
+- Consider adding a FAQ page (consolidating all service FAQs) for SEO.
+- The residential sector image was the last to generate; verify it renders if QA shows issues.

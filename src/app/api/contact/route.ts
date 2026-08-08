@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { enforceRateLimit, clientKey } from "@/lib/rate-limit";
 import { toErrorResponse, ValidationError } from "@/lib/errors";
+import { notify } from "@/lib/notify";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Please enter your name").max(100),
@@ -35,6 +36,14 @@ export async function POST(req: Request) {
         area: data.area || null,
         message: data.message,
       },
+    });
+
+    // Notify admin of new lead
+    await notify({
+      type: "lead",
+      title: `New lead from ${data.name}`,
+      message: `${data.name} (${data.email}) requested a quote${data.service ? ` for ${data.service}` : ""}${data.area ? ` in ${data.area}` : ""}.`,
+      link: "/admin/leads",
     });
 
     return NextResponse.json(
