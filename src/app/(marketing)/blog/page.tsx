@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/site/reveal";
+import { BlogSearch } from "@/components/site/blog-search";
 import { getPublishedPosts, getCategories } from "@/lib/blog";
 import { siteConfig } from "@/lib/config";
 import { formatDate } from "@/lib/format";
@@ -39,15 +40,18 @@ export default async function BlogPage() {
           </div>
         </Reveal>
 
-        {/* Categories */}
+        {/* Categories + Search */}
         {categories.length > 0 && (
           <Reveal delay={0.1}>
-            <div className="mt-8 flex flex-wrap justify-center gap-2">
-              {categories.map((c) => (
-                <Badge key={c.name} variant="outline" className="px-3 py-1">
-                  {c.name} <span className="ml-1 text-muted-foreground">({c.count})</span>
-                </Badge>
-              ))}
+            <div className="mt-8 flex flex-col items-center gap-4">
+              <BlogSearch />
+              <div className="flex flex-wrap justify-center gap-2">
+                {categories.map((c) => (
+                  <Badge key={c.name} variant="outline" className="px-3 py-1">
+                    {c.name} <span className="ml-1 text-muted-foreground">({c.count})</span>
+                  </Badge>
+                ))}
+              </div>
             </div>
           </Reveal>
         )}

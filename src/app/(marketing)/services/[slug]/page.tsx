@@ -12,8 +12,10 @@ import { ContactForm } from "@/components/site/contact-form";
 import { Reveal } from "@/components/site/reveal";
 import { ServiceAreaLinks } from "@/components/site/service-area-links";
 import { SectorServiceLinks } from "@/components/site/service-sector-links";
+import { ServiceBlogPosts } from "@/components/site/service-blog-posts";
 import { services, getService, siteConfig } from "@/lib/config";
-import { serviceSchema, faqSchema, breadcrumbSchema } from "@/lib/seo";
+import { serviceWithReviewsSchema, faqSchema, breadcrumbSchema } from "@/lib/seo";
+import { getApprovedReviewsByService } from "@/lib/reviews";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -51,9 +53,20 @@ export default async function ServicePage({ params }: Params) {
 
   const offers = service.features.slice(0, 3).map((f) => ({ name: f, price: service.priceFrom }));
 
+  // Fetch service-specific approved reviews for the schema + display
+  const serviceReviews = await getApprovedReviewsByService(service.name, 10);
+  const reviewsForSchema = serviceReviews.map((r) => ({
+    name: r.name,
+    rating: r.rating,
+    title: r.title,
+    body: r.body,
+    service: r.service,
+    createdAt: r.createdAt,
+  }));
+
   return (
     <div>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema(service.name, service.description, service.priceFrom, offers)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceWithReviewsSchema({ name: service.name, description: service.description, priceFrom: service.priceFrom, offers }, reviewsForSchema)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(service.faqs)) }} />
       <script
         type="application/ld+json"
@@ -150,12 +163,17 @@ export default async function ServicePage({ params }: Params) {
         </div>
       </section>
 
-      {/* Sectors we serve */}
+      {/* Sectors we serve + related articles */}
       <section className="bg-muted/30 py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <SectorServiceLinks />
-          </Reveal>
+          <div className="grid gap-6 lg:grid-cols-2">
+            <Reveal>
+              <SectorServiceLinks />
+            </Reveal>
+            <Reveal delay={0.1}>
+              <ServiceBlogPosts serviceName={service.name} serviceFeatures={service.features} />
+            </Reveal>
+          </div>
         </div>
       </section>
 

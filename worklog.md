@@ -572,3 +572,44 @@ Unresolved issues / risks / next-phase priorities:
 - Consider adding AggregateRating schema to service pages (currently only homepage + testimonials).
 - Consider a "Related blog posts" widget on service pages (reverse cross-linking services → blog).
 - Consider adding a search feature for blog posts.
+
+---
+Task ID: 13 (next phase — service schema, service blog widget, blog search)
+Agent: Z.ai Code (webDevReview cron)
+Task: Proceed with next-phase priorities: AggregateRating schema on service pages, related-blog-posts widget on service pages, blog search feature.
+
+Work Log:
+- NEW FEATURE: AggregateRating schema on service pages.
+  - `serviceWithReviewsSchema()` in `src/lib/seo.ts`: enhances the base Service schema with AggregateRating + embedded Review items. If service-specific reviews exist, uses those (weighted by actual ratings); otherwise falls back to site-wide aggregate rating (4.9/5000+).
+  - `getApprovedReviewsByService()` in `src/lib/reviews.ts`: fetches approved reviews matching a specific service name.
+  - Service page now async: fetches service-specific reviews, emits `serviceWithReviewsSchema` instead of plain `serviceSchema`.
+  - Verified: curtain-blind-cleaning page has Service schema with AggregateRating (ratingValue=5.0, reviewCount=2) + 2 embedded review items (both approved reviews were for "Curtain & Blind Cleaning"). Eligible for Google service-rich results.
+
+- NEW FEATURE: Related-blog-posts widget on service pages (`src/components/site/service-blog-posts.tsx`).
+  - `getPostsByServiceMatch()` in `src/lib/blog.ts`: scoring algorithm matching service name + features against blog post title/excerpt/tags/category. Returns up to 3 best-matching posts.
+  - `ServiceBlogPosts` server component: card showing "Related articles" with matched posts (category, reading time, title, excerpt) + "Browse all articles" link.
+  - Wired into service page: new 2-column layout in the "Sectors we serve" section — sectors on left, related articles on right.
+  - Verified: curtain-blind-cleaning page shows "Related articles" with 3 blog post links.
+
+- NEW FEATURE: Blog search feature (full stack).
+  - `searchPosts()` in `src/lib/blog.ts`: weighted scoring search across title (5pts), excerpt (3pts), tags (3pts), category (2pts), and full haystack (1pt). Returns ranked results.
+  - `GET /api/blog/search?q=...` API: public endpoint returning matching posts.
+  - `BlogSearch` client component: debounced search (300ms) with dropdown results panel, result count, post previews, loading state, clear button, click-outside-to-close.
+  - Added to blog index page above the category chips.
+  - Verified: "shrinkage" → 2 results (on-site process + dry-vs-wet). API tests: "cost" → 2 results, "allergen" → 2 results, "xyznomatch" → 0 results. Search UI shows dropdown with result previews.
+
+- Lint passes clean (0 errors). All routes return 200.
+
+Stage Summary:
+- 3 features shipped: service-page AggregateRating schema (service-specific reviews), related-blog-posts widget (topic-matched cross-linking services → blog), blog search (full-text weighted search with live UI).
+- Service pages now emit Service+AggregateRating+Review schema — eligible for Google rich results with service-specific star ratings.
+- Service pages now cross-link to relevant blog posts (reverse of blog → services linking), completing bidirectional blog ↔ services linking.
+- Blog index now has a live search with debounced results — users can find articles by keyword instantly.
+- Lint clean, all routes 200.
+
+Unresolved issues / risks / next-phase priorities:
+- Real SMTP not configured (emails log as "logged"). Code is ready — set SMTP_* env vars + `bun add nodemailer`.
+- .env integrity guard still recommended.
+- Consider adding the blog search to the homepage or a dedicated search page.
+- Consider adding service-specific review display on service pages (currently schema-only; could show visible review cards).
+- Consider adding a "popular searches" or search suggestions feature.

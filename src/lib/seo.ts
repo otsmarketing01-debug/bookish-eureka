@@ -78,6 +78,65 @@ export function serviceSchema(name: string, description: string, priceFrom: stri
   };
 }
 
+/**
+ * Service schema with AggregateRating and embedded reviews.
+ * If there are service-specific reviews, uses those; otherwise falls back
+ * to the site-wide aggregate rating.
+ */
+export function serviceWithReviewsSchema(
+  service: { name: string; description: string; priceFrom: string; offers: { name: string; price: string }[] },
+  reviews: { name: string; rating: number; title: string; body: string; service: string; createdAt: string | Date }[]
+) {
+  const base = serviceSchema(service.name, service.description, service.priceFrom, service.offers);
+  const provider = base.provider as { "@type": string; name: string };
+
+  if (reviews.length > 0) {
+    // Build aggregate from service-specific reviews
+    const avg = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+    return {
+      ...base,
+      provider: {
+        ...provider,
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: avg.toFixed(1),
+          reviewCount: String(reviews.length),
+          bestRating: "5",
+          worstRating: "1",
+        },
+      },
+      review: reviews.slice(0, 10).map((r) => ({
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: String(r.rating),
+          bestRating: "5",
+          worstRating: "1",
+        },
+        author: { "@type": "Person", name: r.name },
+        datePublished: new Date(r.createdAt).toISOString(),
+        name: r.title,
+        reviewBody: r.body,
+      })),
+    };
+  }
+
+  // No service-specific reviews — use site-wide aggregate rating on the provider
+  return {
+    ...base,
+    provider: {
+      ...provider,
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: siteConfig.rating.value,
+        reviewCount: String(siteConfig.rating.count),
+        bestRating: "5",
+        worstRating: "1",
+      },
+    },
+  };
+}
+
 export function faqSchema(faqs: { q: string; a: string }[]) {
   return {
     "@context": "https://schema.org",
