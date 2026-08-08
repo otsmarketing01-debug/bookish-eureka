@@ -61,6 +61,7 @@ export type ServiceItem = {
   priceFrom: string;
   features: string[];
   faqs: { q: string; a: string }[];
+  answerBlock?: string;
 };
 
 export const services: ServiceItem[] = [
@@ -86,6 +87,8 @@ export const services: ServiceItem[] = [
       { q: "Do I need to take my curtains down?", a: "No. We clean your curtains exactly where they hang." },
       { q: "What about blackout lining?", a: "Blackout-lined curtains are safely cleaned on-site." },
     ],
+    answerBlock:
+      "On-site curtain and blind dry cleaning by JHB Curtain Cleaning uses mobile solvent extraction to clean drapes, sheers, voiles, and blinds directly on their rails without removal across Johannesburg. The waterless process dissolves embedded Highveld dust and allergens while eliminating shrinkage risks entirely. Service takes 1 to 3 hours per property with curtains dry and usable immediately.",
   },
   {
     slug: "mattress-sanitisation",
@@ -107,6 +110,8 @@ export const services: ServiceItem[] = [
       { q: "How often should I sanitise my mattress?", a: "Every 6 months for regular use, or quarterly for allergy sufferers." },
       { q: "Is it safe for babies?", a: "Yes, our process uses eco-friendly, non-toxic products safe for the whole family." },
     ],
+    answerBlock:
+      "Mattress sanitisation by JHB Curtain Cleaning uses deep extraction and UV treatment to eliminate dust mites, bacteria, and allergens from mattresses across Johannesburg. The process is safe for children and pets, uses eco-friendly non-toxic products, and takes 30 to 60 minutes per mattress. Same-day service available with the mattress usable immediately after treatment.",
   },
   {
     slug: "upholstery-carpet-cleaning",
@@ -127,6 +132,8 @@ export const services: ServiceItem[] = [
     faqs: [
       { q: "How long until carpets are dry?", a: "Typically 4–6 hours with our low-moisture extraction method." },
     ],
+    answerBlock:
+      "Upholstery and carpet cleaning by JHB Curtain Cleaning uses deep extraction to lift embedded dirt, stains, and allergens from couches, chairs, and carpets across Johannesburg. The low-moisture method ensures fast 4 to 6 hour drying time. Safe for all fabric types including delicate weaves, with rooms usable the same day.",
   },
   {
     slug: "master-guarding",
@@ -147,6 +154,8 @@ export const services: ServiceItem[] = [
     faqs: [
       { q: "Is Master Guarding worth it?", a: "Yes — it dramatically reduces staining and extends the time between professional cleans, saving money long-term." },
     ],
+    answerBlock:
+      "Master Guarding by JHB Curtain Cleaning applies an invisible, breathable stain-repellent shield to curtains, upholstery, and carpets across Johannesburg. The treatment repels oil and water-based stains for 12 months, does not alter fabric feel or appearance, and reduces future cleaning frequency. Application takes 15 to 30 minutes per item.",
   },
   {
     slug: "fire-proofing",
@@ -167,6 +176,8 @@ export const services: ServiceItem[] = [
     faqs: [
       { q: "Do I need a fire certificate?", a: "Commercial venues with curtains generally require fire-retardant certification under SANS 10400. We provide documentation." },
     ],
+    answerBlock:
+      "Fire proofing by JHB Curtain Cleaning applies SANS 10400 compliant fire-retardant treatment to commercial curtains and stage drapes across Johannesburg. The treatment does not alter fabric appearance, includes certification documentation, and is suitable for theatres, hotels, and venues. Annual re-treatment is available for continued compliance.",
   },
   {
     slug: "rug-care",
@@ -187,6 +198,8 @@ export const services: ServiceItem[] = [
     faqs: [
       { q: "Will my rug's colours run?", a: "No. We test dyes before cleaning and use fibre-specific, colour-safe methods." },
     ],
+    answerBlock:
+      "Persian and Oriental rug cleaning by JHB Curtain Cleaning uses gentle, fibre-specific hand-cleaning that preserves natural dyes across Johannesburg. The process includes dye testing, fringe cleaning, and pet odour removal with pickup and delivery available. Safe for hand-woven, silk, and wool rugs with colours protected throughout.",
   },
 ];
 

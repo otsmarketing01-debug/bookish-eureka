@@ -119,6 +119,12 @@ export default async function BlogPostPage({ params }: Params) {
           </div>
         )}
 
+        {/* AEO Answer Block — extractable summary for AI search engines */}
+        <div className="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-5">
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary">Quick Answer</p>
+          <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{post.excerpt}</p>
+        </div>
+
         {/* Content */}
         <div className="mt-8">
           <Markdown content={post.content} />

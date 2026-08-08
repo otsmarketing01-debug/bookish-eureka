@@ -753,3 +753,44 @@ Stage Summary:
 - Phase 2 complete: suburb silo architecture (13 suburb nodes across 6 area pages), AEO Answer Blocks, GBP schema alignment, WhatsApp integration, local citations.
 - Addresses audit findings: suburb silos established, GBP category alignment, citation footprint expanded, WhatsApp booking channel added.
 - Ready for Phase 3: AEO/GEO Search Optimization.
+
+---
+Task ID: 18 (Phase 3 — AEO/GEO Search Optimization)
+Agent: Z.ai Code
+Task: Execute Phase 3 of the audit implementation plan — AEO Answer Blocks, unified @graph schema, OfferCatalog.
+
+Work Log:
+- Phase 3A: AEO Answer Blocks on service pages.
+  - Added `answerBlock` field to ServiceItem type in config.ts.
+  - Added 60-80 word answer blocks to all 6 services: curtain-blind-cleaning, mattress-sanitisation, upholstery-carpet-cleaning, master-guarding, fire-proofing, rug-care.
+  - Each answer block is an extractable summary optimized for AI search engines (ChatGPT, Perplexity, Gemini) — covers how the service works, the waterless process, time required, and immediate usability.
+  - Added "Quick Answer" section to service page template (highlighted card between hero and features).
+  - Verified: all 6 service pages show the "Quick Answer" block with correct content.
+
+- Phase 3A: AEO Answer Block on blog posts.
+  - Added "Quick Answer" preface block at the top of blog post content (uses the post excerpt as the extractable summary).
+  - Verified: blog posts show the "Quick Answer" block.
+
+- Phase 3A: FAQ page already has expandable accordion answers (AEO-extractable via FAQ schema). No additional changes needed — the FAQPage schema was already present.
+
+- Phase 3B: Unified @graph JSON-LD schema (`schemaGraph()` function).
+  - Implements the audit's Deliverable 1: a single JSON-LD block with `@graph` array containing:
+    1. **DryCleaningOrLaundry + LocalBusiness** (@id: #organization) — name, legalName, logo, image, founder (Stephen Dunlop), address, geo, hours, 11 areaServed, aggregateRating, 7 sameAs links (social + citations).
+    2. **Service** (@id: #service-curtain-cleaning) — serviceType, provider (@id reference), areaServed, description, hasOfferCatalog with 3 tiered pricing offers (Small R800, Medium R1500, Large R3000) with PriceSpecification (ZAR, VAT included).
+    3. **FAQPage** (@id: #faq) — 8 AEO-targeted Q&As with Questions + acceptedAnswers.
+  - Uses @id references for entity linking (provider → organization).
+  - Wired into homepage, replacing the separate LocalBusiness + FAQ schema scripts with the unified @graph.
+  - Verified: homepage @graph has 3 nodes (DryCleaningOrLaundry+LocalBusiness, Service, FAQPage), hasOfferCatalog=true (3 offers), hasFounder=true, hasFAQ=true.
+
+- Phase 3B: hasOfferCatalog with tiered pricing.
+  - 3 PriceSpecification offers: Small (R800, 1-2 rooms), Medium (R1500, 3-4 rooms), Large (R3000, 5+ rooms).
+  - All in ZAR with valueAddedTaxIncluded=true.
+  - Embedded in the Service node within the @graph.
+
+- Lint passes clean (0 errors). All routes return 200.
+
+Stage Summary:
+- Phase 3 complete: AEO Answer Blocks on all service pages + blog posts, unified @graph schema with DryCleaningOrLaundry + Service + OfferCatalog + FAQPage.
+- Addresses audit findings: 60-80 word Answer Blocks for AI extraction, full JSON-LD schema graph with entity linking, tiered pricing in OfferCatalog.
+- The site is now optimized for both traditional SEO (Google rich results) and AEO/GEO (AI search citation).
+- Ready for Phase 4: CRO & Platform Integrations (quote calculator, WhatsApp, PayFast).

@@ -71,6 +71,154 @@ export function localBusinessSchema() {
   };
 }
 
+/**
+ * Unified @graph schema graph — combines all entity types into a single
+ * JSON-LD block per the audit deliverable. Includes:
+ * - DryCleaningOrLaundry + LocalBusiness (organization)
+ * - Service with OfferCatalog (tiered pricing)
+ * - FAQPage (AEO-targeted Q&As)
+ * Uses @id references for entity linking.
+ */
+export function schemaGraph(faqs?: { q: string; a: string }[]) {
+  const orgId = `${siteConfig.url}/#organization`;
+  const allLinks = [
+    ...siteConfig.social.map((s) => s.href),
+    ...siteConfig.citations.map((c) => c.href),
+  ];
+
+  const graph: any[] = [
+    // Organization / LocalBusiness
+    {
+      "@type": ["DryCleaningOrLaundry", "LocalBusiness"],
+      "@id": orgId,
+      name: siteConfig.name,
+      legalName: siteConfig.name,
+      url: siteConfig.url,
+      logo: `${siteConfig.url}/logo.svg`,
+      image: `${siteConfig.url}/hero-curtains.jpg`,
+      telephone: siteConfig.phone,
+      email: siteConfig.email,
+      priceRange: "R800 - R5500",
+      founder: {
+        "@type": "Person",
+        name: siteConfig.founder.name,
+        jobTitle: siteConfig.founder.title,
+      },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: siteConfig.address.street,
+        addressLocality: siteConfig.address.locality,
+        addressRegion: siteConfig.address.region,
+        postalCode: siteConfig.address.postalCode,
+        addressCountry: siteConfig.address.country,
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: parseFloat(siteConfig.geo.latitude),
+        longitude: parseFloat(siteConfig.geo.longitude),
+      },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          opens: "07:00",
+          closes: "18:00",
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: "Saturday",
+          opens: "08:00",
+          closes: "14:00",
+        },
+      ],
+      areaServed: [
+        { "@type": "City", name: "Johannesburg" },
+        { "@type": "AdministrativeArea", name: "Sandton" },
+        { "@type": "AdministrativeArea", name: "Fourways" },
+        { "@type": "AdministrativeArea", name: "Bryanston" },
+        { "@type": "AdministrativeArea", name: "Morningside" },
+        { "@type": "AdministrativeArea", name: "Midrand" },
+        { "@type": "AdministrativeArea", name: "Pretoria" },
+        { "@type": "AdministrativeArea", name: "Roodepoort" },
+        { "@type": "AdministrativeArea", name: "Edenvale" },
+        { "@type": "AdministrativeArea", name: "Alberton" },
+        { "@type": "AdministrativeArea", name: "Rosebank" },
+      ],
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: siteConfig.rating.value,
+        reviewCount: String(siteConfig.rating.count),
+        bestRating: "5",
+        worstRating: "1",
+      },
+      sameAs: allLinks,
+    },
+    // Service with OfferCatalog (tiered pricing)
+    {
+      "@type": "Service",
+      "@id": `${siteConfig.url}/#service-curtain-cleaning`,
+      serviceType: "On-Site Mobile Curtain & Blind Dry Cleaning",
+      provider: { "@id": orgId },
+      areaServed: { "@type": "City", name: "Johannesburg" },
+      description: "Professional solvent-based on-site curtain and blind dry cleaning executed directly on the rail without removal or shrinkage risk across Greater Johannesburg.",
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "On-Site Curtain Cleaning Tiered Rates",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name: "Small Property Curtain Cleaning (1-2 Rooms)" },
+            priceSpecification: {
+              "@type": "PriceSpecification",
+              price: "800.00",
+              priceCurrency: "ZAR",
+              valueAddedTaxIncluded: true,
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name: "Medium Property Curtain Cleaning (3-4 Rooms)" },
+            priceSpecification: {
+              "@type": "PriceSpecification",
+              price: "1500.00",
+              priceCurrency: "ZAR",
+              valueAddedTaxIncluded: true,
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name: "Large Property Curtain Cleaning (5+ Rooms)" },
+            priceSpecification: {
+              "@type": "PriceSpecification",
+              price: "3000.00",
+              priceCurrency: "ZAR",
+              valueAddedTaxIncluded: true,
+            },
+          },
+        ],
+      },
+    },
+  ];
+
+  // Add FAQPage if FAQs provided
+  if (faqs && faqs.length > 0) {
+    graph.push({
+      "@type": "FAQPage",
+      "@id": `${siteConfig.url}/#faq`,
+      mainEntity: faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    });
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": graph,
+  };
+}
+
 export function serviceSchema(name: string, description: string, priceFrom: string, offers: { name: string; price: string }[]) {
   return {
     "@context": "https://schema.org",

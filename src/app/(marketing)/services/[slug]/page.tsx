@@ -123,6 +123,22 @@ export default async function ServicePage({ params }: Params) {
         </div>
       </section>
 
+      {/* AEO Answer Block */}
+      {service.answerBlock && (
+        <section className="py-10 sm:py-14">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <Reveal>
+              <div className="rounded-xl border border-primary/20 bg-primary/5 p-6">
+                <h2 className="flex items-center gap-2 text-lg font-semibold">
+                  <CheckCircle2 className="h-5 w-5 text-primary" /> Quick Answer
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{service.answerBlock}</p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      )}
+
       {/* Features */}
       <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

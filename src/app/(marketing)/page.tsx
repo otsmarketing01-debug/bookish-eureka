@@ -8,7 +8,7 @@ import { Reveal } from "@/components/site/reveal";
 import { ContactForm } from "@/components/site/contact-form";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { services, areas, sectors, processSteps, testimonials, siteConfig } from "@/lib/config";
-import { localBusinessSchema, howToSchema, faqSchema, breadcrumbSchema, aggregateReviewSchema } from "@/lib/seo";
+import { localBusinessSchema, howToSchema, faqSchema, breadcrumbSchema, aggregateReviewSchema, schemaGraph } from "@/lib/seo";
 import { AnimatedCounter } from "@/components/site/animated-counter";
 import { HomepageReviews } from "@/components/site/homepage-reviews";
 import { HomepageSearch } from "@/components/site/homepage-search";
@@ -41,21 +41,23 @@ export default async function HomePage() {
 
   return (
     <>
+      {/* Unified @graph schema: DryCleaningOrLaundry + Service + OfferCatalog + FAQPage */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateReviewSchema(reviewsForSchema)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph(homeFaqs)) }}
       />
+      {/* Additional schemas: HowTo + Breadcrumb + Aggregate reviews */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema()) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(homeFaqs)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Home", url: siteConfig.url }])) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([{ name: "Home", url: siteConfig.url }])) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateReviewSchema(reviewsForSchema)) }}
       />
 
       {/* HERO */}
