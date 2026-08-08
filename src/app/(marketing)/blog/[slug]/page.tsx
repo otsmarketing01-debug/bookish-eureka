@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Markdown } from "@/components/site/markdown";
 import { ReadingProgress } from "@/components/site/reading-progress";
+import { BlogRelatedServices } from "@/components/site/blog-related-services";
 import { getPostBySlug, getRelatedPosts, getPublishedPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/config";
 import { articleSchema, breadcrumbSchema } from "@/lib/seo";
@@ -139,11 +140,11 @@ export default async function BlogPostPage({ params }: Params) {
             <div className="flex-1">
               <h3 className="text-lg font-semibold">Ready for spotless curtains?</h3>
               <p className="text-sm text-muted-foreground">
-                Get a free on-site assessment from Johannesburg's on-site specialists.
+                Book a free on-site assessment from Johannesburg's on-site specialists.
               </p>
             </div>
             <Button asChild className="shrink-0">
-              <Link href="/contact">Get a Free Quote <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href="/book">Book a Free Assessment <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           </CardContent>
         </Card>
@@ -155,25 +156,31 @@ export default async function BlogPostPage({ params }: Params) {
           </Button>
         </div>
 
-        {/* Related */}
-        {related.length > 0 && (
-          <section className="mt-14">
-            <h2 className="text-xl font-bold tracking-tight">Related articles</h2>
-            <div className="mt-5 grid gap-5 sm:grid-cols-3">
-              {related.map((r) => (
-                <Link key={r.slug} href={`/blog/${r.slug}`} className="group">
-                  <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-md">
-                    <CardContent className="p-5">
-                      <Badge variant="outline" className="text-xs">{r.category}</Badge>
-                      <h3 className="mt-2 font-medium leading-snug group-hover:text-primary">{r.title}</h3>
-                      <p className="mt-1.5 line-clamp-2 text-sm text-muted-foreground">{r.excerpt}</p>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
+        {/* Related services + articles */}
+        <section className="mt-14 grid gap-8 lg:grid-cols-3">
+          <div className="lg:col-span-1">
+            <h2 className="mb-4 text-xl font-bold tracking-tight">Related services</h2>
+            <BlogRelatedServices category={post.category} tags={post.tags} />
+          </div>
+          {related.length > 0 && (
+            <div className="lg:col-span-2">
+              <h2 className="mb-4 text-xl font-bold tracking-tight">Related articles</h2>
+              <div className="grid gap-5 sm:grid-cols-2">
+                {related.map((r) => (
+                  <Link key={r.slug} href={`/blog/${r.slug}`} className="group">
+                    <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-md">
+                      <CardContent className="p-5">
+                        <Badge variant="outline" className="text-xs">{r.category}</Badge>
+                        <h3 className="mt-2 font-medium leading-snug group-hover:text-primary">{r.title}</h3>
+                        <p className="mt-1.5 line-clamp-2 text-sm text-muted-foreground">{r.excerpt}</p>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </section>
-        )}
+          )}
+        </section>
       </div>
     </article>
   );

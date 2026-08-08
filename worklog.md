@@ -526,3 +526,49 @@ Unresolved issues / risks / next-phase priorities:
 - Consider adding AggregateRating schema to the homepage too (currently only on testimonials page).
 - Consider a "Related services" widget on blog posts (cross-linking blog → services).
 - Consider adding a sitemap index for very large sites (currently single sitemap.xml).
+
+---
+Task ID: 12 (next phase — homepage schema, blog services, sitemap index)
+Agent: Z.ai Code (webDevReview cron)
+Task: Proceed with next-phase priorities: AggregateRating schema on homepage, related-services widget on blog posts, sitemap index for scale.
+
+Work Log:
+- NEW FEATURE: AggregateRating schema on homepage.
+  - Homepage now async: fetches up to 10 approved customer reviews from DB.
+  - Replaced `localBusinessSchema()` with `aggregateReviewSchema(reviewsForSchema)` which embeds AggregateRating + up to 10 Review items in the LocalBusiness JSON-LD.
+  - Verified: homepage has LocalBusiness schema with ratingValue=4.9, reviewCount=5002 (5000 base + 2 customer reviews), 2 review items embedded. 4 total JSON-LD scripts (LocalBusiness+reviews, HowTo, FAQ, Breadcrumb). Eligible for Google star-rating rich results.
+
+- NEW FEATURE: Related-services widget on blog posts (`src/components/site/blog-related-services.tsx`).
+  - `matchServices(category, tags)`: scoring algorithm that matches blog post category + tags against service names, slug parts, and features. Returns up to 3 best-matching services. Falls back to first 3 services if no matches.
+  - `BlogRelatedServices` component: card showing "Related services" with matched service links (icon, name, price), "Matched by topic relevance" badge.
+  - Wired into blog post page: new 2-column layout — "Related services" (1 col) + "Related articles" (2 cols, now 2x2 grid instead of 3x1).
+  - Also updated blog post CTA from "Get a Free Quote" → "Book a Free Assessment" (links to /book for stronger conversion).
+  - Verified: costs post shows "Curtain & Blind", "Upholstery & Carpet", "Master Guarding" as related services (correctly matched by topic relevance).
+
+- NEW FEATURE: Sitemap index for scale.
+  - `src/app/sitemap.ts`: sitemap index referencing 5 sub-sitemaps with priorities.
+  - 5 sub-sitemaps (each a route handler returning XML with correct content-type + cache headers):
+    - `/sitemap-pages.xml` — 9 static pages (home, pricing, book, faq, testimonials, review, gallery, blog, contact)
+    - `/sitemap-services.xml` — 6 service pages
+    - `/sitemap-areas.xml` — 6 area pages
+    - `/sitemap-sectors.xml` — 6 sector pages
+    - `/sitemap-blog.xml` — 6 published blog posts (dynamic, with lastmod from updatedAt)
+  - BUG FOUND & FIXED: initially used `sitemap.ts` convention in `sitemap-*.xml/` directories, which Next.js treated as API routes returning 405. Fixed by using `route.ts` files that return XML via `Response` objects with proper content-type headers.
+  - robots.txt already references /sitemap.xml (the index).
+  - Verified: all 5 sub-sitemaps return 200 with valid XML, correct URL counts (pages=9, services=6, areas=6, sectors=6, blog=6).
+
+- Lint passes clean (0 errors). All routes return 200.
+
+Stage Summary:
+- 3 features shipped: homepage AggregateRating schema (rich search snippets), blog related-services widget (topic-matched cross-linking), sitemap index (5 sub-sitemaps for scalable crawling).
+- Homepage now eligible for Google star-rating + review rich results (LocalBusiness + AggregateRating + 2 embedded Reviews).
+- Blog posts now cross-link to relevant services (matched by category/tag scoring) — strengthens internal link architecture blog → services.
+- Sitemap now split into 5 sub-sitemaps — Google can crawl per-section, monitor indexation per content type, and handle scale as blog/services grow.
+- Lint clean, all routes 200.
+
+Unresolved issues / risks / next-phase priorities:
+- Real SMTP not configured (emails log as "logged"). Code is ready — set SMTP_* env vars + `bun add nodemailer`.
+- .env integrity guard still recommended.
+- Consider adding AggregateRating schema to service pages (currently only homepage + testimonials).
+- Consider a "Related blog posts" widget on service pages (reverse cross-linking services → blog).
+- Consider adding a search feature for blog posts.

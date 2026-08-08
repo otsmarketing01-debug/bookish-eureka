@@ -8,9 +8,10 @@ import { Reveal } from "@/components/site/reveal";
 import { ContactForm } from "@/components/site/contact-form";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { services, areas, sectors, processSteps, testimonials, siteConfig } from "@/lib/config";
-import { localBusinessSchema, howToSchema, faqSchema, breadcrumbSchema } from "@/lib/seo";
+import { localBusinessSchema, howToSchema, faqSchema, breadcrumbSchema, aggregateReviewSchema } from "@/lib/seo";
 import { AnimatedCounter } from "@/components/site/animated-counter";
 import { HomepageReviews } from "@/components/site/homepage-reviews";
+import { getApprovedReviews } from "@/lib/reviews";
 import Image from "next/image";
 
 const homeFaqs = [
@@ -24,12 +25,24 @@ const homeFaqs = [
   { q: "How do I get a quote?", a: "Call us or fill in the contact form for a free, no-obligation on-site assessment with a fixed all-inclusive quote." },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Fetch approved customer reviews to embed in the LocalBusiness schema
+  // (enables rich star-rating + review snippets in Google search results)
+  const customerReviews = await getApprovedReviews(10);
+  const reviewsForSchema = customerReviews.map((r) => ({
+    name: r.name,
+    rating: r.rating,
+    title: r.title,
+    body: r.body,
+    service: r.service,
+    createdAt: r.createdAt,
+  }));
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema()) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateReviewSchema(reviewsForSchema)) }}
       />
       <script
         type="application/ld+json"
