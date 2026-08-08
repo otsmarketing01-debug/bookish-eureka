@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, MessageSquare, Inbox, FileText, LogOut, Sparkles, ExternalLink } from "lucide-react";
+import { LayoutDashboard, MessageSquare, Inbox, FileText, LogOut, Sparkles, ExternalLink, Mail } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,7 @@ const items = [
   { href: "/admin/leads", label: "Leads", icon: Inbox },
   { href: "/admin/chat", label: "Live Chat", icon: MessageSquare },
   { href: "/admin/blog", label: "Blog Posts", icon: FileText },
+  { href: "/admin/newsletter", label: "Newsletter", icon: Mail },
 ];
 
 export function AdminSidebar({ userName, role }: { userName: string; role: string }) {

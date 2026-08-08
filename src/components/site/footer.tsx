@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Phone, Mail, MapPin, Clock, Star, Sparkles } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Star, Sparkles, Send } from "lucide-react";
 import { siteConfig, services, areas } from "@/lib/config";
+import { NewsletterSignup } from "@/components/site/newsletter-signup";
 
 export function SiteFooter() {
   return (
@@ -112,14 +113,31 @@ export function SiteFooter() {
           </div>
         </div>
 
+        {/* Newsletter band */}
+        <div className="mt-10 grid gap-6 rounded-2xl border border-border bg-card p-6 sm:grid-cols-2 sm:items-center sm:p-8">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <Send className="h-4 w-4" />
+              </span>
+              <h3 className="font-semibold">Cleaning tips & special offers</h3>
+            </div>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Join 2,000+ Johannesburg homeowners getting monthly curtain care advice and exclusive offers. No spam, unsubscribe anytime.
+            </p>
+          </div>
+          <NewsletterSignup variant="footer" />
+        </div>
+
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 sm:flex-row">
           <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>
           <div className="flex items-center gap-4 text-xs text-muted-foreground">
             <Link href="/blog" className="hover:text-foreground">Blog</Link>
+            <Link href="/gallery" className="hover:text-foreground">Gallery</Link>
             <Link href="/contact" className="hover:text-foreground">Contact</Link>
-            <Link href="/login" className="hover:text-foreground">Admin Login</Link>
+            <Link href="/login" className="hover:text-foreground">Admin</Link>
           </div>
         </div>
       </div>

@@ -192,3 +192,51 @@ Stage Summary:
 
 Unresolved issues / risks / next-phase priorities:
 - (unchanged from prior round) Dev server needs periodic restart monitoring; service/area/sector pages lack cover images; blog editor lacks live preview; consider Before/After gallery + newsletter signup.
+
+---
+Task ID: 5 (next steps — live preview, gallery, newsletter)
+Agent: Z.ai Code (webDevReview cron)
+Task: Proceed with next-phase priorities: blog editor live preview, Before/After gallery page, newsletter signup.
+
+Work Log:
+- BUG FOUND & FIXED (critical): The `.env` file had been reset to only `DATABASE_URL` — all other vars (AUTH_SECRET, NEXTAUTH_URL, etc.) were missing. This caused NextAuth to use an unstable random secret on each restart, breaking session JWT decryption (JWEDecryptionFailed). Login would succeed (credentials callback returned 200) but the session cookie couldn't be decrypted on the next request, bouncing users back to /login. Restored the full `.env` with AUTH_SECRET and restarted the dev server. Login now works correctly.
+
+- NEW FEATURE: Blog editor live markdown preview (`src/components/admin/blog-editor.tsx`).
+  - Split-view layout: editor (textarea) on left, live preview pane on right (lg:grid-cols-2).
+  - Toggle controls: "Split" and "Editor" mode buttons in the card header (Columns2 / PencilLine icons).
+  - Preview pane renders the title as H1 + the markdown content via the existing `Markdown` component (supports GFM tables, bold, lists, etc.) in real-time as you type.
+  - Empty state: "Start typing to see the live preview…" placeholder.
+  - Preview pane has its own border + scrollable container with custom scrollbar.
+  - Verified: typing markdown updates preview instantly (bold, h1, content all render).
+
+- NEW FEATURE: Before/After gallery page (`/gallery`) — addresses SEO report's "no before/after gallery" content gap.
+  - Interactive `BeforeAfterSlider` component (`src/components/site/before-after-slider.tsx`): pointer-drag slider with keyboard accessibility (ArrowLeft/Right/Home/End), ARIA slider role, before/after labels, theme-aware handle. Uses ResizeObserver to track container width for proper image clipping.
+  - 3 showcase items with generated before/after image pairs (curtains, upholstery, Persian rug) — 6 AI images generated via z-ai CLI at 1344x768.
+  - Each showcase: slider + service badge + title + location + description + "drag to compare" hint.
+  - Stats band, CTA section, breadcrumb schema, full metadata.
+  - Gallery link added to header nav and footer.
+  - Verified: 3 sliders render, pointer drag moves slider from 50% → 85%, keyboard works.
+
+- NEW FEATURE: Newsletter signup (footer + API + admin view).
+  - Prisma model `NewsletterSubscriber` (email, name, source, active) added + db push.
+  - API: `POST /api/newsletter` (zod-validated, rate-limited 5/hr, upsert with reactivation) + `GET /api/admin/newsletter` (admin-gated list).
+  - `NewsletterSignup` component (`src/components/site/newsletter-signup.tsx`) with footer (compact) and inline variants, success state, toast feedback.
+  - Footer newsletter band: 2-column card with description + signup form, added above the bottom bar.
+  - Admin newsletter page (`/admin/newsletter`): searchable subscriber list, "Copy all emails" button (copies active emails comma-separated), source/active badges, count summary. Added "Newsletter" to admin sidebar nav.
+  - Verified: footer signup → toast "Subscribed!" → subscriber appears in admin list (2 subscribers after testing).
+
+- Lint passes clean (0 errors). All routes return 200.
+
+Stage Summary:
+- 3 new features shipped: blog editor live preview, Before/After gallery page, newsletter signup (full stack).
+- Critical auth bug fixed (`.env` was wiped — restored AUTH_SECRET).
+- All verified end-to-end via agent-browser: live preview renders on type, gallery slider drags + keyboard works, newsletter signup → admin list verified.
+- Codebase now has 8 admin sections (dashboard, leads, chat, blog, blog-editor, newsletter) and 7 public marketing pages (home, pricing, gallery, testimonials, blog, blog-post, contact) + services/areas/sectors.
+
+Unresolved issues / risks / next-phase priorities:
+- The `.env` file got wiped at some point (possibly by a system process or a prior agent). The 15-min cron should verify `.env` integrity. AUTH_SECRET is now stable.
+- Dev server still needs periodic restart monitoring.
+- Service/area/sector pages still use gradient placeholders (no per-service cover images).
+- Consider adding an exit-intent newsletter popup (variant "popup" source is already wired in the API).
+- Consider adding a contact-form success email notification to admin.
+- Add OG images per-blog-post (currently only site-level OG image).

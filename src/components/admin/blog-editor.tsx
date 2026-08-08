@@ -3,13 +3,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
-import { ArrowLeft, Save, Eye, Loader2, FileText, Sparkles } from "lucide-react";
+import { ArrowLeft, Save, Eye, Loader2, FileText, Sparkles, Columns2, PencilLine } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Markdown } from "@/components/site/markdown";
 
 export type PostData = {
   id?: string;
@@ -37,6 +38,7 @@ export function BlogEditor({ initial }: { initial: PostData }) {
   const [autoSlug, setAutoSlug] = useState(!initial.slug);
 
   const isEdit = !!initial.id;
+  const [previewMode, setPreviewMode] = useState<"split" | "editor">("split");
 
   const update = (k: keyof PostData, v: any) => setData((p) => ({ ...p, [k]: v }));
 
@@ -138,29 +140,69 @@ export function BlogEditor({ initial }: { initial: PostData }) {
             </CardContent>
           </Card>
 
-          {/* Content editor */}
+          {/* Content editor with live preview */}
           <Card>
             <CardHeader className="pb-3">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-wrap items-center justify-between gap-3">
                 <CardTitle className="flex items-center gap-2 text-base"><FileText className="h-4 w-4" /> Content (Markdown)</CardTitle>
-                <Badge variant="outline" className="gap-1"><Sparkles className="h-3 w-3" /> Supports GFM tables</Badge>
+                <div className="flex items-center gap-2">
+                  <Badge variant="outline" className="gap-1"><Sparkles className="h-3 w-3" /> GFM tables</Badge>
+                  <div className="flex rounded-md border border-border p-0.5">
+                    <button
+                      type="button"
+                      onClick={() => setPreviewMode("split")}
+                      className={`flex items-center gap-1.5 rounded-sm px-2.5 py-1 text-xs font-medium transition-colors ${previewMode === "split" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                      title="Split view — editor + live preview"
+                    >
+                      <Columns2 className="h-3.5 w-3.5" /> Split
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setPreviewMode("editor")}
+                      className={`flex items-center gap-1.5 rounded-sm px-2.5 py-1 text-xs font-medium transition-colors ${previewMode === "editor" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                      title="Editor only"
+                    >
+                      <PencilLine className="h-3.5 w-3.5" /> Editor
+                    </button>
+                  </div>
+                </div>
               </div>
             </CardHeader>
             <CardContent>
-              <Textarea
-                id="content"
-                rows={18}
-                value={data.content}
-                onChange={(e) => update("content", e.target.value)}
-                placeholder={"Write your post in Markdown.\n\n## Subheading\n\nParagraph text...\n\n- Bullet point\n- Another point\n\n| Col A | Col B |\n|---|---|\n| R450 | Voile |"}
-                className="resize-y font-mono text-sm leading-relaxed"
-              />
-              <div className="mt-2 flex items-center gap-3 text-xs text-muted-foreground">
-                <span>{wordCount} words</span>
-                <span>·</span>
-                <span>~{estReading} min read</span>
-                <span>·</span>
-                <span>Use ## for headings, **bold**, - for lists, | for tables</span>
+              <div className={previewMode === "split" ? "grid gap-4 lg:grid-cols-2" : "grid gap-4 grid-cols-1"}>
+                <div className="space-y-2">
+                  <p className="text-xs font-medium text-muted-foreground">Editor</p>
+                  <Textarea
+                    id="content"
+                    rows={previewMode === "split" ? 24 : 18}
+                    value={data.content}
+                    onChange={(e) => update("content", e.target.value)}
+                    placeholder={"Write your post in Markdown.\n\n## Subheading\n\nParagraph text...\n\n- Bullet point\n- Another point\n\n| Col A | Col B |\n|---|---|\n| R450 | Voile |"}
+                    className="resize-y font-mono text-sm leading-relaxed"
+                  />
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                    <span>{wordCount} words</span>
+                    <span>·</span>
+                    <span>~{estReading} min read</span>
+                    <span>·</span>
+                    <span>## headings, **bold**, - lists, | tables</span>
+                  </div>
+                </div>
+                {previewMode === "split" && (
+                  <div className="space-y-2">
+                    <p className="text-xs font-medium text-muted-foreground">Live preview</p>
+                    <div className="h-[calc(100%-1.5rem)] min-h-[20rem] overflow-y-auto rounded-md border border-border bg-background p-5 scrollbar-thin">
+                      {data.content.trim() ? (
+                        <>
+                          <h1 className="text-2xl font-bold tracking-tight mb-2">{data.title || "Untitled post"}</h1>
+                          <Markdown content={data.content} />
+                        </>
+                      ) : (
+                        <p className="text-sm text-muted-foreground italic">Start typing to see the live preview…</p>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
