@@ -660,3 +660,28 @@ FINAL PROJECT STATUS: COMPLETE
 - All next-phase priorities from every round have been executed.
 - Lint: 0 errors. Routes: all 200. Services: dev (3000) + chat (3001) running.
 - The 15-min webDevReview cron job continues to monitor and maintain the project.
+
+---
+Task ID: 15 (deployment fix)
+Agent: Z.ai Code
+Task: Fix deployed site returning 500 error at https://a1spx6v8kuy0-d.space-z.ai/
+
+Work Log:
+- Investigated deployed site returning 500 "Failed" error page.
+- Ran `bun run build` locally to reproduce the deployment build failure.
+- ROOT CAUSE FOUND: The `/login` page used `useSearchParams()` hook directly in a client component without wrapping it in a `<Suspense>` boundary. This is a Next.js production build requirement — `useSearchParams()` forces client-side rendering and must be wrapped in Suspense to allow static prerendering. The dev server doesn't catch this (it only fails during `next build` / static generation).
+- Error message: "useSearchParams() should be wrapped in a suspense boundary at page '/login'"
+- FIX: Refactored `src/app/login/page.tsx`:
+  - Extracted the form logic into a `LoginForm` inner component (uses `useSearchParams`).
+  - Wrapped `<LoginForm />` in `<Suspense fallback={...}>` in the default export.
+  - The outer `LoginPage` component no longer calls `useSearchParams` directly.
+- Verified: `bun run build` now completes successfully — all 73 pages generate without errors (was failing at page 18/73 before the fix).
+- Verified: production server (`bun run start`) serves all 13 tested routes with 200 status.
+- Lint passes clean (0 errors).
+- Dev server restarted cleanly, no errors in log.
+
+Stage Summary:
+- Build-breaking bug fixed: `/login` page `useSearchParams()` Suspense boundary.
+- Production build now succeeds (73 pages generated).
+- The deployed site at space-z.ai was returning 500 because the deployment build failed. The fix is in the code; the deployment system will rebuild and the site should come online.
+- Root cause: Next.js 16 requires `useSearchParams()` to be wrapped in `<Suspense>` for static prerendering — a common Next.js App Router gotcha that only manifests during production builds, not in dev mode.
