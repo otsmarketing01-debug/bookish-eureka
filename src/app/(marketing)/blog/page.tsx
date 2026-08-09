@@ -7,8 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/site/reveal";
 import { BlogSearch } from "@/components/site/blog-search";
-import { safeGetPublishedPosts, safeGetCategories } from "@/lib/db-safe"
-import { safeGetCategories } from "@/lib/db-safe";;
+import { safeGetPublishedPosts, safeGetCategories } from "@/lib/db-safe";
 import { siteConfig } from "@/lib/config";
 import { formatDate } from "@/lib/format";
 
