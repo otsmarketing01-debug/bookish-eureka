@@ -4,7 +4,10 @@ import crypto from "crypto";
 // Tokens encode a booking ID + HMAC signature so review links can't be forged
 // and only validate against the intended (completed) booking.
 
-const SECRET = process.env.AUTH_SECRET || "jhb-curtain-cleaning-dev-secret-change-me-9f3k2l";
+const SECRET = process.env.AUTH_SECRET;
+if (!SECRET) {
+  throw new Error("AUTH_SECRET is required to sign review tokens");
+}
 
 function sign(payload: string): string {
   return crypto.createHmac("sha256", SECRET).update(payload).digest("hex").slice(0, 24);

@@ -46,3 +46,4 @@ server.log
 
 # Vercel
 .vercel
+.env.vercel
