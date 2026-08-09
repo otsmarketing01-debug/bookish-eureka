@@ -1,15 +1,9 @@
 "use client";
-import { useEffect, useRef } from "react";
 
 /**
- * FaqAccordion — renders FAQ items as static HTML on the server (SEO-friendly,
- * no hydration mismatch), then enhances them into collapsible accordions
- * on the client using native <details>/<summary> elements.
- *
- * This approach has ZERO hydration issues because:
- * 1. Server and client render identical HTML (no conditionals, no state)
- * 2. No Radix UI / useId() involved
- * 3. <details>/<summary> are native HTML elements that work without JS
+ * FaqAccordion — renders FAQ items as native <details>/<summary> elements.
+ * No hydration mismatch possible: server and client render identical HTML.
+ * No Radix UI / useId() / dynamic imports involved.
  */
 export function FaqAccordion({ items }: { items: { q: string; a: string }[] }) {
   return (
