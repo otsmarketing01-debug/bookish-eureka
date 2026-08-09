@@ -13,6 +13,7 @@ import { areas, getArea, services, siteConfig } from "@/lib/config";
 import { breadcrumbSchema } from "@/lib/seo";
 
 type Params = { params: Promise<{ slug: string }> };
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   return areas.map((a) => ({ slug: a.slug }));

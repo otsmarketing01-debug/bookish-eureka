@@ -2,6 +2,7 @@ import { siteConfig } from "@/lib/config";
 import { getPublishedPosts } from "@/lib/blog";
 
 export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 // Sub-sitemap: blog posts
 export async function GET() {

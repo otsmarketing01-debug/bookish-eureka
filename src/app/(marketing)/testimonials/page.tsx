@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 const initials = (name: string) => name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase();
 const colors = ["bg-emerald-500", "bg-teal-600", "bg-cyan-600", "bg-green-600", "bg-emerald-700", "bg-teal-700"];
 
+export const dynamic = "force-dynamic";
 export default async function TestimonialsPage() {
   const customerReviews = await getApprovedReviews(12);
   return (

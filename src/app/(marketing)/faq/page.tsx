@@ -22,6 +22,7 @@ export const metadata: Metadata = {
 };
 
 // General FAQs (not tied to a specific service)
+export const dynamic = "force-dynamic";
 const generalFaqs = [
   { q: "Will my curtains shrink?", a: "No. Our dry-cleaning process uses zero water, which means zero shrinkage risk — even on cotton, linen, and lined drapes." },
   { q: "Do I need to take my curtains down?", a: "No. We clean your curtains exactly where they hang, so there's no removal, transport, or rehanging hassle." },

@@ -24,6 +24,7 @@ export const metadata: Metadata = {
 type Showcase = {
   id: string;
   beforeSrc: string;
+export const dynamic = "force-dynamic";
   afterSrc: string;
   beforeAlt: string;
   afterAlt: string;

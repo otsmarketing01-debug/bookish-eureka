@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const isStaging = !!process.env.SPACE_Z_DEPLOYMENT || process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  
   typescript: {
     ignoreBuildErrors: true,
   },

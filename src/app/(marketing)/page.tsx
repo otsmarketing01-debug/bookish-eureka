@@ -25,6 +25,7 @@ const homeFaqs = [
   { q: "Do you service commercial clients?", a: "Yes — hotels, offices, healthcare, education, and theatres. We offer after-hours service to avoid disruption." },
   { q: "How do I get a quote?", a: "Call us or fill in the contact form for a free, no-obligation on-site assessment with a fixed all-inclusive quote." },
 ];
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   // Fetch approved customer reviews to embed in the LocalBusiness schema

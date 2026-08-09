@@ -14,6 +14,7 @@ import { sectors, getSector, siteConfig } from "@/lib/config";
 import { breadcrumbSchema } from "@/lib/seo";
 
 type Params = { params: Promise<{ slug: string }> };
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   return sectors.map((s) => ({ slug: s.slug }));

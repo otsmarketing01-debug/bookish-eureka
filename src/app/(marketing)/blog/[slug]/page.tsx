@@ -15,6 +15,7 @@ import { articleSchema, breadcrumbSchema } from "@/lib/seo";
 import { formatDate } from "@/lib/format";
 
 type Params = { params: Promise<{ slug: string }> };
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   const posts = await getPublishedPosts();
