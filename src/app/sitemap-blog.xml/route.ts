@@ -1,7 +1,6 @@
 import { siteConfig } from "@/lib/config";
 import { safeGetPublishedPosts } from "@/lib/db-safe";
 
-export const dynamic = "force-dynamic";
 
 // Sub-sitemap: blog posts
 export async function GET() {

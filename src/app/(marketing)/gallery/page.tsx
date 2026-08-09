@@ -1,5 +1,4 @@
 import Link from "next/link";
-export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import { ArrowRight, Camera, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";

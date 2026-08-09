@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  output: "standalone",
   reactStrictMode: false,
   // Core Web Vitals: image optimization
   images: {

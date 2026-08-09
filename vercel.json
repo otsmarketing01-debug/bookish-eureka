@@ -1,5 +1,5 @@
 {
-  "buildCommand": "prisma generate && mkdir -p db && DATABASE_URL=\"file:./db/custom.db\" prisma db push --accept-data-loss && DATABASE_URL=\"file:./db/custom.db\" bun run src/scripts/seed.ts && next build",
+  "buildCommand": "prisma generate && prisma db push --accept-data-loss && bun run src/scripts/seed.ts && next build",
   "installCommand": "bun install",
   "framework": "nextjs"
 }

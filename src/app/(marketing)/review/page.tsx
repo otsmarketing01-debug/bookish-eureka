@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-export const dynamic = "force-dynamic";
 import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/site/reveal";
 import { ReviewForm } from "@/components/site/review-form";

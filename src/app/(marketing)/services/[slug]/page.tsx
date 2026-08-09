@@ -20,7 +20,6 @@ import { serviceWithReviewsSchema, faqSchema, breadcrumbSchema } from "@/lib/seo
 import { safeGetApprovedReviewsByService } from "@/lib/db-safe";
 
 type Params = { params: Promise<{ slug: string }> };
-export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
