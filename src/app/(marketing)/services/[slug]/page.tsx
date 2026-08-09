@@ -17,7 +17,7 @@ import { ServiceReviews } from "@/components/site/service-reviews";
 import { WhatsAppCTA } from "@/components/site/whatsapp-cta";
 import { services, getService, siteConfig } from "@/lib/config";
 import { serviceWithReviewsSchema, faqSchema, breadcrumbSchema } from "@/lib/seo";
-import { getApprovedReviewsByService } from "@/lib/reviews";
+import { safeGetApprovedReviewsByService } from "@/lib/db-safe";
 
 type Params = { params: Promise<{ slug: string }> };
 export const dynamic = "force-dynamic";
@@ -57,7 +57,7 @@ export default async function ServicePage({ params }: Params) {
   const offers = service.features.slice(0, 3).map((f) => ({ name: f, price: service.priceFrom }));
 
   // Fetch service-specific approved reviews for the schema + display
-  const serviceReviews = await getApprovedReviewsByService(service.name, 10);
+  const serviceReviews = await safeGetApprovedReviewsByService(service.name, 10);
   const reviewsForSchema = serviceReviews.map((r) => ({
     name: r.name,
     rating: r.rating,

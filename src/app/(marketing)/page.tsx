@@ -12,7 +12,7 @@ import { localBusinessSchema, howToSchema, faqSchema, breadcrumbSchema, aggregat
 import { AnimatedCounter } from "@/components/site/animated-counter";
 import { HomepageReviews } from "@/components/site/homepage-reviews";
 import { HomepageSearch } from "@/components/site/homepage-search";
-import { getApprovedReviews } from "@/lib/reviews";
+import { safeGetApprovedReviews } from "@/lib/db-safe";
 import Image from "next/image";
 
 const homeFaqs = [
@@ -30,7 +30,7 @@ export const dynamic = "force-dynamic";
 export default async function HomePage() {
   // Fetch approved customer reviews to embed in the LocalBusiness schema
   // (enables rich star-rating + review snippets in Google search results)
-  const customerReviews = await getApprovedReviews(10);
+  const customerReviews = await safeGetApprovedReviews(10);
   const reviewsForSchema = customerReviews.map((r) => ({
     name: r.name,
     rating: r.rating,

@@ -1,11 +1,11 @@
 import { siteConfig } from "@/lib/config";
-import { getPublishedPosts } from "@/lib/blog";
+import { safeGetPublishedPosts } from "@/lib/db-safe";
 
 export const dynamic = "force-dynamic";
 
 // Sub-sitemap: blog posts
 export async function GET() {
-  const posts = await getPublishedPosts();
+  const posts = await safeGetPublishedPosts();
   const urls = posts
     .map((p) => {
       const lastmod = (p.updatedAt ?? p.publishedAt ?? new Date()).toISOString();

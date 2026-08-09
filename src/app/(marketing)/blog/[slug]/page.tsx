@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Markdown } from "@/components/site/markdown";
 import { ReadingProgress } from "@/components/site/reading-progress";
 import { BlogRelatedServices } from "@/components/site/blog-related-services";
-import { getPostBySlug, getRelatedPosts, getPublishedPosts } from "@/lib/blog";
+import { safeGetPostBySlug, safeGetRelatedPosts, safeGetPublishedPosts } from "@/lib/db-safe";
 import { siteConfig } from "@/lib/config";
 import { articleSchema, breadcrumbSchema } from "@/lib/seo";
 import { formatDate } from "@/lib/format";
@@ -18,13 +18,13 @@ type Params = { params: Promise<{ slug: string }> };
 export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
-  const posts = await getPublishedPosts();
+  const posts = await safeGetPublishedPosts();
   return posts.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const post = await safeGetPostBySlug(slug);
   if (!post) return { title: "Post not found" };
   const ogImage = post.coverImage ?? `/blog/og/${slug}-og.jpg`;
   return {
@@ -50,10 +50,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function BlogPostPage({ params }: Params) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const post = await safeGetPostBySlug(slug);
   if (!post) notFound();
 
-  const related = await getRelatedPosts(slug, post.category, 3);
+  const related = await safeGetRelatedPosts(slug, post.category, 3);
 
   return (
     <article className="py-10 sm:py-14">

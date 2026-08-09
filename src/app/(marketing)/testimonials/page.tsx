@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Reveal } from "@/components/site/reveal";
 import { testimonials, siteConfig, areas } from "@/lib/config";
 import { breadcrumbSchema, aggregateReviewSchema } from "@/lib/seo";
-import { getApprovedReviews } from "@/lib/reviews";
+import { safeGetApprovedReviews } from "@/lib/db-safe";
 
 export const metadata: Metadata = {
   title: "Customer Reviews & Testimonials | JHB Curtain Cleaning Johannesburg",
@@ -21,7 +21,7 @@ const colors = ["bg-emerald-500", "bg-teal-600", "bg-cyan-600", "bg-green-600", 
 
 export const dynamic = "force-dynamic";
 export default async function TestimonialsPage() {
-  const customerReviews = await getApprovedReviews(12);
+  const customerReviews = await safeGetApprovedReviews(12);
   return (
     <>
       <script

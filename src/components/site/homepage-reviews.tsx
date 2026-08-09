@@ -4,13 +4,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/site/reveal";
-import { getApprovedReviews } from "@/lib/reviews";
+import { safeGetApprovedReviews } from "@/lib/db-safe";
 
 const colors = ["bg-emerald-500", "bg-teal-600", "bg-cyan-600", "bg-green-600", "bg-emerald-700", "bg-teal-700"];
 const initials = (name: string) => name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase();
 
 export async function HomepageReviews() {
-  const reviews = await getApprovedReviews(3);
+  const reviews = await safeGetApprovedReviews(3);
 
   // If no approved DB reviews yet, render nothing — the static testimonials section below handles it
   if (reviews.length === 0) return null;

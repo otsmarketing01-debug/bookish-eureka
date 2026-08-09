@@ -9,7 +9,7 @@ import { Reveal } from "@/components/site/reveal";
 import { BeforeAfterSlider } from "@/components/site/before-after-slider";
 import { siteConfig } from "@/lib/config";
 import { breadcrumbSchema } from "@/lib/seo";
-import { getPublishedGallery } from "@/lib/gallery";
+import { safeGetPublishedGallery } from "@/lib/db-safe";
 
 export const metadata: Metadata = {
   title: "Before & After Gallery — Curtain Cleaning Results | JHB Curtain Cleaning",
@@ -72,7 +72,7 @@ const staticShowcases: Showcase[] = [
 
 export default async function GalleryPage() {
   // Load DB-managed showcases; fall back to static defaults if none exist
-  const dbItems = await getPublishedGallery();
+  const dbItems = await safeGetPublishedGallery();
   const showcases = dbItems.length > 0
     ? dbItems.map((i) => ({
         id: i.id,
