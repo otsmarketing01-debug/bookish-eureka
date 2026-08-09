@@ -2,8 +2,8 @@
 export const siteConfig = {
   name: "JHB Curtain Cleaning",
   shortName: "JHB Curtain",
-  domain: "jhbcurtaincleaning.co.za",
-  url: "https://jhbcurtaincleaning.co.za",
+  domain: "www.jhbcurtaincleaning.co.za",
+  url: "https://www.jhbcurtaincleaning.co.za",
   tagline: "Professional On-Site Curtain Cleaning Johannesburg",
   description:
     "Professional on-site curtain cleaning Johannesburg. No removal, no shrinkage guarantee. Free assessment. Serving Sandton, Randburg, Fourways & all JHB suburbs.",
