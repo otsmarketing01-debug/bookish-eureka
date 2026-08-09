@@ -1,9 +1,7 @@
-"use client";
-
 /**
  * FaqAccordion — renders FAQ items as native <details>/<summary> elements.
- * No hydration mismatch possible: server and client render identical HTML.
- * No Radix UI / useId() / dynamic imports involved.
+ * Pure server component (no "use client" needed — no hooks, no state, no event handlers).
+ * Native HTML expand/collapse works without JavaScript.
  */
 export function FaqAccordion({ items }: { items: { q: string; a: string }[] }) {
   return (
