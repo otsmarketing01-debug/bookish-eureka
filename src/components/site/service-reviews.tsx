@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/site/reveal";
-import { getApprovedReviewsByService } from "@/lib/reviews";
+import { safeGetApprovedReviewsByService } from "@/lib/db-safe";
 
 const colors = ["bg-emerald-500", "bg-teal-600", "bg-cyan-600", "bg-green-600", "bg-emerald-700", "bg-teal-700"];
 const initials = (name: string) => name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase();
@@ -14,7 +14,7 @@ const initials = (name: string) => name.split(" ").map((w) => w[0]).slice(0, 2).
  * Only renders if there are approved reviews for this service.
  */
 export async function ServiceReviews({ serviceName }: { serviceName: string }) {
-  const reviews = await getApprovedReviewsByService(serviceName, 6);
+  const reviews = await safeGetApprovedReviewsByService(serviceName, 6);
 
   if (reviews.length === 0) return null;
 

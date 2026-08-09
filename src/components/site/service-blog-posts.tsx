@@ -2,7 +2,7 @@ import Link from "next/link";
 import { CalendarDays, Clock, ArrowRight, BookOpen } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { getPostsByServiceMatch } from "@/lib/blog";
+import { safeGetPostsByServiceMatch } from "@/lib/db-safe";
 import { formatDate } from "@/lib/format";
 
 /**
@@ -16,7 +16,7 @@ export async function ServiceBlogPosts({
   serviceName: string;
   serviceFeatures: string[];
 }) {
-  const posts = await getPostsByServiceMatch(serviceName, serviceFeatures, 3);
+  const posts = await safeGetPostsByServiceMatch(serviceName, serviceFeatures, 3);
 
   if (posts.length === 0) return null;
 
