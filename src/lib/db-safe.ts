@@ -84,3 +84,27 @@ export async function safeGetCategories() {
     return [];
   }
 }
+
+export async function safeGetPostsByServiceMatch(
+  serviceName: string,
+  serviceFeatures: string[],
+  limit = 3
+) {
+  try {
+    const posts = await safeGetPublishedPosts();
+    const serviceWords = serviceName.toLowerCase().split(/[\s&]+/).filter((w) => w.length > 3);
+    const scored = posts.map((p: any) => {
+      const postText = `${p.title} ${p.excerpt} ${p.tags} ${p.category}`.toLowerCase();
+      let score = 0;
+      for (const w of serviceWords) if (postText.includes(w)) score += 3;
+      for (const f of serviceFeatures) {
+        const fWords = f.toLowerCase().split(/\s+/).filter((w) => w.length > 4);
+        for (const w of fWords) if (postText.includes(w)) score += 1;
+      }
+      return { post: p, score };
+    });
+    return scored.filter((s) => s.score > 0).sort((a, b) => b.score - a.score).slice(0, limit).map((s) => s.post);
+  } catch {
+    return [];
+  }
+}
