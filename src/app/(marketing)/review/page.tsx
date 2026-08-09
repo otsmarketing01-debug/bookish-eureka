@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+export const dynamic = "force-dynamic";
 import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/site/reveal";
 import { ReviewForm } from "@/components/site/review-form";
@@ -13,7 +14,6 @@ export const metadata: Metadata = {
   description:
     "Share your experience with JHB Curtain Cleaning. Your review helps other Johannesburg homeowners choose a trusted curtain cleaning service.",
   alternates: { canonical: "/review" },
-export const dynamic = "force-dynamic";
   openGraph: {
     title: "Leave a Review | JHB Curtain Cleaning",
     description: "Share your curtain cleaning experience. Reviews help other Johannesburg homeowners.",
