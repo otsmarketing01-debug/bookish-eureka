@@ -1,9 +1,19 @@
 import { db } from "@/lib/db";
 
 /**
- * Safe database access wrappers.
- * On serverless platforms (Vercel) where SQLite may not persist,
- * these functions gracefully return empty data instead of crashing.
+ * Normalize a Prisma blog post record: ensure tags is always an array.
+ * PostgreSQL stores tags as a comma-separated string (like SQLite),
+ * but the raw Prisma return may differ.
+ */
+function normalizePost(p: any) {
+  return {
+    ...p,
+    tags: typeof p.tags === "string" ? p.tags.split(",").filter(Boolean) : (Array.isArray(p.tags) ? p.tags : []),
+  };
+}
+
+/**
+ * Safe database access wrappers with try-catch fallbacks.
  */
 
 export async function safeGetApprovedReviews(limit = 12) {
@@ -32,10 +42,11 @@ export async function safeGetApprovedReviewsByService(serviceName: string, limit
 
 export async function safeGetPublishedPosts() {
   try {
-    return await db.blogPost.findMany({
+    const posts = await db.blogPost.findMany({
       where: { published: true },
       orderBy: { publishedAt: "desc" },
     });
+    return posts.map(normalizePost);
   } catch {
     return [];
   }
@@ -56,7 +67,7 @@ export async function safeGetPostBySlug(slug: string) {
   try {
     const post = await db.blogPost.findUnique({ where: { slug } });
     if (!post || !post.published) return null;
-    return post;
+    return normalizePost(post);
   } catch {
     return null;
   }
@@ -64,11 +75,12 @@ export async function safeGetPostBySlug(slug: string) {
 
 export async function safeGetRelatedPosts(slug: string, category: string, limit = 3) {
   try {
-    return await db.blogPost.findMany({
+    const posts = await db.blogPost.findMany({
       where: { published: true, slug: { not: slug }, category },
       orderBy: { publishedAt: "desc" },
       take: limit,
     });
+    return posts.map(normalizePost);
   } catch {
     return [];
   }
@@ -94,7 +106,7 @@ export async function safeGetPostsByServiceMatch(
     const posts = await safeGetPublishedPosts();
     const serviceWords = serviceName.toLowerCase().split(/[\s&]+/).filter((w) => w.length > 3);
     const scored = posts.map((p: any) => {
-      const postText = `${p.title} ${p.excerpt} ${p.tags} ${p.category}`.toLowerCase();
+      const postText = `${p.title} ${p.excerpt} ${Array.isArray(p.tags) ? p.tags.join(" ") : ""} ${p.category}`.toLowerCase();
       let score = 0;
       for (const w of serviceWords) if (postText.includes(w)) score += 3;
       for (const f of serviceFeatures) {
