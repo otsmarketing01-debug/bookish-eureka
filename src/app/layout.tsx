@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { Providers } from "@/components/providers";
 import { CookieConsent } from "@/components/site/cookie-consent";
+import { Analytics } from "@/components/site/analytics";
 import { warnIfEnvIncomplete } from "@/lib/env-guard";
 import { siteConfig } from "@/lib/config";
 
@@ -55,6 +56,10 @@ export const metadata: Metadata = {
     images: ["/og-image.jpg"],
   },
   robots: { index: true, follow: true },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -70,6 +75,7 @@ export default function RootLayout({
         <Providers>
           {children}
         </Providers>
+        <Analytics />
         <CookieConsent />
         <Toaster />
         <SonnerToaster richColors position="top-center" />
