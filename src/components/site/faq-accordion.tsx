@@ -26,23 +26,16 @@ const InteractiveAccordion = dynamic(
 );
 
 export function FaqAccordion({ items }: { items: { q: string; a: string }[] }) {
-  const [swapped, setSwapped] = useState(false);
-  useEffect(() => {
-    // Small delay to ensure the dynamic import has rendered
-    const timer = setTimeout(() => setSwapped(true), 50);
-    return () => clearTimeout(timer);
-  }, []);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   return (
-    <>
-      {/* Static content — visible until interactive accordion loads */}
-      <div className={swapped ? "hidden" : ""}>
-        <StaticFaq items={items} />
-      </div>
-      {/* Interactive accordion — replaces static content on client */}
-      {swapped && (
+    <div suppressHydrationWarning>
+      {mounted ? (
         <InteractiveAccordion items={items} />
+      ) : (
+        <StaticFaq items={items} />
       )}
-    </>
+    </div>
   );
 }
