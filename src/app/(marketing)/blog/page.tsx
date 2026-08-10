@@ -28,10 +28,10 @@ export default async function BlogPage() {
         {/* Header */}
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
-            <Badge variant="secondary" className="mb-3 gap-1.5">
+            <span className="mb-3 inline-flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">
               <Newspaper className="h-3.5 w-3.5" /> The JHB Blog
-            </Badge>
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+            </span>
+            <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-metallic-emerald-deep">
               Curtain cleaning tips, guides & pricing
             </h1>
             <p className="mt-4 text-muted-foreground">
@@ -60,8 +60,8 @@ export default async function BlogPage() {
         {featured && (
           <Reveal delay={0.15}>
             <Link href={`/blog/${featured.slug}`} className="group mt-12 block">
-              <Card className="overflow-hidden transition-all hover:shadow-lg md:grid md:grid-cols-2">
-                <div className="relative flex min-h-[220px] items-center justify-center bg-gradient-to-br from-primary/15 via-primary/5 to-transparent">
+              <Card className="overflow-hidden border border-metallic-bronze-top/20 bg-white transition-all hover:shadow-lg md:grid md:grid-cols-2">
+                <div className="relative flex min-h-[220px] items-center justify-center bg-gradient-to-br from-metallic-bronze-top/15 via-metallic-bronze-top/5 to-transparent">
                   {featured.coverImage ? (
                     <Image
                       src={featured.coverImage}
@@ -72,16 +72,16 @@ export default async function BlogPage() {
                       priority
                     />
                   ) : (
-                    <span className="text-5xl font-bold text-primary/30">"{featured.title.charAt(0)}"</span>
+                    <span className="text-5xl font-bold text-metallic-bronze-top/30">"{featured.title.charAt(0)}"</span>
                   )}
                 </div>
                 <div>
                   <CardHeader>
                     <div className="flex items-center gap-2">
-                      <Badge className="bg-primary/10 text-primary hover:bg-primary/10">Featured</Badge>
-                      <Badge variant="outline">{featured.category}</Badge>
+                      <Badge className="bg-metallic-bronze-top/10 text-metallic-bronze-bottom hover:bg-metallic-bronze-top/10">Featured</Badge>
+                      <Badge variant="outline" className="border-metallic-bronze-top/30 text-metallic-bronze-bottom">{featured.category}</Badge>
                     </div>
-                    <h2 className="mt-3 text-2xl font-bold tracking-tight group-hover:text-primary">
+                    <h2 className="font-display mt-3 text-2xl font-bold tracking-tight text-metallic-emerald-deep group-hover:text-metallic-emerald-deep">
                       {featured.title}
                     </h2>
                   </CardHeader>
@@ -91,7 +91,7 @@ export default async function BlogPage() {
                       <span className="flex items-center gap-1.5"><CalendarDays className="h-3.5 w-3.5" />{formatDate(featured.publishedAt)}</span>
                       <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" />{featured.readingTime} min read</span>
                     </div>
-                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary">
+                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-metallic-emerald-deep">
                       Read article <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                     </span>
                   </CardContent>
@@ -106,8 +106,8 @@ export default async function BlogPage() {
           {rest.map((post, i) => (
             <Reveal key={post.slug} delay={(i % 3) * 0.08}>
               <Link href={`/blog/${post.slug}`} className="group block h-full">
-                <Card className="flex h-full flex-col transition-all hover:-translate-y-1 hover:shadow-lg">
-                  <div className="relative h-40 overflow-hidden bg-gradient-to-br from-primary/10 to-transparent">
+                <Card className="flex h-full flex-col border border-metallic-bronze-top/20 bg-white transition-all hover:-translate-y-1 hover:shadow-lg">
+                  <div className="relative h-40 overflow-hidden bg-gradient-to-br from-metallic-bronze-top/10 to-transparent">
                     {post.coverImage ? (
                       <Image
                         src={post.coverImage}
@@ -117,12 +117,12 @@ export default async function BlogPage() {
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                     ) : (
-                      <span className="absolute inset-0 flex items-center justify-center text-3xl font-bold text-primary/25">{post.title.charAt(0)}</span>
+                      <span className="absolute inset-0 flex items-center justify-center text-3xl font-bold text-metallic-bronze-top/25">{post.title.charAt(0)}</span>
                     )}
                   </div>
                   <CardHeader>
-                    <Badge variant="outline" className="w-fit">{post.category}</Badge>
-                    <h3 className="mt-2 font-semibold leading-snug group-hover:text-primary">{post.title}</h3>
+                    <Badge variant="outline" className="w-fit border-metallic-bronze-top/30 text-metallic-bronze-bottom">{post.category}</Badge>
+                    <h3 className="font-display mt-2 font-semibold leading-snug text-metallic-emerald-deep group-hover:text-metallic-emerald-deep">{post.title}</h3>
                   </CardHeader>
                   <CardContent className="flex-1">
                     <p className="line-clamp-3 text-sm text-muted-foreground">{post.excerpt}</p>
@@ -139,8 +139,8 @@ export default async function BlogPage() {
 
         {/* CTA */}
         <Reveal>
-          <div className="mt-16 rounded-2xl border border-border bg-muted/30 p-8 text-center sm:p-12">
-            <h2 className="text-2xl font-bold tracking-tight">Need your curtains cleaned?</h2>
+          <div className="mt-16 rounded-2xl border border-metallic-bronze-top/20 bg-metallic-cream p-8 text-center sm:p-12">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep">Need your curtains cleaned?</h2>
             <p className="mx-auto mt-2 max-w-md text-muted-foreground">
               Get a free, no-obligation on-site assessment from Johannesburg's trusted curtain cleaning specialists.
             </p>

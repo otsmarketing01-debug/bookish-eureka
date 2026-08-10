@@ -56,16 +56,17 @@ export default function FaqPage() {
       />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-radial-emerald">
-        <div className="absolute inset-0 bg-grid opacity-30 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
+      <section className="relative overflow-hidden bg-metallic-emerald-deep">
+        <div className="absolute inset-0 bg-grid opacity-20 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-metallic-bronze-top/60 to-transparent" />
         <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <Badge variant="secondary" className="mb-4 gap-1.5"><HelpCircle className="h-3.5 w-3.5" /> Frequently Asked Questions</Badge>
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-balance">
+              <span className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-metallic-bronze-top/40 bg-metallic-emerald-deep/60 px-4 py-1.5 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-metallic-bronze-top"><HelpCircle className="h-3.5 w-3.5" /> Frequently Asked Questions</span>
+              <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-balance text-metallic-ivory">
                 All your curtain cleaning questions, answered
               </h1>
-              <p className="mt-4 text-lg text-muted-foreground">
+              <p className="mt-4 text-lg text-metallic-ivory/80">
                 Browse the most common questions below — or ask our AI assistant for an instant, specific answer.
               </p>
             </div>
@@ -86,7 +87,7 @@ export default function FaqPage() {
       <section className="py-10 sm:py-14">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <h2 className="text-2xl font-bold tracking-tight">General questions</h2>
+            <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep">General questions</h2>
             <p className="mt-2 text-sm text-muted-foreground">The basics everyone asks about on-site curtain cleaning.</p>
           </Reveal>
           <Reveal delay={0.1}>
@@ -96,19 +97,19 @@ export default function FaqPage() {
       </section>
 
       {/* Service-specific FAQs */}
-      <section className="bg-muted/30 py-10 sm:py-14">
+      <section className="bg-metallic-cream py-10 sm:py-14">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <h2 className="text-2xl font-bold tracking-tight">Service-specific questions</h2>
+            <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep">Service-specific questions</h2>
             <p className="mt-2 text-sm text-muted-foreground">Detailed answers for each of our specialist services.</p>
           </Reveal>
           <div className="mt-6 space-y-8">
             {services.map((service, i) => (
               <Reveal key={service.slug} delay={(i % 3) * 0.05}>
                 <div>
-                  <h3 className="flex items-center gap-2 text-lg font-semibold">
+                  <h3 className="font-display flex items-center gap-2 text-lg font-semibold text-metallic-emerald-deep">
                     {service.name}
-                    <Link href={`/services/${service.slug}`} className="text-sm font-normal text-primary hover:underline">
+                    <Link href={`/services/${service.slug}`} className="text-sm font-normal text-metallic-emerald-deep hover:underline">
                       learn more <ArrowRight className="inline h-3 w-3" />
                     </Link>
                   </h3>
@@ -124,7 +125,7 @@ export default function FaqPage() {
       <section className="py-10 sm:py-14">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <h2 className="text-2xl font-bold tracking-tight">Pricing questions</h2>
+            <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep">Pricing questions</h2>
             <p className="mt-2 text-sm text-muted-foreground">About quotes, payment, and what affects the price.</p>
           </Reveal>
           <Reveal delay={0.1}>
@@ -134,21 +135,22 @@ export default function FaqPage() {
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-primary py-14 text-primary-foreground sm:py-16">
+      <section className="relative overflow-hidden bg-metallic-emerald-deep py-14 text-metallic-ivory sm:py-16">
         <div className="absolute inset-0 bg-grid opacity-10" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-metallic-bronze-top/60 to-transparent" />
         <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <Reveal>
-            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Still have questions?</h2>
-            <p className="mx-auto mt-3 max-w-xl text-primary-foreground/80">
+            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl text-metallic-ivory">Still have questions?</h2>
+            <p className="mx-auto mt-3 max-w-xl text-metallic-ivory/80">
               Our team is one call away — or chat with us live, or book a free on-site assessment.
             </p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button asChild size="lg" variant="secondary"><Link href="/book">Book a free assessment <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
-              <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10">
+              <Button asChild size="lg" variant="secondary" className="bg-metallic-bronze-top text-metallic-emerald-deep hover:bg-metallic-bronze-bottom"><Link href="/book">Book a free assessment <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+              <Button asChild size="lg" variant="outline" className="border-metallic-ivory/40 bg-transparent text-metallic-ivory hover:bg-metallic-ivory/10">
                 <a href={`tel:${siteConfig.phone}`}><Phone className="mr-2 h-4 w-4" /> {siteConfig.phoneDisplay}</a>
               </Button>
             </div>
-            <p className="mt-4 flex items-center justify-center gap-1.5 text-sm text-primary-foreground/70">
+            <p className="mt-4 flex items-center justify-center gap-1.5 text-sm text-metallic-ivory/70">
               <MessageCircle className="h-4 w-4" /> Or use the live chat in the bottom corner
             </p>
           </Reveal>

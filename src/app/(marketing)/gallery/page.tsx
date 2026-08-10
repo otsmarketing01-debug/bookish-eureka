@@ -101,21 +101,22 @@ export default async function GalleryPage() {
       />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-radial-emerald">
-        <div className="absolute inset-0 bg-grid opacity-30 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
+      <section className="relative overflow-hidden bg-metallic-emerald-deep">
+        <div className="absolute inset-0 bg-grid opacity-20 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-metallic-bronze-top/60 to-transparent" />
         <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <Badge variant="secondary" className="mb-4 gap-1.5"><Camera className="h-3.5 w-3.5" /> Before & After Gallery</Badge>
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-balance">
+              <span className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-metallic-bronze-top/40 bg-metallic-emerald-deep/60 px-4 py-1.5 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-metallic-bronze-top"><Camera className="h-3.5 w-3.5" /> Before & After Gallery</span>
+              <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-balance text-metallic-ivory">
                 Real results, real transformations
               </h1>
-              <p className="mt-4 text-lg text-muted-foreground">
+              <p className="mt-4 text-lg text-metallic-ivory/80">
                 Drag the slider on each image to reveal the difference our on-site cleaning makes. No filters, no edits — just clean, fresh fabric.
               </p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
-                <Button asChild size="lg"><Link href="/contact">Get a Free Quote <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
-                <Button asChild size="lg" variant="outline"><Link href="/pricing">See pricing</Link></Button>
+                <Button asChild size="lg" className="bg-metallic-bronze-top text-metallic-emerald-deep hover:bg-metallic-bronze-bottom"><Link href="/contact">Get a Free Quote <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+                <Button asChild size="lg" variant="outline" className="border-metallic-ivory/40 bg-transparent text-metallic-ivory hover:bg-metallic-ivory/10"><Link href="/pricing">See pricing</Link></Button>
               </div>
             </div>
           </Reveal>
@@ -138,9 +139,9 @@ export default async function GalleryPage() {
                     />
                   </div>
                   <div className="lg:col-span-2">
-                    <Badge variant="outline" className="mb-2">{item.service}</Badge>
-                    <h2 className="text-2xl font-bold tracking-tight">{item.title}</h2>
-                    <p className="mt-1 text-sm font-medium text-primary">{item.location}</p>
+                    <Badge variant="outline" className="mb-2 border-metallic-bronze-top/30 text-metallic-bronze-bottom">{item.service}</Badge>
+                    <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep">{item.title}</h2>
+                    <p className="mt-1 text-sm font-medium text-metallic-bronze-bottom">{item.location}</p>
                     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
                     <p className="mt-4 text-xs text-muted-foreground">← Drag the handle on the image to compare →</p>
                   </div>
@@ -152,7 +153,7 @@ export default async function GalleryPage() {
       </section>
 
       {/* Stats band */}
-      <section className="bg-muted/30 py-14">
+      <section className="bg-metallic-cream py-14">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="grid grid-cols-2 gap-6 text-center sm:grid-cols-4">
@@ -163,7 +164,7 @@ export default async function GalleryPage() {
                 { stat: "Same day", label: "On-site service" },
               ].map((s) => (
                 <div key={s.label}>
-                  <p className="text-2xl font-bold text-primary sm:text-3xl">{s.stat}</p>
+                  <p className="font-display text-2xl font-bold text-metallic-emerald-deep sm:text-3xl">{s.stat}</p>
                   <p className="mt-1 text-xs text-muted-foreground sm:text-sm">{s.label}</p>
                 </div>
               ))}
@@ -173,18 +174,19 @@ export default async function GalleryPage() {
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-primary py-14 text-primary-foreground sm:py-16">
+      <section className="relative overflow-hidden bg-metallic-emerald-deep py-14 text-metallic-ivory sm:py-16">
         <div className="absolute inset-0 bg-grid opacity-10" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-metallic-bronze-top/60 to-transparent" />
         <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <Reveal>
-            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl flex items-center justify-center gap-2">
+            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl flex items-center justify-center gap-2 text-metallic-ivory">
               <Sparkles className="h-6 w-6" /> Ready for your transformation?
             </h2>
-            <p className="mx-auto mt-3 max-w-xl text-primary-foreground/80">
+            <p className="mx-auto mt-3 max-w-xl text-metallic-ivory/80">
               Book a free on-site assessment and see the difference for yourself. No obligation, no hidden fees.
             </p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button asChild size="lg" variant="secondary"><Link href="/contact">Get my free quote <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+              <Button asChild size="lg" variant="secondary" className="bg-metallic-bronze-top text-metallic-emerald-deep hover:bg-metallic-bronze-bottom"><Link href="/contact">Get my free quote <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
             </div>
           </Reveal>
         </div>
