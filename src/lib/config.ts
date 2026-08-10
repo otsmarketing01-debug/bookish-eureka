@@ -43,6 +43,10 @@ export const siteConfig = {
     { name: "Brabys", href: "https://www.brabys.com/business/jhb-curtain-cleaning" },
     { name: "Yellow Pages SA", href: "https://www.yellowpages.co.za/comp/jhb-curtain-cleaning" },
   ],
+  // Direct Google Business Profile review link (writereview?placeid=...).
+  // Service-area-only profiles may not expose a public Place ID yet; leave empty
+  // and Google reviews fall back to the in-site review form.
+  gbpReviewUrl: "",
   // Google Business Profile categories
   gbpCategories: [
     "Dry Cleaner",

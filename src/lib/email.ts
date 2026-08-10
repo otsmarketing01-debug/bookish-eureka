@@ -145,6 +145,9 @@ export async function emailReviewRequest(booking: {
   const { createReviewToken } = await import("@/lib/review-token");
   const token = createReviewToken(bookingId);
   const reviewUrl = `${siteConfig.url}/review?t=${token}`;
+  const gbpBlock = siteConfig.gbpReviewUrl
+    ? `<p style="margin:16px 0;">Prefer Google? <a href="${siteConfig.gbpReviewUrl}" style="color:#047857; font-weight:600;">Leave us a Google review</a> too.</p>`
+    : "";
   await sendEmail({
     to: booking.email,
     subject: "How did we do? Share your review",
@@ -154,6 +157,7 @@ export async function emailReviewRequest(booking: {
       <p>We'd love to hear your feedback — it takes 30 seconds and helps other Johannesburg homeowners choose us:</p>
       <p style="margin:20px 0;"><a href="${reviewUrl}" style="display:inline-block; background:#047857; color:#f0fdf4; padding:12px 28px; border-radius:8px; text-decoration:none; font-weight:600;">Leave a review →</a></p>
       <p>Or copy this link: ${reviewUrl}</p>
+      ${gbpBlock}
       <p>Thank you for trusting us with your curtains.<br>The ${siteConfig.name} team</p>
     `,
     type: "review_request",

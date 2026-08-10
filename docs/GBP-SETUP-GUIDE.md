@@ -8,7 +8,7 @@ This guide walks you through claiming, verifying, and optimizing your Google Bus
 ## Step 1: Claim Your Listing
 
 1. Go to **[google.com/business](https://www.google.com/business)**
-2. Sign in with `info@jhbcurtaincleaning.co.za`
+2. Sign in with `accsu1983@gmail.com` (Steve's Google account — confirmed 2026-08-10. Do NOT use info@jhbcurtaincleaning.co.za)
 3. Search for "JHB Curtain Cleaning" at `10 2nd Ave, Florida, Roodepoort`
 4. If a listing exists, click **"Claim this business"**
 5. If no listing exists, click **"Add your business"**

@@ -72,6 +72,9 @@ export async function sendWhatsAppReviewRequest(params: {
   reviewUrl: string;
 }): Promise<{ sent: boolean; link?: string }> {
   const firstName = params.customerName.split(" ")[0];
+  const gbpLine = siteConfig.gbpReviewUrl
+    ? `\n\nPrefer Google? Leave a review there too:\n${siteConfig.gbpReviewUrl}`
+    : "";
   const message = `Hi ${firstName}! 👋
 
 Thanks for choosing ${siteConfig.shortName} for your ${params.serviceName.toLowerCase()}. We hope you're delighted with the result!
@@ -79,7 +82,7 @@ Thanks for choosing ${siteConfig.shortName} for your ${params.serviceName.toLowe
 We'd love your feedback — it takes 30 seconds and helps other Johannesburg homeowners:
 
 ${params.reviewUrl}
-
+${gbpLine}
 Thank you! 🙏
 The ${siteConfig.name} team`;
 
