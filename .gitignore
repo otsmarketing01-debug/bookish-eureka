@@ -47,3 +47,4 @@ server.log
 # Vercel
 .vercel
 .env.vercel
+.mcp.json

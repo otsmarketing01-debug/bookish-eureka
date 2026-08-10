@@ -1,0 +1,35 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -Command \"if ($env:CLAUDE_FILE_PATH -match '\\\\.env$|\\\\.env\\\\.local$|\\\\.mcp\\\\.json$') { Write-Error 'BLOCKED: refusing to edit secret file (.env / .mcp.json)'; exit 1 }\"",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -Command \"if ($env:CLAUDE_FILE_PATH -match '\\.tsx?$') { pushd 'C:\\dev\\bookish-eureka'; npx tsc --noEmit 2>&1 | Select-Object -First 20; popd }\"",
+            "timeout": 60000
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(vercel --prod:*)",
+      "Bash(bun run lint:*)",
+      "Bash(bunx prisma db push:*)"
+    ]
+  }
+}
