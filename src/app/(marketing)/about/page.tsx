@@ -49,16 +49,17 @@ export default function AboutPage() {
       />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-radial-emerald">
-        <div className="absolute inset-0 bg-grid opacity-30 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
+      <section className="relative overflow-hidden bg-metallic-emerald-deep">
+        <div className="absolute inset-0 bg-grid opacity-20 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-metallic-bronze-top/60 to-transparent" />
         <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <Badge variant="secondary" className="mb-4 gap-1.5"><Sparkles className="h-3.5 w-3.5" /> About Us</Badge>
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-balance">
+              <span className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-metallic-bronze-top/40 bg-metallic-emerald-deep/60 px-4 py-1.5 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-metallic-bronze-top"><Sparkles className="h-3.5 w-3.5" /> About Us</span>
+              <h1 className="font-display text-3xl font-bold tracking-tight text-metallic-ivory text-balance sm:text-4xl lg:text-5xl">
                 Johannesburg's on-site curtain cleaning specialists
               </h1>
-              <p className="mt-4 text-lg text-muted-foreground">
+              <p className="mt-4 text-lg text-metallic-ivory/80">
                 For over 15 years, we've been cleaning curtains exactly where they hang — no removal, no shrinkage, no disruption. Here's our story.
               </p>
             </div>
@@ -67,13 +68,13 @@ export default function AboutPage() {
       </section>
 
       {/* Stats */}
-      <section className="border-y border-border bg-card">
+      <section className="border-y border-metallic-bronze-top/30 bg-metallic-emerald-deep/90">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4 py-8 sm:px-6 lg:grid-cols-4 lg:px-8">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.05}>
               <div className="text-center">
-                <p className="text-2xl font-bold text-primary sm:text-3xl">{s.value}</p>
-                <p className="mt-1 text-xs text-muted-foreground sm:text-sm">{s.label}</p>
+                <p className="font-display text-2xl font-bold text-metallic-bronze-top sm:text-3xl">{s.value}</p>
+                <p className="mt-1 text-xs uppercase tracking-widest text-metallic-ivory/60 sm:text-sm">{s.label}</p>
               </div>
             </Reveal>
           ))}
@@ -81,10 +82,11 @@ export default function AboutPage() {
       </section>
 
       {/* Story */}
-      <section className="py-14 sm:py-20">
+      <section className="bg-metallic-ivory py-14 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Our story</h2>
+            <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">Our Story</span>
+            <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep sm:text-3xl">Our story</h2>
             <div className="prose prose-sm mt-6 max-w-none text-muted-foreground leading-relaxed sm:prose-base">
               <p>
                 JHB Curtain Cleaning was founded in 2010 with a simple mission: to provide Johannesburg homeowners and businesses with a curtain cleaning service that doesn't require taking curtains down, doesn't risk shrinkage, and doesn't disrupt daily life.
@@ -104,23 +106,24 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="bg-muted/30 py-14 sm:py-20">
+      <section className="bg-metallic-cream py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">What we stand for</h2>
+              <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">Our Values</span>
+              <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep sm:text-3xl">What we stand for</h2>
               <p className="mt-3 text-muted-foreground">The principles that guide every job we do.</p>
             </div>
           </Reveal>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v, i) => (
               <Reveal key={v.title} delay={(i % 4) * 0.08}>
-                <Card className="h-full">
+                <Card className="h-full border border-metallic-bronze-top/20 bg-white">
                   <CardContent className="p-6">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-metallic-bronze-top/15 text-metallic-bronze-bottom">
                       <v.icon className="h-5 w-5" />
                     </span>
-                    <h3 className="mt-4 font-semibold">{v.title}</h3>
+                    <h3 className="mt-4 font-display font-semibold text-metallic-emerald-deep">{v.title}</h3>
                     <p className="mt-1.5 text-sm text-muted-foreground">{v.desc}</p>
                   </CardContent>
                 </Card>
@@ -131,40 +134,42 @@ export default function AboutPage() {
       </section>
 
       {/* Contact info */}
-      <section className="py-14 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden py-14 sm:py-20">
+        <div className="absolute inset-0 bg-metallic-ivory" />
+        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <Card>
+            <Card className="border border-metallic-bronze-top/30 bg-white shadow-xl">
               <CardContent className="grid gap-6 p-8 sm:grid-cols-2">
                 <div>
-                  <h2 className="text-xl font-bold tracking-tight">Get in touch</h2>
+                  <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">Contact</span>
+                  <h2 className="mt-2 font-display text-xl font-bold tracking-tight text-metallic-emerald-deep">Get in touch</h2>
                   <p className="mt-2 text-sm text-muted-foreground">
                     Based in Florida, Roodepoort — serving all of Greater Johannesburg.
                   </p>
                   <div className="mt-4 space-y-3">
-                    <a href={`tel:${siteConfig.phone}`} className="flex items-center gap-2.5 text-sm hover:text-primary">
-                      <Phone className="h-4 w-4 text-primary" /> {siteConfig.phoneDisplay}
+                    <a href={`tel:${siteConfig.phone}`} className="flex items-center gap-2.5 text-sm hover:text-metallic-bronze-bottom">
+                      <Phone className="h-4 w-4 text-metallic-bronze-bottom" /> {siteConfig.phoneDisplay}
                     </a>
-                    <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-2.5 text-sm hover:text-primary">
-                      <Mail className="h-4 w-4 text-primary" /> {siteConfig.email}
+                    <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-2.5 text-sm hover:text-metallic-bronze-bottom">
+                      <Mail className="h-4 w-4 text-metallic-bronze-bottom" /> {siteConfig.email}
                     </a>
                     <div className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                      <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-metallic-bronze-bottom" />
                       <span>{siteConfig.address.street}<br />{siteConfig.address.locality}, {siteConfig.address.postalCode}<br />{siteConfig.address.region}, South Africa</span>
                     </div>
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold">Operating hours</h3>
+                  <h3 className="font-display font-semibold text-metallic-emerald-deep">Operating hours</h3>
                   <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
                     {siteConfig.hours.map((h) => (
                       <li key={h.days} className="flex justify-between">
                         <span>{h.days}</span>
-                        <span className="font-medium text-foreground">{h.time}</span>
+                        <span className="font-medium text-metallic-emerald-deep">{h.time}</span>
                       </li>
                     ))}
                   </ul>
-                  <Button asChild className="mt-5 w-full">
+                  <Button asChild className="mt-5 w-full bg-metallic-bronze-top text-metallic-emerald-deep hover:bg-metallic-bronze-bottom">
                     <Link href="/book">Book a Free Assessment</Link>
                   </Button>
                 </div>

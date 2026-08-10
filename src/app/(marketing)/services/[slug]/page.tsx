@@ -84,28 +84,29 @@ export default async function ServicePage({ params }: Params) {
       />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-radial-emerald">
-        <div className="absolute inset-0 bg-grid opacity-30 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
+      <section className="relative overflow-hidden bg-metallic-emerald-deep">
+        <div className="absolute inset-0 bg-grid opacity-20 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-metallic-bronze-top/60 to-transparent" />
         <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-          <nav className="flex items-center gap-1.5 text-sm text-muted-foreground" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-foreground">Home</Link>
+          <nav className="flex items-center gap-1.5 text-sm text-metallic-ivory/60" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-metallic-bronze-top">Home</Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <Link href="/#services" className="hover:text-foreground">Services</Link>
+            <Link href="/#services" className="hover:text-metallic-bronze-top">Services</Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <span className="text-foreground">{service.name}</span>
+            <span className="text-metallic-ivory">{service.name}</span>
           </nav>
-          <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+          <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
               <div className="flex items-center gap-3">
-                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-sm">
+                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-metallic-bronze-top text-metallic-emerald-deep shadow-sm">
                   <Icon name={service.icon} className="h-7 w-7" />
                 </span>
-                <Badge variant="outline" className="px-3 py-1 text-sm font-semibold text-primary">from {service.priceFrom}</Badge>
+                <Badge variant="outline" className="border-metallic-bronze-top/50 bg-metallic-emerald-deep/60 px-3 py-1 text-sm font-mono font-semibold text-metallic-bronze-top">from {service.priceFrom}</Badge>
               </div>
-              <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">{service.name} Johannesburg</h1>
-              <p className="mt-4 text-lg text-muted-foreground">{service.description}</p>
+              <h1 className="mt-5 font-display text-3xl font-bold tracking-tight text-metallic-ivory sm:text-4xl lg:text-5xl">{service.name} Johannesburg</h1>
+              <p className="mt-4 text-lg text-metallic-ivory/80">{service.description}</p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <Button asChild size="lg"><Link href="#quote">Get a Free Quote <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+                <Button asChild size="lg" className="h-12 bg-metallic-bronze-top text-base text-metallic-emerald-deep hover:bg-metallic-bronze-bottom"><Link href="#quote">Get a Free Quote <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
                 <WhatsAppCTA
                   message={`Hi, I'm interested in ${service.name} (${service.priceFrom}). Can you give me a quote?`}
                   variant="outline"
@@ -114,7 +115,7 @@ export default async function ServicePage({ params }: Params) {
               </div>
             </div>
             {/* Service cover image */}
-            <div className="relative aspect-[4/3] w-full max-w-sm overflow-hidden rounded-2xl border border-border shadow-lg lg:w-80">
+            <div className="relative aspect-[4/3] w-full max-w-sm overflow-hidden rounded-2xl border border-metallic-bronze-top/30 shadow-2xl lg:w-80">
               <Image
                 src={`/services/${service.slug}.jpg`}
                 alt={`${service.name} — professional on-site cleaning in Johannesburg`}
@@ -133,9 +134,9 @@ export default async function ServicePage({ params }: Params) {
         <section className="py-10 sm:py-14">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             <Reveal>
-              <div className="rounded-xl border border-primary/20 bg-primary/5 p-6">
-                <h2 className="flex items-center gap-2 text-lg font-semibold">
-                  <CheckCircle2 className="h-5 w-5 text-primary" /> Quick Answer
+              <div className="rounded-xl border border-metallic-bronze-top/30 bg-metallic-cream p-6">
+                <h2 className="flex items-center gap-2 font-display text-lg font-semibold text-metallic-emerald-deep">
+                  <CheckCircle2 className="h-5 w-5 text-metallic-bronze-bottom" /> Quick Answer
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{service.answerBlock}</p>
               </div>
@@ -145,20 +146,21 @@ export default async function ServicePage({ params }: Params) {
       )}
 
       {/* Features */}
-      <section className="py-14 sm:py-20">
+      <section className="bg-metallic-ivory py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-3">
             <div className="lg:col-span-2">
               <Reveal>
-                <h2 className="text-2xl font-bold tracking-tight">What's included</h2>
+                <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">What's Included</span>
+                <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep">What's included</h2>
                 <p className="mt-2 text-muted-foreground">Every {service.name.toLowerCase()} job includes:</p>
               </Reveal>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 {service.features.map((f, i) => (
                   <Reveal key={f} delay={(i % 2) * 0.05}>
-                    <div className="flex items-start gap-2.5 rounded-lg border border-border bg-card p-4">
-                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                      <span className="text-sm font-medium">{f}</span>
+                    <div className="flex items-start gap-2.5 rounded-lg border border-metallic-bronze-top/20 bg-white p-4 transition-all hover:border-metallic-bronze-top/50">
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-metallic-bronze-bottom" />
+                      <span className="text-sm font-medium text-metallic-slate">{f}</span>
                     </div>
                   </Reveal>
                 ))}
@@ -166,17 +168,17 @@ export default async function ServicePage({ params }: Params) {
             </div>
             <div>
               <Reveal delay={0.1}>
-                <Card className="sticky top-24 border-primary/20">
+                <Card className="sticky top-24 border-metallic-bronze-top/30 bg-metallic-emerald-deep text-metallic-ivory">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><ShieldCheck className="h-5 w-5 text-primary" /> Our guarantee</CardTitle>
-                    <CardDescription>Peace of mind on every job.</CardDescription>
+                    <CardTitle className="flex items-center gap-2 font-display"><ShieldCheck className="h-5 w-5 text-metallic-bronze-top" /> Our guarantee</CardTitle>
+                    <CardDescription className="text-metallic-ivory/60">Peace of mind on every job.</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3 text-sm">
-                    <div className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" /> No-shrinkage guarantee</div>
-                    <div className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" /> Fixed all-inclusive pricing</div>
-                    <div className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" /> Certified, insured technicians</div>
-                    <div className="flex items-start gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" /> Satisfaction guaranteed</div>
-                    <Button asChild className="mt-3 w-full"><Link href="#quote">Get a Free Quote</Link></Button>
+                    <div className="flex items-start gap-2 text-metallic-ivory/85"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-metallic-bronze-top" /> No-shrinkage guarantee</div>
+                    <div className="flex items-start gap-2 text-metallic-ivory/85"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-metallic-bronze-top" /> Fixed all-inclusive pricing</div>
+                    <div className="flex items-start gap-2 text-metallic-ivory/85"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-metallic-bronze-top" /> Certified, insured technicians</div>
+                    <div className="flex items-start gap-2 text-metallic-ivory/85"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-metallic-bronze-top" /> Satisfaction guaranteed</div>
+                    <Button asChild className="mt-3 w-full bg-metallic-bronze-top text-metallic-emerald-deep hover:bg-metallic-bronze-bottom"><Link href="#quote">Get a Free Quote</Link></Button>
                   </CardContent>
                 </Card>
               </Reveal>
@@ -201,10 +203,11 @@ export default async function ServicePage({ params }: Params) {
 
       {/* FAQ */}
       {service.faqs.length > 0 && (
-        <section className="bg-muted/30 py-14 sm:py-20">
+        <section className="bg-metallic-ivory py-14 sm:py-20">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             <Reveal>
-              <h2 className="text-center text-2xl font-bold tracking-tight sm:text-3xl">{service.name} — your questions answered</h2>
+              <span className="block text-center font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">FAQ</span>
+              <h2 className="mt-3 text-center font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep sm:text-3xl">{service.name} — your questions answered</h2>
             </Reveal>
             <Reveal delay={0.1}>
               <div className="mt-8"><FaqAccordion items={service.faqs} /></div>
@@ -217,16 +220,18 @@ export default async function ServicePage({ params }: Params) {
       <ServiceReviews serviceName={service.name} />
 
       {/* Quote */}
-      <section id="quote" className="scroll-mt-20 py-14 sm:py-20">
-        <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+      <section id="quote" className="relative scroll-mt-20 overflow-hidden py-14 sm:py-20">
+        <div className="absolute inset-0 bg-metallic-cream" />
+        <div className="relative mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center">
-              <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Get your free {service.name.toLowerCase()} quote</h2>
+              <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">Free Assessment</span>
+              <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep sm:text-3xl">Get your free {service.name.toLowerCase()} quote</h2>
               <p className="mt-3 text-muted-foreground">Fill in the form and we'll respond within 1 business hour.</p>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <Card className="mt-8">
+            <Card className="mt-8 border-metallic-bronze-top/30 shadow-xl">
               <CardContent className="p-6">
                 <ContactForm compact />
               </CardContent>
@@ -236,22 +241,22 @@ export default async function ServicePage({ params }: Params) {
       </section>
 
       {/* Other services */}
-      <section className="border-t border-border bg-muted/30 py-14">
+      <section className="border-t border-metallic-bronze-top/20 bg-metallic-emerald-deep py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 lg:grid-cols-3">
             <div className="lg:col-span-2">
-              <h2 className="text-xl font-bold tracking-tight">Explore our other services</h2>
+              <h2 className="font-display text-xl font-bold tracking-tight text-metallic-ivory">Explore our other services</h2>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 {services.filter((s) => s.slug !== slug).slice(0, 4).map((s) => (
-                  <Link key={s.slug} href={`/services/${s.slug}`} className="group flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-all hover:border-primary/40 hover:shadow-sm">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground">
+                  <Link key={s.slug} href={`/services/${s.slug}`} className="group flex items-center gap-3 rounded-lg border border-metallic-bronze-top/20 bg-metallic-emerald-deep/60 p-4 transition-all hover:border-metallic-bronze-top/50 hover:bg-metallic-emerald-deep">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-metallic-bronze-top/15 text-metallic-bronze-top group-hover:bg-metallic-bronze-top group-hover:text-metallic-emerald-deep">
                       <Icon name={s.icon} className="h-5 w-5" />
                     </span>
                     <div className="flex-1">
-                      <p className="font-medium group-hover:text-primary">{s.name}</p>
-                      <p className="text-xs text-muted-foreground">from {s.priceFrom}</p>
+                      <p className="font-medium text-metallic-ivory group-hover:text-metallic-bronze-top">{s.name}</p>
+                      <p className="text-xs text-metallic-ivory/50">from {s.priceFrom}</p>
                     </div>
-                    <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="h-4 w-4 text-metallic-bronze-top transition-transform group-hover:translate-x-1" />
                   </Link>
                 ))}
               </div>

@@ -60,26 +60,27 @@ export default async function AreaPage({ params }: Params) {
           ),
         }}
       />
-      <section className="relative overflow-hidden bg-radial-emerald">
-        <div className="absolute inset-0 bg-grid opacity-30 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
+      <section className="relative overflow-hidden bg-metallic-emerald-deep">
+        <div className="absolute inset-0 bg-grid opacity-20 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-metallic-bronze-top/60 to-transparent" />
         <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-          <nav className="flex items-center gap-1.5 text-sm text-muted-foreground" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-foreground">Home</Link>
+          <nav className="flex items-center gap-1.5 text-sm text-metallic-ivory/60" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-metallic-bronze-top">Home</Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <Link href="/#areas" className="hover:text-foreground">Areas</Link>
+            <Link href="/#areas" className="hover:text-metallic-bronze-top">Areas</Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <span className="text-foreground">{area.region}</span>
+            <span className="text-metallic-ivory">{area.region}</span>
           </nav>
-          <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+          <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
-              <Badge variant="secondary" className="gap-1.5"><MapPin className="h-3.5 w-3.5" /> {area.region}</Badge>
-              <h1 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-balance">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-metallic-bronze-top/40 bg-metallic-emerald-deep/60 px-4 py-1.5 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-metallic-bronze-top"><MapPin className="h-3.5 w-3.5" /> {area.region}</span>
+              <h1 className="mt-4 font-display text-3xl font-bold tracking-tight text-metallic-ivory text-balance sm:text-4xl lg:text-5xl">
                 {area.h1}
               </h1>
-              <p className="mt-4 max-w-2xl text-lg text-muted-foreground">{area.intro}</p>
+              <p className="mt-4 max-w-2xl text-lg text-metallic-ivory/80">{area.intro}</p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <Button asChild size="lg"><Link href="/book">Book a Free Assessment <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
-                <Button asChild size="lg" variant="outline">
+                <Button asChild size="lg" className="h-12 bg-metallic-bronze-top text-base text-metallic-emerald-deep hover:bg-metallic-bronze-bottom"><Link href="/book">Book a Free Assessment <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+                <Button asChild size="lg" variant="outline" className="h-12 border-metallic-ivory/40 bg-transparent text-metallic-ivory hover:bg-metallic-ivory/10 hover:text-metallic-ivory">
                   <a href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(`Hi, I'd like a curtain cleaning quote in ${area.suburb}.`)}`} target="_blank" rel="noopener noreferrer">
                     WhatsApp Us
                   </a>
@@ -87,7 +88,7 @@ export default async function AreaPage({ params }: Params) {
               </div>
             </div>
             {/* Area cover image */}
-            <div className="relative aspect-[4/3] w-full max-w-sm overflow-hidden rounded-2xl border border-border shadow-lg lg:w-80">
+            <div className="relative aspect-[4/3] w-full max-w-sm overflow-hidden rounded-2xl border border-metallic-bronze-top/30 shadow-2xl lg:w-80">
               <Image
                 src={`/areas/${area.slug}.jpg`}
                 alt={`Curtain cleaning in ${area.suburb}, ${area.region}`}
@@ -105,9 +106,9 @@ export default async function AreaPage({ params }: Params) {
       <section className="py-10 sm:py-14">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <div className="rounded-xl border border-primary/20 bg-primary/5 p-6">
-              <h2 className="flex items-center gap-2 text-lg font-semibold">
-                <CheckCircle2 className="h-5 w-5 text-primary" /> Quick Answer
+            <div className="rounded-xl border border-metallic-bronze-top/30 bg-metallic-cream p-6">
+              <h2 className="flex items-center gap-2 font-display text-lg font-semibold text-metallic-emerald-deep">
+                <CheckCircle2 className="h-5 w-5 text-metallic-bronze-bottom" /> Quick Answer
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{area.answerBlock}</p>
             </div>
@@ -116,29 +117,30 @@ export default async function AreaPage({ params }: Params) {
       </section>
 
       {/* Environmental factors */}
-      <section className="py-10 sm:py-14">
+      <section className="bg-metallic-ivory py-10 sm:py-14">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="grid gap-6 lg:grid-cols-2 lg:items-center">
               <div>
-                <h2 className="text-2xl font-bold tracking-tight">Why {area.region} curtains need specialist care</h2>
+                <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">Why {area.region}</span>
+                <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep">Why {area.region} curtains need specialist care</h2>
                 <p className="mt-3 text-muted-foreground">
                   The Highveld plateau creates unique environmental challenges for soft furnishings. {area.suburb} and surrounding suburbs face specific soil loads that generic cleaners miss. Our mobile solvent dry-cleaning was built for these conditions.
                 </p>
                 <ul className="mt-5 space-y-3">
                   {area.environmentalFactors.map((factor, i) => (
                     <li key={i} className="flex items-start gap-2.5">
-                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-                      <span className="text-sm">{factor}</span>
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-metallic-bronze-bottom" />
+                      <span className="text-sm text-metallic-slate">{factor}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <Card><CardContent className="p-5 text-center"><Wind className="mx-auto h-8 w-8 text-primary" /><p className="mt-2 text-sm font-medium">Highveld Dust</p><p className="text-xs text-muted-foreground">Silica & pollen</p></CardContent></Card>
-                <Card><CardContent className="p-5 text-center"><Sun className="mx-auto h-8 w-8 text-primary" /><p className="mt-2 text-sm font-medium">UV Exposure</p><p className="text-xs text-muted-foreground">Fabric fading</p></CardContent></Card>
-                <Card><CardContent className="p-5 text-center"><Cloud className="mx-auto h-8 w-8 text-primary" /><p className="mt-2 text-sm font-medium">Dry Winters</p><p className="text-xs text-muted-foreground">Concentrated grime</p></CardContent></Card>
-                <Card><CardContent className="p-5 text-center"><CheckCircle2 className="mx-auto h-8 w-8 text-success" /><p className="mt-2 text-sm font-medium">Zero Shrinkage</p><p className="text-xs text-muted-foreground">Waterless process</p></CardContent></Card>
+                <Card className="border border-metallic-bronze-top/20 bg-white"><CardContent className="p-5 text-center"><Wind className="mx-auto h-8 w-8 text-metallic-bronze-bottom" /><p className="mt-2 text-sm font-medium text-metallic-emerald-deep">Highveld Dust</p><p className="text-xs text-muted-foreground">Silica & pollen</p></CardContent></Card>
+                <Card className="border border-metallic-bronze-top/20 bg-white"><CardContent className="p-5 text-center"><Sun className="mx-auto h-8 w-8 text-metallic-bronze-bottom" /><p className="mt-2 text-sm font-medium text-metallic-emerald-deep">UV Exposure</p><p className="text-xs text-muted-foreground">Fabric fading</p></CardContent></Card>
+                <Card className="border border-metallic-bronze-top/20 bg-white"><CardContent className="p-5 text-center"><Cloud className="mx-auto h-8 w-8 text-metallic-bronze-bottom" /><p className="mt-2 text-sm font-medium text-metallic-emerald-deep">Dry Winters</p><p className="text-xs text-muted-foreground">Concentrated grime</p></CardContent></Card>
+                <Card className="border border-metallic-bronze-top/20 bg-metallic-emerald-deep"><CardContent className="p-5 text-center"><CheckCircle2 className="mx-auto h-8 w-8 text-metallic-bronze-top" /><p className="mt-2 text-sm font-medium text-metallic-ivory">Zero Shrinkage</p><p className="text-xs text-metallic-ivory/60">Waterless process</p></CardContent></Card>
               </div>
             </div>
           </Reveal>
@@ -147,19 +149,20 @@ export default async function AreaPage({ params }: Params) {
 
       {/* Suburb silos */}
       {area.suburbs && area.suburbs.length > 0 && (
-        <section className="bg-muted/30 py-14">
+        <section className="bg-metallic-cream py-14">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal>
-              <h2 className="text-xl font-bold tracking-tight">Suburbs we serve in {area.region}</h2>
+              <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">Suburbs</span>
+              <h2 className="mt-3 font-display text-xl font-bold tracking-tight text-metallic-emerald-deep">Suburbs we serve in {area.region}</h2>
             </Reveal>
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {area.suburbs.map((sub, i) => (
                 <Reveal key={sub.slug} delay={(i % 3) * 0.06}>
-                  <Card className="h-full">
+                  <Card className="h-full border border-metallic-bronze-top/20 bg-white">
                     <CardContent className="p-5">
                       <div className="flex items-center gap-2">
-                        <MapPin className="h-4 w-4 text-primary" />
-                        <h3 className="font-semibold">{sub.name}</h3>
+                        <MapPin className="h-4 w-4 text-metallic-bronze-bottom" />
+                        <h3 className="font-display font-semibold text-metallic-emerald-deep">{sub.name}</h3>
                       </div>
                       <p className="mt-2 text-sm text-muted-foreground">{sub.focus}</p>
                     </CardContent>
@@ -172,22 +175,23 @@ export default async function AreaPage({ params }: Params) {
       )}
 
       {/* Services in this area */}
-      <section className="py-14">
+      <section className="bg-metallic-ivory py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <h2 className="text-xl font-bold tracking-tight">Services available in {area.suburb}</h2>
+            <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">Services</span>
+            <h2 className="mt-3 font-display text-xl font-bold tracking-tight text-metallic-emerald-deep">Services available in {area.suburb}</h2>
           </Reveal>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {services.slice(0, 6).map((s) => (
-              <Link key={s.slug} href={`/services/${s.slug}`} className="group flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-all hover:border-primary/40">
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground">
+              <Link key={s.slug} href={`/services/${s.slug}`} className="group flex items-center gap-3 rounded-lg border border-metallic-bronze-top/20 bg-white p-4 transition-all hover:border-metallic-bronze-top/50 hover:shadow-sm">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-metallic-bronze-top/15 text-metallic-bronze-bottom group-hover:bg-metallic-bronze-top group-hover:text-metallic-emerald-deep">
                   <Icon name={s.icon} className="h-5 w-5" />
                 </span>
                 <div className="flex-1">
-                  <p className="text-sm font-medium group-hover:text-primary">{s.name}</p>
+                  <p className="text-sm font-medium text-metallic-slate group-hover:text-metallic-emerald-deep">{s.name}</p>
                   <p className="text-xs text-muted-foreground">from {s.priceFrom}</p>
                 </div>
-                <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-4 w-4 text-metallic-bronze-top transition-transform group-hover:translate-x-1" />
               </Link>
             ))}
           </div>
@@ -195,12 +199,12 @@ export default async function AreaPage({ params }: Params) {
       </section>
 
       {/* Other areas */}
-      <section className="border-t border-border bg-muted/30 py-12">
+      <section className="border-t border-metallic-bronze-top/20 bg-metallic-emerald-deep py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-lg font-bold tracking-tight">Other areas we serve</h2>
+          <h2 className="font-display text-lg font-bold tracking-tight text-metallic-ivory">Other areas we serve</h2>
           <div className="mt-4 flex flex-wrap gap-2">
             {areas.filter((a) => a.slug !== slug).map((a) => (
-              <Button key={a.slug} asChild variant="outline" size="sm">
+              <Button key={a.slug} asChild variant="outline" size="sm" className="border-metallic-bronze-top/40 text-metallic-bronze-top hover:bg-metallic-bronze-top hover:text-metallic-emerald-deep">
                 <Link href={`/areas/${a.slug}`}>{a.region}</Link>
               </Button>
             ))}
