@@ -15,7 +15,7 @@ export function localBusinessSchema() {
     telephone: siteConfig.phone,
     email: siteConfig.email,
     image: `${siteConfig.url}/hero-curtains.jpg`,
-    logo: `${siteConfig.url}/logo.svg`,
+    logo: `${siteConfig.url}/logo.png`,
     address: {
       "@type": "PostalAddress",
       streetAddress: siteConfig.address.street,
@@ -94,7 +94,7 @@ export function schemaGraph(faqs?: { q: string; a: string }[]) {
       name: siteConfig.name,
       legalName: siteConfig.name,
       url: siteConfig.url,
-      logo: `${siteConfig.url}/logo.svg`,
+      logo: `${siteConfig.url}/logo.png`,
       image: `${siteConfig.url}/hero-curtains.jpg`,
       telephone: siteConfig.phone,
       email: siteConfig.email,

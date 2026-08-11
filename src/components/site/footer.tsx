@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Phone, Mail, MapPin, Clock, Star, Sparkles, Send } from "lucide-react";
+import Image from "next/image";
+import { Phone, Mail, MapPin, Clock, Star, Send } from "lucide-react";
 import { siteConfig, services, areas } from "@/lib/config";
 import { NewsletterSignup } from "@/components/site/newsletter-signup";
 
@@ -11,13 +12,13 @@ export function SiteFooter() {
           {/* Brand */}
           <div className="col-span-2 lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                <Sparkles className="h-5 w-5" />
-              </span>
-              <span className="flex flex-col leading-none">
-                <span className="text-sm font-bold tracking-tight">{siteConfig.shortName}</span>
-                <span className="text-[10px] text-muted-foreground">Johannesburg</span>
-              </span>
+              <Image
+                src="/logo.png"
+                alt={siteConfig.name}
+                width={600}
+                height={327}
+                className="h-10 w-auto"
+              />
             </Link>
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
               {siteConfig.description}
