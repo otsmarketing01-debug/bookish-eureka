@@ -63,7 +63,7 @@ export default function PricingPage() {
                 { icon: Clock, label: "Same-day service", sub: "Rooms usable same day" },
                 { icon: FileText, label: "All-inclusive quotes", sub: "No hidden extras" },
               ].map((t) => (
-                <div key={t.label} className="flex items-center gap-3 rounded-lg border border-metallic-bronze-top/20 bg-white p-4">
+                <div key={t.label} className="flex items-center gap-3 rounded-lg border border-metallic-bronze-top/20 bg-white dark:bg-card p-4">
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-metallic-bronze-top/10 text-metallic-bronze-bottom">
                     <t.icon className="h-5 w-5" />
                   </span>
@@ -93,7 +93,7 @@ export default function PricingPage() {
           <div className="grid gap-6 lg:grid-cols-2">
             {pricingTiers.map((tier, i) => (
               <Reveal key={tier.name} delay={(i % 2) * 0.08}>
-                <Card className={`relative h-full ${tier.popular ? "border border-metallic-bronze-top/40 shadow-lg ring-1 ring-metallic-bronze-top/20" : "border border-metallic-bronze-top/20 bg-white"}`}>
+                <Card className={`relative h-full ${tier.popular ? "border border-metallic-bronze-top/40 shadow-lg ring-1 ring-metallic-bronze-top/20" : "border border-metallic-bronze-top/20 bg-white dark:bg-card"}`}>
                   {tier.popular && (
                     <Badge className="absolute -top-3 left-6 bg-metallic-bronze-top text-metallic-emerald-deep shadow-sm">
                       Most comprehensive
@@ -101,8 +101,8 @@ export default function PricingPage() {
                   )}
                   <CardHeader>
                     <div className="flex items-baseline justify-between gap-3">
-                      <h2 className="font-display text-xl font-bold tracking-tight text-metallic-emerald-deep">{tier.name}</h2>
-                      <span className="text-sm font-semibold text-metallic-bronze-bottom">{tier.priceFrom}<span className="text-xs font-normal text-muted-foreground"> / starting</span></span>
+                      <h2 className="font-display text-xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory">{tier.name}</h2>
+                      <span className="text-sm font-semibold text-metallic-bronze-bottom dark:text-metallic-bronze-top">{tier.priceFrom}<span className="text-xs font-normal text-muted-foreground"> / starting</span></span>
                     </div>
                     <p className="text-sm text-muted-foreground">{tier.description}</p>
                   </CardHeader>
@@ -111,7 +111,7 @@ export default function PricingPage() {
                       {tier.items.map((item) => (
                         <li key={item.label} className="flex items-center justify-between gap-3 py-2.5">
                           <span className="flex items-start gap-2 text-sm">
-                            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-metallic-bronze-bottom" />
+                            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-metallic-bronze-bottom dark:text-metallic-bronze-top" />
                             <span>
                               {item.label}
                               {item.note && <span className="ml-1.5 text-xs text-muted-foreground">({item.note})</span>}
@@ -140,12 +140,12 @@ export default function PricingPage() {
       </section>
 
       {/* What affects price */}
-      <section className="bg-metallic-cream py-14 sm:py-20">
+      <section className="bg-metallic-cream dark:bg-metallic-emerald-deep py-14 sm:py-20">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <span className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">What affects your quote</span>
-              <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl text-metallic-emerald-deep">Five factors that influence price</h2>
+              <span className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom dark:text-metallic-bronze-top">What affects your quote</span>
+              <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl text-metallic-emerald-deep dark:text-metallic-ivory">Five factors that influence price</h2>
             </div>
           </Reveal>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
@@ -157,9 +157,9 @@ export default function PricingPage() {
               { n: "5", t: "Location", d: "Standard call-out zone covers all of metro JHB." },
             ].map((f, i) => (
               <Reveal key={f.n} delay={i * 0.06}>
-                <div className="h-full rounded-xl border border-metallic-bronze-top/20 bg-white p-5">
+                <div className="h-full rounded-xl border border-metallic-bronze-top/20 bg-white dark:bg-card p-5">
                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-metallic-bronze-top text-sm font-bold text-metallic-emerald-deep">{f.n}</span>
-                  <h3 className="font-display mt-3 font-semibold text-metallic-emerald-deep">{f.t}</h3>
+                  <h3 className="font-display mt-3 font-semibold text-metallic-emerald-deep dark:text-metallic-ivory">{f.t}</h3>
                   <p className="mt-1 text-sm text-muted-foreground">{f.d}</p>
                 </div>
               </Reveal>
@@ -173,8 +173,8 @@ export default function PricingPage() {
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center">
-              <span className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">Pricing FAQ</span>
-              <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl text-metallic-emerald-deep">Your pricing questions, answered</h2>
+              <span className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom dark:text-metallic-bronze-top">Pricing FAQ</span>
+              <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl text-metallic-emerald-deep dark:text-metallic-ivory">Your pricing questions, answered</h2>
             </div>
           </Reveal>
           <Reveal delay={0.1}>

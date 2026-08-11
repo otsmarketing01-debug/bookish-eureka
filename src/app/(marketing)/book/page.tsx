@@ -64,9 +64,9 @@ export default function BookPage() {
             </div>
             <div className="space-y-4 lg:col-span-2">
               <Reveal>
-                <Card className="border border-metallic-bronze-top/20 bg-white">
+                <Card className="border border-metallic-bronze-top/20 bg-white dark:bg-card">
                   <CardContent className="space-y-4 p-6">
-                    <h3 className="font-display font-semibold text-metallic-emerald-deep">What happens next?</h3>
+                    <h3 className="font-display font-semibold text-metallic-emerald-deep dark:text-metallic-ivory">What happens next?</h3>
                     <ol className="space-y-4">
                       {[
                         { n: 1, t: "You submit the form", d: "Pick a date, time slot, and tell us what needs cleaning." },
@@ -88,13 +88,13 @@ export default function BookPage() {
               </Reveal>
 
               <Reveal delay={0.1}>
-                <Card className="border border-metallic-bronze-top/20 bg-metallic-cream">
+                <Card className="border border-metallic-bronze-top/20 bg-metallic-cream dark:bg-metallic-emerald-deep">
                   <CardContent className="space-y-3 p-6">
-                    <h3 className="font-display flex items-center gap-2 font-semibold text-metallic-emerald-deep"><ShieldCheck className="h-5 w-5 text-metallic-bronze-bottom" /> Our guarantees</h3>
+                    <h3 className="font-display flex items-center gap-2 font-semibold text-metallic-emerald-deep dark:text-metallic-ivory"><ShieldCheck className="h-5 w-5 text-metallic-bronze-bottom dark:text-metallic-bronze-top" /> Our guarantees</h3>
                     <ul className="space-y-2 text-sm text-muted-foreground">
-                      <li className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-metallic-bronze-bottom" /> No-shrinkage guarantee</li>
-                      <li className="flex items-center gap-2"><Clock className="h-4 w-4 text-metallic-bronze-bottom" /> Same-day usable rooms</li>
-                      <li className="flex items-center gap-2"><MapPin className="h-4 w-4 text-metallic-bronze-bottom" /> All Johannesburg suburbs</li>
+                      <li className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-metallic-bronze-bottom dark:text-metallic-bronze-top" /> No-shrinkage guarantee</li>
+                      <li className="flex items-center gap-2"><Clock className="h-4 w-4 text-metallic-bronze-bottom dark:text-metallic-bronze-top" /> Same-day usable rooms</li>
+                      <li className="flex items-center gap-2"><MapPin className="h-4 w-4 text-metallic-bronze-bottom dark:text-metallic-bronze-top" /> All Johannesburg suburbs</li>
                     </ul>
                     <div className="border-t border-border pt-3">
                       <p className="text-sm text-muted-foreground">Prefer to talk?</p>
@@ -112,18 +112,18 @@ export default function BookPage() {
                     </div>
                     {/* Trust badges */}
                     <div className="mt-4 flex flex-wrap gap-2 border-t border-border pt-3">
-                      <Badge variant="outline" className="gap-1 border-metallic-bronze-top/40 bg-metallic-bronze-top/10 text-metallic-bronze-bottom"><ShieldCheck className="h-3 w-3" /> 100% No-Shrinkage</Badge>
-                      <Badge variant="outline" className="gap-1 border-metallic-bronze-top/40 bg-metallic-bronze-top/10 text-metallic-bronze-bottom"><Clock className="h-3 w-3" /> 15+ Years</Badge>
-                      <Badge variant="outline" className="gap-1 border-metallic-bronze-top/40 bg-metallic-bronze-top/10 text-metallic-bronze-bottom"><ShieldCheck className="h-3 w-3" /> Hardware Checks Included</Badge>
+                      <Badge variant="outline" className="gap-1 border-metallic-bronze-top/40 bg-metallic-bronze-top/10 text-metallic-bronze-bottom dark:text-metallic-bronze-top"><ShieldCheck className="h-3 w-3" /> 100% No-Shrinkage</Badge>
+                      <Badge variant="outline" className="gap-1 border-metallic-bronze-top/40 bg-metallic-bronze-top/10 text-metallic-bronze-bottom dark:text-metallic-bronze-top"><Clock className="h-3 w-3" /> 15+ Years</Badge>
+                      <Badge variant="outline" className="gap-1 border-metallic-bronze-top/40 bg-metallic-bronze-top/10 text-metallic-bronze-bottom dark:text-metallic-bronze-top"><ShieldCheck className="h-3 w-3" /> Hardware Checks Included</Badge>
                     </div>
                   </CardContent>
                 </Card>
               </Reveal>
 
               <Reveal delay={0.2}>
-                <Card className="border border-metallic-bronze-top/20 bg-white">
+                <Card className="border border-metallic-bronze-top/20 bg-white dark:bg-card">
                   <CardContent className="p-6">
-                    <h3 className="font-display font-semibold text-metallic-emerald-deep">Operating hours</h3>
+                    <h3 className="font-display font-semibold text-metallic-emerald-deep dark:text-metallic-ivory">Operating hours</h3>
                     <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
                       {siteConfig.hours.map((h) => (
                         <li key={h.days} className="flex justify-between">
@@ -141,10 +141,10 @@ export default function BookPage() {
       </section>
 
       {/* CTA */}
-      <section className="border-t border-border bg-metallic-cream py-12">
+      <section className="border-t border-border bg-metallic-cream dark:bg-metallic-emerald-deep py-12">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <Reveal>
-            <h2 className="font-display text-xl font-bold tracking-tight sm:text-2xl text-metallic-emerald-deep">Not sure what you need?</h2>
+            <h2 className="font-display text-xl font-bold tracking-tight sm:text-2xl text-metallic-emerald-deep dark:text-metallic-ivory">Not sure what you need?</h2>
             <p className="mt-2 text-sm text-muted-foreground">Browse our services or check pricing first.</p>
             <div className="mt-5 flex flex-wrap justify-center gap-3">
               <Button asChild variant="outline"><Link href="/#services">View services</Link></Button>

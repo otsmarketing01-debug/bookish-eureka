@@ -139,9 +139,9 @@ export default async function GalleryPage() {
                     />
                   </div>
                   <div className="lg:col-span-2">
-                    <Badge variant="outline" className="mb-2 border-metallic-bronze-top/30 text-metallic-bronze-bottom">{item.service}</Badge>
-                    <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep">{item.title}</h2>
-                    <p className="mt-1 text-sm font-medium text-metallic-bronze-bottom">{item.location}</p>
+                    <Badge variant="outline" className="mb-2 border-metallic-bronze-top/30 text-metallic-bronze-bottom dark:text-metallic-bronze-top">{item.service}</Badge>
+                    <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory">{item.title}</h2>
+                    <p className="mt-1 text-sm font-medium text-metallic-bronze-bottom dark:text-metallic-bronze-top">{item.location}</p>
                     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
                     <p className="mt-4 text-xs text-muted-foreground">← Drag the handle on the image to compare →</p>
                   </div>
@@ -153,7 +153,7 @@ export default async function GalleryPage() {
       </section>
 
       {/* Stats band */}
-      <section className="bg-metallic-cream py-14">
+      <section className="bg-metallic-cream dark:bg-metallic-emerald-deep py-14">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="grid grid-cols-2 gap-6 text-center sm:grid-cols-4">
@@ -164,7 +164,7 @@ export default async function GalleryPage() {
                 { stat: "Same day", label: "On-site service" },
               ].map((s) => (
                 <div key={s.label}>
-                  <p className="font-display text-2xl font-bold text-metallic-emerald-deep sm:text-3xl">{s.stat}</p>
+                  <p className="font-display text-2xl font-bold text-metallic-emerald-deep dark:text-metallic-ivory sm:text-3xl">{s.stat}</p>
                   <p className="mt-1 text-xs text-muted-foreground sm:text-sm">{s.label}</p>
                 </div>
               ))}

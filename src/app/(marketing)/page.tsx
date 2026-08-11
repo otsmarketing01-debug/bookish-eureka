@@ -150,19 +150,19 @@ export default async function HomePage() {
       </section>
 
       {/* ===== SERVICES — editorial split, asymmetric ===== */}
-      <section id="services" className="scroll-mt-20 bg-metallic-ivory py-16 sm:py-24">
+      <section id="services" className="scroll-mt-20 bg-metallic-ivory dark:bg-metallic-emerald-deep py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-12">
             <Reveal className="lg:col-span-4">
               <div className="lg:sticky lg:top-24">
-                <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">Our Services</span>
-                <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-metallic-emerald-deep sm:text-4xl">
+                <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom dark:text-metallic-bronze-top">Our Services</span>
+                <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory sm:text-4xl">
                   Six specialist disciplines
                 </h2>
                 <p className="mt-4 text-muted-foreground">
                   From delicate sheers to heavy hotel drapes, we clean it all — on-site, without removal.
                 </p>
-                <Button asChild variant="outline" className="mt-6 border-metallic-bronze-top/50 text-metallic-bronze-bottom hover:bg-metallic-bronze-top hover:text-white">
+                <Button asChild variant="outline" className="mt-6 border-metallic-bronze-top/50 text-metallic-bronze-bottom dark:text-metallic-bronze-top hover:bg-metallic-bronze-top hover:text-white">
                   <Link href="/services">View full portfolio <ArrowRight className="ml-2 h-4 w-4" /></Link>
                 </Button>
               </div>
@@ -170,7 +170,7 @@ export default async function HomePage() {
             <div className="grid gap-5 sm:grid-cols-2 lg:col-span-8">
               {services.map((service, i) => (
                 <Reveal key={service.slug} delay={(i % 2) * 0.08}>
-                  <Card className={`group h-full overflow-hidden border transition-all hover:-translate-y-1 hover:shadow-lg ${i % 2 === 0 ? "border-metallic-bronze-top/20 bg-white" : "border-transparent bg-metallic-emerald-deep text-metallic-ivory"}`}>
+                  <Card className={`group h-full overflow-hidden border transition-all hover:-translate-y-1 hover:shadow-lg ${i % 2 === 0 ? "border-metallic-bronze-top/20 bg-white dark:bg-card" : "border-transparent bg-metallic-emerald-deep text-metallic-ivory"}`}>
                     <div className="relative h-36 overflow-hidden">
                       <Image
                         src={`/services/${service.slug}.jpg`}
@@ -183,22 +183,22 @@ export default async function HomePage() {
                       <span className="absolute left-3 top-3 flex h-10 w-10 items-center justify-center rounded-xl bg-metallic-bronze-top/90 text-metallic-emerald-deep shadow-sm">
                         <Icon name={service.icon} className="h-5 w-5" />
                       </span>
-                      <Badge variant="outline" className={`absolute right-3 top-3 font-mono text-xs font-semibold backdrop-blur-sm ${i % 2 === 0 ? "border-metallic-bronze-top/40 bg-white/90 text-metallic-bronze-bottom" : "border-metallic-bronze-top/40 bg-metallic-emerald-deep/80 text-metallic-bronze-top"}`}>from {service.priceFrom}</Badge>
+                      <Badge variant="outline" className={`absolute right-3 top-3 font-mono text-xs font-semibold backdrop-blur-sm ${i % 2 === 0 ? "border-metallic-bronze-top/40 bg-white/90 dark:bg-card text-metallic-bronze-bottom dark:text-metallic-bronze-top" : "border-metallic-bronze-top/40 bg-metallic-emerald-deep/80 text-metallic-bronze-top"}`}>from {service.priceFrom}</Badge>
                     </div>
                     <CardHeader>
-                      <CardTitle className={`text-lg ${i % 2 === 0 ? "text-metallic-emerald-deep" : "text-metallic-ivory"}`}>{service.name}</CardTitle>
+                      <CardTitle className={`text-lg ${i % 2 === 0 ? "text-metallic-emerald-deep dark:text-metallic-ivory" : "text-metallic-ivory"}`}>{service.name}</CardTitle>
                       <CardDescription className={i % 2 === 0 ? undefined : "text-metallic-ivory/60"}>{service.short}</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <ul className="space-y-1.5">
                         {service.features.slice(0, 3).map((f) => (
                           <li key={f} className={`flex items-start gap-2 text-sm ${i % 2 === 0 ? "text-muted-foreground" : "text-metallic-ivory/70"}`}>
-                            <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${i % 2 === 0 ? "text-metallic-bronze-bottom" : "text-metallic-bronze-top"}`} />
+                            <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${i % 2 === 0 ? "text-metallic-bronze-bottom dark:text-metallic-bronze-top" : "text-metallic-bronze-top"}`} />
                             {f}
                           </li>
                         ))}
                       </ul>
-                      <Button asChild variant="ghost" size="sm" className={`mt-4 -ml-2 ${i % 2 === 0 ? "text-metallic-bronze-bottom hover:bg-metallic-bronze-top/10" : "text-metallic-bronze-top hover:bg-metallic-bronze-top/10"}`}>
+                      <Button asChild variant="ghost" size="sm" className={`mt-4 -ml-2 ${i % 2 === 0 ? "text-metallic-bronze-bottom dark:text-metallic-bronze-top hover:bg-metallic-bronze-top/10" : "text-metallic-bronze-top hover:bg-metallic-bronze-top/10"}`}>
                         <Link href={`/services/${service.slug}`}>
                           Learn more <ArrowRight className="ml-1 h-3.5 w-3.5" />
                         </Link>
@@ -283,24 +283,24 @@ export default async function HomePage() {
       </section>
 
       {/* ===== TESTIMONIALS — right caption + quote wall ===== */}
-      <section className="bg-metallic-ivory py-16 sm:py-24">
+      <section className="bg-metallic-ivory dark:bg-metallic-emerald-deep py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-12">
             <div className="grid gap-6 sm:grid-cols-2 lg:col-span-8">
               {testimonials.slice(0, 4).map((t, i) => (
                 <Reveal key={i} delay={(i % 2) * 0.08}>
-                  <Card className="h-full border-metallic-bronze-top/20 bg-white">
+                  <Card className="h-full border-metallic-bronze-top/20 bg-white dark:bg-card">
                     <CardContent className="pt-6">
                       <Quote className="h-7 w-7 text-metallic-bronze-top/40" />
-                      <p className="mt-3 text-sm leading-relaxed text-metallic-slate">{t.text}</p>
+                      <p className="mt-3 text-sm leading-relaxed text-metallic-slate dark:text-metallic-ivory/85">{t.text}</p>
                       <div className="mt-4 flex">
                         {Array.from({ length: t.rating }).map((_, j) => (
                           <Star key={j} className="h-4 w-4 fill-metallic-bronze-top text-metallic-bronze-top" />
                         ))}
                       </div>
                       <div className="mt-3 border-t border-metallic-bronze-top/15 pt-3">
-                        <p className="text-sm font-semibold text-metallic-emerald-deep">{t.name}</p>
-                        <p className="font-mono text-xs uppercase tracking-wider text-metallic-bronze-bottom">{t.area}</p>
+                        <p className="text-sm font-semibold text-metallic-emerald-deep dark:text-metallic-ivory">{t.name}</p>
+                        <p className="font-mono text-xs uppercase tracking-wider text-metallic-bronze-bottom dark:text-metallic-bronze-top">{t.area}</p>
                       </div>
                     </CardContent>
                   </Card>
@@ -309,14 +309,14 @@ export default async function HomePage() {
             </div>
             <Reveal className="lg:col-span-4">
               <div className="lg:sticky lg:top-24">
-                <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">Testimonials</span>
-                <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-metallic-emerald-deep sm:text-4xl">
+                <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom dark:text-metallic-bronze-top">Testimonials</span>
+                <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory sm:text-4xl">
                   Trusted in Johannesburg&apos;s finest homes &amp; venues
                 </h2>
                 <p className="mt-4 text-muted-foreground">
                   From family homes to five-star hotels — 5,000+ Johannesburg customers trust our care.
                 </p>
-                <Button asChild variant="outline" className="mt-6 border-metallic-bronze-top/50 text-metallic-bronze-bottom hover:bg-metallic-bronze-top hover:text-white">
+                <Button asChild variant="outline" className="mt-6 border-metallic-bronze-top/50 text-metallic-bronze-bottom dark:text-metallic-bronze-top hover:bg-metallic-bronze-top hover:text-white">
                   <Link href="/testimonials">Read more reviews <ArrowRight className="ml-2 h-4 w-4" /></Link>
                 </Button>
               </div>
@@ -329,16 +329,16 @@ export default async function HomePage() {
       <HomepageReviews />
 
       {/* ===== FAQ ===== */}
-      <section id="faq" className="scroll-mt-20 bg-metallic-ivory py-16 sm:py-24">
+      <section id="faq" className="scroll-mt-20 bg-metallic-ivory dark:bg-metallic-emerald-deep py-16 sm:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center">
-              <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">FAQ</span>
-              <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-metallic-emerald-deep sm:text-4xl">
+              <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom dark:text-metallic-bronze-top">FAQ</span>
+              <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory sm:text-4xl">
                 Frequently asked questions
               </h2>
               <p className="mt-4 text-muted-foreground">
-                Can&apos;t find your answer? <Link href="/contact" className="text-metallic-bronze-bottom underline">Get in touch</Link>.
+                Can&apos;t find your answer? <Link href="/contact" className="text-metallic-bronze-bottom dark:text-metallic-bronze-top underline">Get in touch</Link>.
               </p>
             </div>
           </Reveal>

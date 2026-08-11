@@ -28,10 +28,10 @@ export default async function BlogPage() {
         {/* Header */}
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
-            <span className="mb-3 inline-flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">
+            <span className="mb-3 inline-flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom dark:text-metallic-bronze-top">
               <Newspaper className="h-3.5 w-3.5" /> The JHB Blog
             </span>
-            <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-metallic-emerald-deep">
+            <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-metallic-emerald-deep dark:text-metallic-ivory">
               Curtain cleaning tips, guides & pricing
             </h1>
             <p className="mt-4 text-muted-foreground">
@@ -60,7 +60,7 @@ export default async function BlogPage() {
         {featured && (
           <Reveal delay={0.15}>
             <Link href={`/blog/${featured.slug}`} className="group mt-12 block">
-              <Card className="overflow-hidden border border-metallic-bronze-top/20 bg-white transition-all hover:shadow-lg md:grid md:grid-cols-2">
+              <Card className="overflow-hidden border border-metallic-bronze-top/20 bg-white dark:bg-card transition-all hover:shadow-lg md:grid md:grid-cols-2">
                 <div className="relative flex min-h-[220px] items-center justify-center bg-gradient-to-br from-metallic-bronze-top/15 via-metallic-bronze-top/5 to-transparent">
                   {featured.coverImage ? (
                     <Image
@@ -78,10 +78,10 @@ export default async function BlogPage() {
                 <div>
                   <CardHeader>
                     <div className="flex items-center gap-2">
-                      <Badge className="bg-metallic-bronze-top/10 text-metallic-bronze-bottom hover:bg-metallic-bronze-top/10">Featured</Badge>
-                      <Badge variant="outline" className="border-metallic-bronze-top/30 text-metallic-bronze-bottom">{featured.category}</Badge>
+                      <Badge className="bg-metallic-bronze-top/10 text-metallic-bronze-bottom dark:text-metallic-bronze-top hover:bg-metallic-bronze-top/10">Featured</Badge>
+                      <Badge variant="outline" className="border-metallic-bronze-top/30 text-metallic-bronze-bottom dark:text-metallic-bronze-top">{featured.category}</Badge>
                     </div>
-                    <h2 className="font-display mt-3 text-2xl font-bold tracking-tight text-metallic-emerald-deep group-hover:text-metallic-emerald-deep">
+                    <h2 className="font-display mt-3 text-2xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory group-hover:text-metallic-emerald-deep">
                       {featured.title}
                     </h2>
                   </CardHeader>
@@ -91,7 +91,7 @@ export default async function BlogPage() {
                       <span className="flex items-center gap-1.5"><CalendarDays className="h-3.5 w-3.5" />{formatDate(featured.publishedAt)}</span>
                       <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" />{featured.readingTime} min read</span>
                     </div>
-                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-metallic-emerald-deep">
+                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-metallic-emerald-deep dark:text-metallic-ivory">
                       Read article <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                     </span>
                   </CardContent>
@@ -106,7 +106,7 @@ export default async function BlogPage() {
           {rest.map((post, i) => (
             <Reveal key={post.slug} delay={(i % 3) * 0.08}>
               <Link href={`/blog/${post.slug}`} className="group block h-full">
-                <Card className="flex h-full flex-col border border-metallic-bronze-top/20 bg-white transition-all hover:-translate-y-1 hover:shadow-lg">
+                <Card className="flex h-full flex-col border border-metallic-bronze-top/20 bg-white dark:bg-card transition-all hover:-translate-y-1 hover:shadow-lg">
                   <div className="relative h-40 overflow-hidden bg-gradient-to-br from-metallic-bronze-top/10 to-transparent">
                     {post.coverImage ? (
                       <Image
@@ -121,8 +121,8 @@ export default async function BlogPage() {
                     )}
                   </div>
                   <CardHeader>
-                    <Badge variant="outline" className="w-fit border-metallic-bronze-top/30 text-metallic-bronze-bottom">{post.category}</Badge>
-                    <h3 className="font-display mt-2 font-semibold leading-snug text-metallic-emerald-deep group-hover:text-metallic-emerald-deep">{post.title}</h3>
+                    <Badge variant="outline" className="w-fit border-metallic-bronze-top/30 text-metallic-bronze-bottom dark:text-metallic-bronze-top">{post.category}</Badge>
+                    <h3 className="font-display mt-2 font-semibold leading-snug text-metallic-emerald-deep dark:text-metallic-ivory group-hover:text-metallic-emerald-deep">{post.title}</h3>
                   </CardHeader>
                   <CardContent className="flex-1">
                     <p className="line-clamp-3 text-sm text-muted-foreground">{post.excerpt}</p>
@@ -139,8 +139,8 @@ export default async function BlogPage() {
 
         {/* CTA */}
         <Reveal>
-          <div className="mt-16 rounded-2xl border border-metallic-bronze-top/20 bg-metallic-cream p-8 text-center sm:p-12">
-            <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep">Need your curtains cleaned?</h2>
+          <div className="mt-16 rounded-2xl border border-metallic-bronze-top/20 bg-metallic-cream dark:bg-metallic-emerald-deep p-8 text-center sm:p-12">
+            <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory">Need your curtains cleaned?</h2>
             <p className="mx-auto mt-2 max-w-md text-muted-foreground">
               Get a free, no-obligation on-site assessment from Johannesburg's trusted curtain cleaning specialists.
             </p>

@@ -134,9 +134,9 @@ export default async function ServicePage({ params }: Params) {
         <section className="py-10 sm:py-14">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             <Reveal>
-              <div className="rounded-xl border border-metallic-bronze-top/30 bg-metallic-cream p-6">
-                <h2 className="flex items-center gap-2 font-display text-lg font-semibold text-metallic-emerald-deep">
-                  <CheckCircle2 className="h-5 w-5 text-metallic-bronze-bottom" /> Quick Answer
+              <div className="rounded-xl border border-metallic-bronze-top/30 bg-metallic-cream dark:bg-metallic-emerald-deep/90 p-6">
+                <h2 className="flex items-center gap-2 font-display text-lg font-semibold text-metallic-emerald-deep dark:text-metallic-ivory">
+                  <CheckCircle2 className="h-5 w-5 text-metallic-bronze-bottom dark:text-metallic-bronze-top" /> Quick Answer
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{service.answerBlock}</p>
               </div>
@@ -146,21 +146,21 @@ export default async function ServicePage({ params }: Params) {
       )}
 
       {/* Features */}
-      <section className="bg-metallic-ivory py-14 sm:py-20">
+      <section className="bg-metallic-ivory dark:bg-metallic-emerald-deep py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-3">
             <div className="lg:col-span-2">
               <Reveal>
-                <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">What's Included</span>
-                <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep">What's included</h2>
+                <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom dark:text-metallic-bronze-top">What's Included</span>
+                <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory">What's included</h2>
                 <p className="mt-2 text-muted-foreground">Every {service.name.toLowerCase()} job includes:</p>
               </Reveal>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 {service.features.map((f, i) => (
                   <Reveal key={f} delay={(i % 2) * 0.05}>
-                    <div className="flex items-start gap-2.5 rounded-lg border border-metallic-bronze-top/20 bg-white p-4 transition-all hover:border-metallic-bronze-top/50">
-                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-metallic-bronze-bottom" />
-                      <span className="text-sm font-medium text-metallic-slate">{f}</span>
+                    <div className="flex items-start gap-2.5 rounded-lg border border-metallic-bronze-top/20 bg-white dark:bg-card p-4 transition-all hover:border-metallic-bronze-top/50">
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-metallic-bronze-bottom dark:text-metallic-bronze-top" />
+                      <span className="text-sm font-medium text-metallic-slate dark:text-metallic-ivory/85">{f}</span>
                     </div>
                   </Reveal>
                 ))}
@@ -203,11 +203,11 @@ export default async function ServicePage({ params }: Params) {
 
       {/* FAQ */}
       {service.faqs.length > 0 && (
-        <section className="bg-metallic-ivory py-14 sm:py-20">
+        <section className="bg-metallic-ivory dark:bg-metallic-emerald-deep py-14 sm:py-20">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             <Reveal>
-              <span className="block text-center font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">FAQ</span>
-              <h2 className="mt-3 text-center font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep sm:text-3xl">{service.name} — your questions answered</h2>
+              <span className="block text-center font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom dark:text-metallic-bronze-top">FAQ</span>
+              <h2 className="mt-3 text-center font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory sm:text-3xl">{service.name} — your questions answered</h2>
             </Reveal>
             <Reveal delay={0.1}>
               <div className="mt-8"><FaqAccordion items={service.faqs} /></div>
@@ -221,12 +221,12 @@ export default async function ServicePage({ params }: Params) {
 
       {/* Quote */}
       <section id="quote" className="relative scroll-mt-20 overflow-hidden py-14 sm:py-20">
-        <div className="absolute inset-0 bg-metallic-cream" />
+        <div className="absolute inset-0 bg-metallic-cream dark:bg-metallic-emerald-deep/90" />
         <div className="relative mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center">
-              <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">Free Assessment</span>
-              <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep sm:text-3xl">Get your free {service.name.toLowerCase()} quote</h2>
+              <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom dark:text-metallic-bronze-top">Free Assessment</span>
+              <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory sm:text-3xl">Get your free {service.name.toLowerCase()} quote</h2>
               <p className="mt-3 text-muted-foreground">Fill in the form and we'll respond within 1 business hour.</p>
             </div>
           </Reveal>

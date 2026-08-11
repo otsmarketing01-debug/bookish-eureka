@@ -87,7 +87,7 @@ export default function FaqPage() {
       <section className="py-10 sm:py-14">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep">General questions</h2>
+            <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory">General questions</h2>
             <p className="mt-2 text-sm text-muted-foreground">The basics everyone asks about on-site curtain cleaning.</p>
           </Reveal>
           <Reveal delay={0.1}>
@@ -97,19 +97,19 @@ export default function FaqPage() {
       </section>
 
       {/* Service-specific FAQs */}
-      <section className="bg-metallic-cream py-10 sm:py-14">
+      <section className="bg-metallic-cream dark:bg-metallic-emerald-deep py-10 sm:py-14">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep">Service-specific questions</h2>
+            <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory">Service-specific questions</h2>
             <p className="mt-2 text-sm text-muted-foreground">Detailed answers for each of our specialist services.</p>
           </Reveal>
           <div className="mt-6 space-y-8">
             {services.map((service, i) => (
               <Reveal key={service.slug} delay={(i % 3) * 0.05}>
                 <div>
-                  <h3 className="font-display flex items-center gap-2 text-lg font-semibold text-metallic-emerald-deep">
+                  <h3 className="font-display flex items-center gap-2 text-lg font-semibold text-metallic-emerald-deep dark:text-metallic-ivory">
                     {service.name}
-                    <Link href={`/services/${service.slug}`} className="text-sm font-normal text-metallic-emerald-deep hover:underline">
+                    <Link href={`/services/${service.slug}`} className="text-sm font-normal text-metallic-emerald-deep dark:text-metallic-ivory hover:underline">
                       learn more <ArrowRight className="inline h-3 w-3" />
                     </Link>
                   </h3>
@@ -125,7 +125,7 @@ export default function FaqPage() {
       <section className="py-10 sm:py-14">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep">Pricing questions</h2>
+            <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory">Pricing questions</h2>
             <p className="mt-2 text-sm text-muted-foreground">About quotes, payment, and what affects the price.</p>
           </Reveal>
           <Reveal delay={0.1}>

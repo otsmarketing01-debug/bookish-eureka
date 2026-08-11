@@ -16,7 +16,7 @@ export default function ContactPage() {
     <div className="py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-metallic-emerald-deep">
+          <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-metallic-emerald-deep dark:text-metallic-ivory">
             Get your free curtain cleaning quote
           </h1>
           <p className="mt-4 text-muted-foreground">
@@ -27,9 +27,9 @@ export default function ContactPage() {
         <div className="mt-12 grid gap-8 lg:grid-cols-5">
           {/* Form */}
           <div className="lg:col-span-3">
-            <Card className="border border-metallic-bronze-top/20 bg-white">
+            <Card className="border border-metallic-bronze-top/20 bg-white dark:bg-card">
               <CardHeader>
-                <CardTitle className="font-display text-metallic-emerald-deep">Request a free assessment</CardTitle>
+                <CardTitle className="font-display text-metallic-emerald-deep dark:text-metallic-ivory">Request a free assessment</CardTitle>
                 <CardDescription>
                   Tell us what needs cleaning and where you are. We'll be in touch fast.
                 </CardDescription>
@@ -45,30 +45,30 @@ export default function ContactPage() {
             <Card>
               <CardContent className="space-y-5 p-6">
                 <div className="flex items-start gap-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-metallic-bronze-top/10 text-metallic-bronze-bottom">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-metallic-bronze-top/10 text-metallic-bronze-bottom dark:text-metallic-bronze-top">
                     <Phone className="h-5 w-5" />
                   </span>
                   <div>
                     <p className="text-sm font-semibold">Call us</p>
-                    <a href={`tel:${siteConfig.phone}`} className="text-sm text-metallic-emerald-deep hover:underline">
+                    <a href={`tel:${siteConfig.phone}`} className="text-sm text-metallic-emerald-deep dark:text-metallic-ivory hover:underline">
                       {siteConfig.phoneDisplay}
                     </a>
                     <p className="text-xs text-muted-foreground">Fastest response</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-metallic-bronze-top/10 text-metallic-bronze-bottom">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-metallic-bronze-top/10 text-metallic-bronze-bottom dark:text-metallic-bronze-top">
                     <Mail className="h-5 w-5" />
                   </span>
                   <div>
                     <p className="text-sm font-semibold">Email us</p>
-                    <a href={`mailto:${siteConfig.email}`} className="break-all text-sm text-metallic-emerald-deep hover:underline">
+                    <a href={`mailto:${siteConfig.email}`} className="break-all text-sm text-metallic-emerald-deep dark:text-metallic-ivory hover:underline">
                       {siteConfig.email}
                     </a>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-metallic-bronze-top/10 text-metallic-bronze-bottom">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-metallic-bronze-top/10 text-metallic-bronze-bottom dark:text-metallic-bronze-top">
                     <MapPin className="h-5 w-5" />
                   </span>
                   <div>
@@ -81,7 +81,7 @@ export default function ContactPage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-metallic-bronze-top/10 text-metallic-bronze-bottom">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-metallic-bronze-top/10 text-metallic-bronze-bottom dark:text-metallic-bronze-top">
                     <Clock className="h-5 w-5" />
                   </span>
                   <div>
@@ -95,9 +95,9 @@ export default function ContactPage() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="border border-metallic-bronze-top/20 bg-metallic-cream">
+            <Card className="border border-metallic-bronze-top/20 bg-metallic-cream dark:bg-metallic-emerald-deep">
               <CardContent className="flex items-center gap-3 p-5">
-                <MessageCircle className="h-8 w-8 shrink-0 text-metallic-bronze-bottom" />
+                <MessageCircle className="h-8 w-8 shrink-0 text-metallic-bronze-bottom dark:text-metallic-bronze-top" />
                 <div>
                   <p className="text-sm font-semibold">Prefer to chat?</p>
                   <p className="text-xs text-muted-foreground">Use the live chat button in the bottom corner to message us instantly.</p>

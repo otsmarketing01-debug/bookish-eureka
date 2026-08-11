@@ -85,7 +85,7 @@ export default async function TestimonialsPage() {
           <div className="columns-1 gap-6 sm:columns-2 lg:columns-3 [&>*]:mb-6">
             {testimonials.map((t, i) => (
               <Reveal key={i} delay={(i % 3) * 0.08}>
-                <Card className="break-inside-avoid border border-metallic-bronze-top/20 bg-white transition-all hover:shadow-md">
+                <Card className="break-inside-avoid border border-metallic-bronze-top/20 bg-white dark:bg-card transition-all hover:shadow-md">
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <Quote className="h-8 w-8 text-metallic-bronze-top/40" />
@@ -117,19 +117,19 @@ export default async function TestimonialsPage() {
 
       {/* Verified customer reviews from DB */}
       {customerReviews.length > 0 && (
-        <section className="bg-metallic-cream py-14 sm:py-20">
+        <section className="bg-metallic-cream dark:bg-metallic-emerald-deep py-14 sm:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal>
               <div className="mx-auto max-w-2xl text-center">
-                <span className="mb-3 inline-flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom"><ShieldCheck className="h-3.5 w-3.5" /> Verified Customer Reviews</span>
-                <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl text-metallic-emerald-deep">Recent reviews from real bookings</h2>
+                <span className="mb-3 inline-flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom dark:text-metallic-bronze-top"><ShieldCheck className="h-3.5 w-3.5" /> Verified Customer Reviews</span>
+                <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl text-metallic-emerald-deep dark:text-metallic-ivory">Recent reviews from real bookings</h2>
                 <p className="mt-2 text-sm text-muted-foreground">Submitted by customers after their completed cleaning. Verified against booking records.</p>
               </div>
             </Reveal>
             <div className="mt-10 columns-1 gap-6 sm:columns-2 lg:columns-3 [&>*]:mb-6">
               {customerReviews.map((r, i) => (
                 <Reveal key={r.id} delay={(i % 3) * 0.08}>
-                  <Card className="break-inside-avoid border border-metallic-bronze-top/20 bg-white transition-all hover:shadow-md">
+                  <Card className="break-inside-avoid border border-metallic-bronze-top/20 bg-white dark:bg-card transition-all hover:shadow-md">
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between">
                         <Quote className="h-8 w-8 text-metallic-bronze-top/40" />
@@ -152,7 +152,7 @@ export default async function TestimonialsPage() {
                             <span className="truncate">{r.service}</span>
                           </p>
                         </div>
-                        <Badge variant="outline" className="shrink-0 gap-1 border-metallic-bronze-top/40 bg-metallic-bronze-top/10 text-metallic-bronze-bottom">
+                        <Badge variant="outline" className="shrink-0 gap-1 border-metallic-bronze-top/40 bg-metallic-bronze-top/10 text-metallic-bronze-bottom dark:text-metallic-bronze-top">
                           <ShieldCheck className="h-3 w-3" /> Verified
                         </Badge>
                       </div>
@@ -166,11 +166,11 @@ export default async function TestimonialsPage() {
       )}
 
       {/* Coverage */}
-      <section className="bg-metallic-ivory py-14">
+      <section className="bg-metallic-ivory dark:bg-metallic-emerald-deep py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center">
-              <h2 className="font-display text-xl font-bold tracking-tight sm:text-2xl text-metallic-emerald-deep">Trusted across Johannesburg</h2>
+              <h2 className="font-display text-xl font-bold tracking-tight sm:text-2xl text-metallic-emerald-deep dark:text-metallic-ivory">Trusted across Johannesburg</h2>
               <p className="mt-2 text-sm text-muted-foreground">We proudly serve all these areas and more.</p>
             </div>
           </Reveal>
@@ -190,7 +190,7 @@ export default async function TestimonialsPage() {
       <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <Reveal>
-            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl text-metallic-emerald-deep">Join 5,000+ satisfied customers</h2>
+            <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl text-metallic-emerald-deep dark:text-metallic-ivory">Join 5,000+ satisfied customers</h2>
             <p className="mt-3 text-muted-foreground">Experience the on-site, no-shrinkage difference for yourself.</p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button asChild size="lg"><Link href="/book">Book a Free Assessment <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>

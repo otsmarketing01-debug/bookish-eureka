@@ -108,7 +108,7 @@ export default async function SectorPage({ params }: Params) {
           <div className="grid gap-10 lg:grid-cols-2">
             <Reveal>
               <div>
-                <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep">Tailored for {sector.name.toLowerCase()}</h2>
+                <h2 className="font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory">Tailored for {sector.name.toLowerCase()}</h2>
                 <p className="mt-3 text-muted-foreground">
                   {sector.name} environments have specific cleaning requirements. We adapt our process, scheduling, and compliance to fit — whether that means after-hours service, fire-safety certification, or hygiene-critical sanitisation.
                 </p>
@@ -121,7 +121,7 @@ export default async function SectorPage({ params }: Params) {
                     "Detailed job reports on request",
                   ].map((point) => (
                     <li key={point} className="flex items-start gap-2.5">
-                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-metallic-bronze-bottom" />
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-metallic-bronze-bottom dark:text-metallic-bronze-top" />
                       <span className="text-sm">{point}</span>
                     </li>
                   ))}
@@ -129,9 +129,9 @@ export default async function SectorPage({ params }: Params) {
               </div>
             </Reveal>
             <Reveal delay={0.1}>
-              <Card className="border border-metallic-bronze-top/20 bg-metallic-cream">
+              <Card className="border border-metallic-bronze-top/20 bg-metallic-cream dark:bg-metallic-emerald-deep">
                 <CardContent className="p-6">
-                  <h3 className="font-display font-semibold text-metallic-emerald-deep">Request a commercial quote</h3>
+                  <h3 className="font-display font-semibold text-metallic-emerald-deep dark:text-metallic-ivory">Request a commercial quote</h3>
                   <p className="mt-1 text-sm text-muted-foreground">
                     Tell us about your premises and we'll prepare a tailored proposal.
                   </p>
@@ -146,11 +146,11 @@ export default async function SectorPage({ params }: Params) {
         </div>
       </section>
 
-      <section className="border-t border-border bg-metallic-cream py-12">
+      <section className="border-t border-border bg-metallic-cream dark:bg-metallic-emerald-deep py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 lg:grid-cols-3">
             <div className="lg:col-span-1">
-              <h2 className="font-display mb-4 text-lg font-bold tracking-tight text-metallic-emerald-deep">Other sectors we serve</h2>
+              <h2 className="font-display mb-4 text-lg font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory">Other sectors we serve</h2>
               <div className="flex flex-wrap gap-2">
                 {sectors.filter((s) => s.slug !== slug).map((s) => (
                   <Button key={s.slug} asChild variant="outline" size="sm">

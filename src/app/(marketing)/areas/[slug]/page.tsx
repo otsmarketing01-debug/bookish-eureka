@@ -106,9 +106,9 @@ export default async function AreaPage({ params }: Params) {
       <section className="py-10 sm:py-14">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <div className="rounded-xl border border-metallic-bronze-top/30 bg-metallic-cream p-6">
-              <h2 className="flex items-center gap-2 font-display text-lg font-semibold text-metallic-emerald-deep">
-                <CheckCircle2 className="h-5 w-5 text-metallic-bronze-bottom" /> Quick Answer
+            <div className="rounded-xl border border-metallic-bronze-top/30 bg-metallic-cream dark:bg-metallic-emerald-deep/90 p-6">
+              <h2 className="flex items-center gap-2 font-display text-lg font-semibold text-metallic-emerald-deep dark:text-metallic-ivory">
+                <CheckCircle2 className="h-5 w-5 text-metallic-bronze-bottom dark:text-metallic-bronze-top" /> Quick Answer
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{area.answerBlock}</p>
             </div>
@@ -117,29 +117,29 @@ export default async function AreaPage({ params }: Params) {
       </section>
 
       {/* Environmental factors */}
-      <section className="bg-metallic-ivory py-10 sm:py-14">
+      <section className="bg-metallic-ivory dark:bg-metallic-emerald-deep py-10 sm:py-14">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="grid gap-6 lg:grid-cols-2 lg:items-center">
               <div>
-                <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">Why {area.region}</span>
-                <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep">Why {area.region} curtains need specialist care</h2>
+                <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom dark:text-metallic-bronze-top">Why {area.region}</span>
+                <h2 className="mt-3 font-display text-2xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory">Why {area.region} curtains need specialist care</h2>
                 <p className="mt-3 text-muted-foreground">
                   The Highveld plateau creates unique environmental challenges for soft furnishings. {area.suburb} and surrounding suburbs face specific soil loads that generic cleaners miss. Our mobile solvent dry-cleaning was built for these conditions.
                 </p>
                 <ul className="mt-5 space-y-3">
                   {area.environmentalFactors.map((factor, i) => (
                     <li key={i} className="flex items-start gap-2.5">
-                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-metallic-bronze-bottom" />
-                      <span className="text-sm text-metallic-slate">{factor}</span>
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-metallic-bronze-bottom dark:text-metallic-bronze-top" />
+                      <span className="text-sm text-metallic-slate dark:text-metallic-ivory/85">{factor}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <Card className="border border-metallic-bronze-top/20 bg-white"><CardContent className="p-5 text-center"><Wind className="mx-auto h-8 w-8 text-metallic-bronze-bottom" /><p className="mt-2 text-sm font-medium text-metallic-emerald-deep">Highveld Dust</p><p className="text-xs text-muted-foreground">Silica & pollen</p></CardContent></Card>
-                <Card className="border border-metallic-bronze-top/20 bg-white"><CardContent className="p-5 text-center"><Sun className="mx-auto h-8 w-8 text-metallic-bronze-bottom" /><p className="mt-2 text-sm font-medium text-metallic-emerald-deep">UV Exposure</p><p className="text-xs text-muted-foreground">Fabric fading</p></CardContent></Card>
-                <Card className="border border-metallic-bronze-top/20 bg-white"><CardContent className="p-5 text-center"><Cloud className="mx-auto h-8 w-8 text-metallic-bronze-bottom" /><p className="mt-2 text-sm font-medium text-metallic-emerald-deep">Dry Winters</p><p className="text-xs text-muted-foreground">Concentrated grime</p></CardContent></Card>
+                <Card className="border border-metallic-bronze-top/20 bg-white dark:bg-card"><CardContent className="p-5 text-center"><Wind className="mx-auto h-8 w-8 text-metallic-bronze-bottom dark:text-metallic-bronze-top" /><p className="mt-2 text-sm font-medium text-metallic-emerald-deep dark:text-metallic-ivory">Highveld Dust</p><p className="text-xs text-muted-foreground">Silica & pollen</p></CardContent></Card>
+                <Card className="border border-metallic-bronze-top/20 bg-white dark:bg-card"><CardContent className="p-5 text-center"><Sun className="mx-auto h-8 w-8 text-metallic-bronze-bottom dark:text-metallic-bronze-top" /><p className="mt-2 text-sm font-medium text-metallic-emerald-deep dark:text-metallic-ivory">UV Exposure</p><p className="text-xs text-muted-foreground">Fabric fading</p></CardContent></Card>
+                <Card className="border border-metallic-bronze-top/20 bg-white dark:bg-card"><CardContent className="p-5 text-center"><Cloud className="mx-auto h-8 w-8 text-metallic-bronze-bottom dark:text-metallic-bronze-top" /><p className="mt-2 text-sm font-medium text-metallic-emerald-deep dark:text-metallic-ivory">Dry Winters</p><p className="text-xs text-muted-foreground">Concentrated grime</p></CardContent></Card>
                 <Card className="border border-metallic-bronze-top/20 bg-metallic-emerald-deep"><CardContent className="p-5 text-center"><CheckCircle2 className="mx-auto h-8 w-8 text-metallic-bronze-top" /><p className="mt-2 text-sm font-medium text-metallic-ivory">Zero Shrinkage</p><p className="text-xs text-metallic-ivory/60">Waterless process</p></CardContent></Card>
               </div>
             </div>
@@ -149,20 +149,20 @@ export default async function AreaPage({ params }: Params) {
 
       {/* Suburb silos */}
       {area.suburbs && area.suburbs.length > 0 && (
-        <section className="bg-metallic-cream py-14">
+        <section className="bg-metallic-cream dark:bg-metallic-emerald-deep/90 py-14">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal>
-              <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">Suburbs</span>
-              <h2 className="mt-3 font-display text-xl font-bold tracking-tight text-metallic-emerald-deep">Suburbs we serve in {area.region}</h2>
+              <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom dark:text-metallic-bronze-top">Suburbs</span>
+              <h2 className="mt-3 font-display text-xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory">Suburbs we serve in {area.region}</h2>
             </Reveal>
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {area.suburbs.map((sub, i) => (
                 <Reveal key={sub.slug} delay={(i % 3) * 0.06}>
-                  <Card className="h-full border border-metallic-bronze-top/20 bg-white">
+                  <Card className="h-full border border-metallic-bronze-top/20 bg-white dark:bg-card">
                     <CardContent className="p-5">
                       <div className="flex items-center gap-2">
-                        <MapPin className="h-4 w-4 text-metallic-bronze-bottom" />
-                        <h3 className="font-display font-semibold text-metallic-emerald-deep">{sub.name}</h3>
+                        <MapPin className="h-4 w-4 text-metallic-bronze-bottom dark:text-metallic-bronze-top" />
+                        <h3 className="font-display font-semibold text-metallic-emerald-deep dark:text-metallic-ivory">{sub.name}</h3>
                       </div>
                       <p className="mt-2 text-sm text-muted-foreground">{sub.focus}</p>
                     </CardContent>
@@ -175,20 +175,20 @@ export default async function AreaPage({ params }: Params) {
       )}
 
       {/* Services in this area */}
-      <section className="bg-metallic-ivory py-14">
+      <section className="bg-metallic-ivory dark:bg-metallic-emerald-deep py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">Services</span>
-            <h2 className="mt-3 font-display text-xl font-bold tracking-tight text-metallic-emerald-deep">Services available in {area.suburb}</h2>
+            <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom dark:text-metallic-bronze-top">Services</span>
+            <h2 className="mt-3 font-display text-xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory">Services available in {area.suburb}</h2>
           </Reveal>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {services.slice(0, 6).map((s) => (
-              <Link key={s.slug} href={`/services/${s.slug}`} className="group flex items-center gap-3 rounded-lg border border-metallic-bronze-top/20 bg-white p-4 transition-all hover:border-metallic-bronze-top/50 hover:shadow-sm">
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-metallic-bronze-top/15 text-metallic-bronze-bottom group-hover:bg-metallic-bronze-top group-hover:text-metallic-emerald-deep">
+              <Link key={s.slug} href={`/services/${s.slug}`} className="group flex items-center gap-3 rounded-lg border border-metallic-bronze-top/20 bg-white dark:bg-card p-4 transition-all hover:border-metallic-bronze-top/50 hover:shadow-sm">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-metallic-bronze-top/15 text-metallic-bronze-bottom dark:text-metallic-bronze-top group-hover:bg-metallic-bronze-top group-hover:text-metallic-emerald-deep">
                   <Icon name={s.icon} className="h-5 w-5" />
                 </span>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-metallic-slate group-hover:text-metallic-emerald-deep">{s.name}</p>
+                  <p className="text-sm font-medium text-metallic-slate dark:text-metallic-ivory/85 group-hover:text-metallic-emerald-deep">{s.name}</p>
                   <p className="text-xs text-muted-foreground">from {s.priceFrom}</p>
                 </div>
                 <ArrowRight className="h-4 w-4 text-metallic-bronze-top transition-transform group-hover:translate-x-1" />

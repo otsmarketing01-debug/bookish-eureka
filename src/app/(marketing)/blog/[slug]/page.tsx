@@ -84,7 +84,7 @@ export default async function BlogPostPage({ params }: Params) {
         {/* Header */}
         <header className="mt-6">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom">{post.category}</span>
+            <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-metallic-bronze-bottom dark:text-metallic-bronze-top">{post.category}</span>
             <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <CalendarDays className="h-3.5 w-3.5" /> {formatDate(post.publishedAt)}
             </span>
@@ -92,7 +92,7 @@ export default async function BlogPostPage({ params }: Params) {
               <Clock className="h-3.5 w-3.5" /> {post.readingTime} min read
             </span>
           </div>
-          <h1 className="font-display mt-4 text-3xl font-bold tracking-tight sm:text-4xl text-balance text-metallic-emerald-deep">{post.title}</h1>
+          <h1 className="font-display mt-4 text-3xl font-bold tracking-tight sm:text-4xl text-balance text-metallic-emerald-deep dark:text-metallic-ivory">{post.title}</h1>
           <p className="mt-4 text-lg text-muted-foreground">{post.excerpt}</p>
           <div className="mt-5 flex items-center gap-3 border-y border-border py-3">
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-metallic-bronze-top text-sm font-bold text-metallic-emerald-deep">
@@ -120,8 +120,8 @@ export default async function BlogPostPage({ params }: Params) {
         )}
 
         {/* AEO Answer Block — extractable summary for AI search engines */}
-        <div className="mt-6 rounded-xl border border-metallic-bronze-top/20 bg-metallic-cream p-5">
-          <p className="text-xs font-semibold uppercase tracking-wider text-metallic-bronze-bottom">Quick Answer</p>
+        <div className="mt-6 rounded-xl border border-metallic-bronze-top/20 bg-metallic-cream dark:bg-metallic-emerald-deep p-5">
+          <p className="text-xs font-semibold uppercase tracking-wider text-metallic-bronze-bottom dark:text-metallic-bronze-top">Quick Answer</p>
           <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{post.excerpt}</p>
         </div>
 
@@ -141,10 +141,10 @@ export default async function BlogPostPage({ params }: Params) {
         )}
 
         {/* CTA */}
-        <Card className="mt-10 border border-metallic-bronze-top/20 bg-metallic-cream">
+        <Card className="mt-10 border border-metallic-bronze-top/20 bg-metallic-cream dark:bg-metallic-emerald-deep">
           <CardContent className="flex flex-col items-center gap-4 p-6 text-center sm:flex-row sm:text-left">
             <div className="flex-1">
-              <h3 className="font-display text-lg font-semibold text-metallic-emerald-deep">Ready for spotless curtains?</h3>
+              <h3 className="font-display text-lg font-semibold text-metallic-emerald-deep dark:text-metallic-ivory">Ready for spotless curtains?</h3>
               <p className="text-sm text-muted-foreground">
                 Book a free on-site assessment from Johannesburg's on-site specialists.
               </p>
@@ -165,19 +165,19 @@ export default async function BlogPostPage({ params }: Params) {
         {/* Related services + articles */}
         <section className="mt-14 grid gap-8 lg:grid-cols-3">
           <div className="lg:col-span-1">
-            <h2 className="font-display mb-4 text-xl font-bold tracking-tight text-metallic-emerald-deep">Related services</h2>
+            <h2 className="font-display mb-4 text-xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory">Related services</h2>
             <BlogRelatedServices category={post.category} tags={post.tags} />
           </div>
           {related.length > 0 && (
             <div className="lg:col-span-2">
-              <h2 className="font-display mb-4 text-xl font-bold tracking-tight text-metallic-emerald-deep">Related articles</h2>
+              <h2 className="font-display mb-4 text-xl font-bold tracking-tight text-metallic-emerald-deep dark:text-metallic-ivory">Related articles</h2>
               <div className="grid gap-5 sm:grid-cols-2">
                 {related.map((r) => (
                   <Link key={r.slug} href={`/blog/${r.slug}`} className="group">
-                    <Card className="h-full border border-metallic-bronze-top/20 bg-white transition-all hover:-translate-y-1 hover:shadow-md">
+                    <Card className="h-full border border-metallic-bronze-top/20 bg-white dark:bg-card transition-all hover:-translate-y-1 hover:shadow-md">
                       <CardContent className="p-5">
-                        <Badge variant="outline" className="border-metallic-bronze-top/30 text-metallic-bronze-bottom text-xs">{r.category}</Badge>
-                        <h3 className="font-display mt-2 font-medium leading-snug text-metallic-emerald-deep group-hover:text-metallic-emerald-deep">{r.title}</h3>
+                        <Badge variant="outline" className="border-metallic-bronze-top/30 text-metallic-bronze-bottom dark:text-metallic-bronze-top text-xs">{r.category}</Badge>
+                        <h3 className="font-display mt-2 font-medium leading-snug text-metallic-emerald-deep dark:text-metallic-ivory group-hover:text-metallic-emerald-deep">{r.title}</h3>
                         <p className="mt-1.5 line-clamp-2 text-sm text-muted-foreground">{r.excerpt}</p>
                       </CardContent>
                     </Card>
