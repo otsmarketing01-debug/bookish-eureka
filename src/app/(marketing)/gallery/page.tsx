@@ -11,9 +11,9 @@ import { breadcrumbSchema } from "@/lib/seo";
 import { safeGetPublishedGallery } from "@/lib/db-safe";
 
 export const metadata: Metadata = {
-  title: "Before & After Gallery — Curtain Cleaning Results | JHB Curtain Cleaning",
+  title: "Before & After Gallery",
   description:
-    "See real before and after results from our Johannesburg curtain, upholstery, and rug cleaning. Drag the slider to reveal the transformation. No removal, no shrinkage.",
+    "See real before & after curtain cleaning results in Johannesburg. Drag the slider to reveal the transformation. Free on-site assessment — book today.",
   alternates: { canonical: "/gallery" },
   openGraph: {
     title: "Before & After Gallery | JHB Curtain Cleaning",

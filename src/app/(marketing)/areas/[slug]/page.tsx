@@ -24,7 +24,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!area) return { title: "Area not found" };
   const ogImage = `/areas/${area.slug}.jpg`;
   return {
-    title: `${area.h1} | On-Site | No Shrinkage | JHB Curtain Cleaning`,
+    title:
+      area.region === "Pretoria / Midrand"
+        ? `${area.suburb} Curtain Cleaning`
+        : `${area.suburb} Curtain Cleaning Johannesburg`,
     description: area.intro.slice(0, 155),
     alternates: { canonical: `/areas/${area.slug}` },
     keywords: area.suburbs?.flatMap((s) => s.keywords) ?? [],

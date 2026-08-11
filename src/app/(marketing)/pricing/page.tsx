@@ -11,9 +11,9 @@ import { faqSchema, breadcrumbSchema } from "@/lib/seo";
 import { QuoteCalculator } from "@/components/site/quote-calculator";
 
 export const metadata: Metadata = {
-  title: "Curtain Cleaning Pricing & Costs Johannesburg 2026 | Transparent Quotes",
+  title: "Curtain Cleaning Pricing Johannesburg",
   description:
-    "Transparent curtain cleaning pricing in Johannesburg. See per-curtain, per-blind, and specialist service prices. No hidden fees, free on-site assessment. From R450.",
+    "Transparent curtain cleaning pricing in Johannesburg. See per-curtain, blind & specialist prices. No hidden fees, free on-site assessment, from R450.",
   alternates: { canonical: "/pricing" },
   openGraph: { title: "Curtain Cleaning Pricing Johannesburg | JHB Curtain Cleaning", description: "Transparent, all-inclusive pricing from R450. Free on-site assessment, no hidden fees." },
 };

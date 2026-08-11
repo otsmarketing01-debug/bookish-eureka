@@ -3,6 +3,7 @@ import { siteConfig, sectors } from "@/lib/config";
 export const dynamic = "force-static";
 
 // Sub-sitemap: sector pages
+export const revalidate = 3600;
 export async function GET() {
   const now = new Date().toISOString();
   const urls = sectors

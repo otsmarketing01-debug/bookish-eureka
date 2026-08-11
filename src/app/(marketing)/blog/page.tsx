@@ -12,7 +12,7 @@ import { siteConfig } from "@/lib/config";
 import { formatDate } from "@/lib/format";
 
 export const metadata: Metadata = {
-  title: "Curtain Cleaning Blog — Tips, Guides & Pricing | JHB Curtain Cleaning",
+  title: "Curtain Cleaning Blog",
   description:
     "Expert guides on curtain cleaning costs, on-site methods, allergen removal, and maintenance frequency for Johannesburg homes and businesses.",
   alternates: { canonical: "/blog" },

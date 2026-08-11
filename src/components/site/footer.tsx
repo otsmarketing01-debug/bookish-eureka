@@ -36,7 +36,7 @@ export function SiteFooter() {
 
           {/* Services */}
           <div>
-            <h3 className="text-sm font-semibold">Services</h3>
+            <h2 className="text-sm font-semibold">Services</h2>
             <ul className="mt-4 space-y-2.5">
               {services.slice(0, 6).map((s) => (
                 <li key={s.slug}>
@@ -53,7 +53,7 @@ export function SiteFooter() {
 
           {/* Company */}
           <div>
-            <h3 className="text-sm font-semibold">Company</h3>
+            <h2 className="text-sm font-semibold">Company</h2>
             <ul className="mt-4 space-y-2.5">
               <li><Link href="/pricing" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Pricing</Link></li>
               <li><Link href="/testimonials" className="text-sm text-muted-foreground transition-colors hover:text-foreground">Testimonials</Link></li>
@@ -65,7 +65,7 @@ export function SiteFooter() {
 
           {/* Areas */}
           <div>
-            <h3 className="text-sm font-semibold">Areas</h3>
+            <h2 className="text-sm font-semibold">Areas</h2>
             <ul className="mt-4 space-y-2.5">
               {areas.map((a) => (
                 <li key={a.slug}>
@@ -82,7 +82,7 @@ export function SiteFooter() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-sm font-semibold">Get in touch</h3>
+            <h2 className="text-sm font-semibold">Get in touch</h2>
             <ul className="mt-4 space-y-3">
               <li>
                 <a href={`tel:${siteConfig.phone}`} className="flex items-start gap-2.5 text-sm text-muted-foreground hover:text-foreground">
@@ -121,7 +121,7 @@ export function SiteFooter() {
               <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <Send className="h-4 w-4" />
               </span>
-              <h3 className="font-semibold">Cleaning tips & special offers</h3>
+              <h2 className="font-semibold">Cleaning tips & special offers</h2>
             </div>
             <p className="mt-2 text-sm text-muted-foreground">
               Join 2,000+ Johannesburg homeowners getting monthly curtain care advice and exclusive offers. No spam, unsubscribe anytime.

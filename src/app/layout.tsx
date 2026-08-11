@@ -31,7 +31,7 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Professional Curtain Cleaning Johannesburg | JHB Curtain Cleaning — Free Assessment",
+    default: "Curtain Cleaning Johannesburg | JHB Curtain Cleaning",
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.name }],
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Professional Curtain Cleaning Johannesburg | JHB Curtain Cleaning",
+    title: "Curtain Cleaning Johannesburg | JHB Curtain Cleaning",
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,

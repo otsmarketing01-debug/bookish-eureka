@@ -5,7 +5,7 @@ import { ContactForm } from "@/components/site/contact-form";
 import { siteConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Contact Us — Free Curtain Cleaning Quote | JHB Curtain Cleaning",
+  title: "Contact Us — Free Quote",
   description:
     "Get a free, no-obligation curtain cleaning quote in Johannesburg. Call +27 75 011 9200 or fill in our form — we respond within 1 business hour.",
   alternates: { canonical: "/contact" },

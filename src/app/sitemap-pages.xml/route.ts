@@ -3,6 +3,7 @@ import { siteConfig } from "@/lib/config";
 export const dynamic = "force-static";
 
 // Sub-sitemap: static pages
+export const revalidate = 3600;
 export async function GET() {
   const now = new Date().toISOString();
   const pages = [

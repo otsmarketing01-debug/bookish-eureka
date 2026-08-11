@@ -9,9 +9,9 @@ import { siteConfig } from "@/lib/config";
 import { breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "About Us — 15+ Years of On-Site Curtain Cleaning in Johannesburg",
+  title: "About Us — 15+ Years in Johannesburg",
   description:
-    "Learn about JHB Curtain Cleaning — Johannesburg's trusted on-site curtain cleaning specialists since 2010. 5,000+ clients, certified technicians, no-shrinkage guarantee. Based in Florida, Roodepoort.",
+    "Trusted on-site curtain cleaning in Johannesburg since 2010. 5,000+ clients, certified technicians, and a no-shrinkage guarantee. Book a free assessment.",
   alternates: { canonical: "/about" },
   openGraph: {
     title: "About JHB Curtain Cleaning | 15+ Years in Johannesburg",

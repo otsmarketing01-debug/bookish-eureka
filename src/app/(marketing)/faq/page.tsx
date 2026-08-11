@@ -11,9 +11,9 @@ import { services, siteConfig, pricingFaqs } from "@/lib/config";
 import { faqSchema, breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Curtain Cleaning FAQ — All Your Questions Answered | JHB Curtain Cleaning",
+  title: "Curtain Cleaning FAQ",
   description:
-    "Complete FAQ for curtain cleaning in Johannesburg. Will curtains shrink? How much does it cost? How often to clean? Get instant answers or ask our AI assistant.",
+    "Complete curtain cleaning FAQ for Johannesburg. Will curtains shrink? How much does it cost? How often to clean? Get instant answers or ask our AI assistant.",
   alternates: { canonical: "/faq" },
   openGraph: {
     title: "Curtain Cleaning FAQ | JHB Curtain Cleaning",

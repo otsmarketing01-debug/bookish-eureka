@@ -3,6 +3,7 @@ import { safeGetPublishedPosts } from "@/lib/db-safe";
 
 
 // Sub-sitemap: blog posts
+export const revalidate = 3600;
 export async function GET() {
   const posts = await safeGetPublishedPosts();
   const urls = posts

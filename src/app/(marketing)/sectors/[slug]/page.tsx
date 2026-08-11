@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!sector) return { title: "Sector not found" };
   const ogImage = `/sectors/${sector.slug}.jpg`;
   return {
-    title: `${sector.name} Curtain Cleaning Johannesburg | JHB Curtain Cleaning`,
+    title: `${sector.name} Curtain Cleaning Johannesburg`,
     description: `${sector.value} Specialist on-site curtain cleaning for ${sector.name.toLowerCase()} in Johannesburg.`,
     alternates: { canonical: `/sectors/${sector.slug}` },
     openGraph: {

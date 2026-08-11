@@ -6,7 +6,7 @@ export const siteConfig = {
   url: "https://www.jhbcurtaincleaning.co.za",
   tagline: "Professional On-Site Curtain Cleaning Johannesburg",
   description:
-    "Professional on-site curtain cleaning Johannesburg. No removal, no shrinkage guarantee. Free assessment. Serving Sandton, Randburg, Fourways & all JHB suburbs.",
+    "Professional on-site curtain cleaning Johannesburg. No removal, no shrinkage guarantee. Free assessment. Serving Sandton, Fourways & all JHB suburbs.",
   phone: "+27750119200",
   phoneDisplay: "+27 75 011 9200",
   whatsapp: "27750119200",

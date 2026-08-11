@@ -21,6 +21,15 @@ import { safeGetApprovedReviewsByService } from "@/lib/db-safe";
 
 type Params = { params: Promise<{ slug: string }> };
 
+// Keep meta descriptions under 160 chars, cutting at the last word boundary
+// instead of slicing mid-word.
+function truncateDescription(s: string, max = 155): string {
+  if (s.length <= max) return s;
+  const cut = s.slice(0, max);
+  const lastSpace = cut.lastIndexOf(" ");
+  return lastSpace > 40 ? cut.slice(0, lastSpace) : cut;
+}
+
 export async function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
 }
@@ -30,9 +39,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const service = getService(slug);
   if (!service) return { title: "Service not found" };
   const ogImage = `/services/${service.slug}.jpg`;
+  // Keep the rendered title under 65 chars once the root layout appends the brand suffix.
+  const serviceTitle =
+    service.name.length > 30 ? service.name : `${service.name} Johannesburg`;
   return {
-    title: `${service.name} Johannesburg | On-Site | No Removal | JHB Curtain Cleaning`,
-    description: service.description,
+    title: serviceTitle,
+    description: truncateDescription(service.description),
     alternates: { canonical: `/services/${service.slug}` },
     openGraph: {
       title: `${service.name} Johannesburg | JHB Curtain Cleaning`,

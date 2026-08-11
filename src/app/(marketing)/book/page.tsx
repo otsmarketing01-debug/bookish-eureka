@@ -11,9 +11,9 @@ import { siteConfig } from "@/lib/config";
 import { breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Book On-Site Curtain Cleaning | Free Assessment | JHB Curtain Cleaning",
+  title: "Book On-Site Curtain Cleaning",
   description:
-    "Book your free on-site curtain cleaning assessment in Johannesburg. Pick a date and time that suits you. No payment now — we confirm by phone within 1 business hour.",
+    "Book your free on-site curtain cleaning assessment in Johannesburg. Pick a date and time — no payment now, we confirm by phone within 1 business hour.",
   alternates: { canonical: "/book" },
   openGraph: {
     title: "Book On-Site Curtain Cleaning | JHB Curtain Cleaning",

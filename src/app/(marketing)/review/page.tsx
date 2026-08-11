@@ -9,7 +9,7 @@ import { db } from "@/lib/db";
 import { ShieldCheck, AlertCircle, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Leave a Review | JHB Curtain Cleaning Johannesburg",
+  title: "Leave a Review",
   description:
     "Share your experience with JHB Curtain Cleaning. Your review helps other Johannesburg homeowners choose a trusted curtain cleaning service.",
   alternates: { canonical: "/review" },

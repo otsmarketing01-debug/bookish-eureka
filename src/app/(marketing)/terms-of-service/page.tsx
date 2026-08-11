@@ -7,9 +7,9 @@ import { siteConfig } from "@/lib/config";
 import { breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Terms of Service — JHB Curtain Cleaning",
+  title: "Terms of Service",
   description:
-    "Terms of service for JHB Curtain Cleaning. Booking terms, cancellation policy, guarantee conditions, payment terms, and service agreement for on-site curtain cleaning in Johannesburg.",
+    "Terms of service for JHB Curtain Cleaning. Booking terms, cancellation policy, guarantee conditions, and payment terms for cleaning in Johannesburg.",
   alternates: { canonical: "/terms-of-service" },
 };
 

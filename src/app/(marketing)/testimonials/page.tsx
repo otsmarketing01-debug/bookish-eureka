@@ -10,7 +10,7 @@ import { breadcrumbSchema, aggregateReviewSchema } from "@/lib/seo";
 import { safeGetApprovedReviews } from "@/lib/db-safe";
 
 export const metadata: Metadata = {
-  title: "Customer Reviews & Testimonials | JHB Curtain Cleaning Johannesburg",
+  title: "Customer Reviews & Testimonials",
   description:
     "Read verified reviews from 5,000+ satisfied Johannesburg curtain cleaning customers across Sandton, Randburg, Roodepoort, Fourways and more. Rated 4.9 stars.",
   alternates: { canonical: "/testimonials" },

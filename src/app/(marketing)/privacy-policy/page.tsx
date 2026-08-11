@@ -7,9 +7,9 @@ import { siteConfig } from "@/lib/config";
 import { breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — POPIA Compliant | JHB Curtain Cleaning",
+  title: "Privacy Policy — POPIA Compliant",
   description:
-    "Privacy policy for JHB Curtain Cleaning. How we collect, use, and protect your personal information in accordance with South Africa's Protection of Personal Information Act (POPIA).",
+    "Privacy policy for JHB Curtain Cleaning — how we collect, use, and protect your personal information in accordance with South Africa's POPIA.",
   alternates: { canonical: "/privacy-policy" },
 };
 
